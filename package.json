@@ -10,6 +10,7 @@
     "dev": "node scripts/with-app-env.mjs vite dev --host 0.0.0.0 --port 8080",
     "build": "node --experimental-strip-types scripts/pregenerate-citas.mts && node scripts/with-app-env.mjs vite build && npm run db:migrate",
     "pregenerate:citas": "node --experimental-strip-types scripts/pregenerate-citas.mts",
+    "download:biblia": "node --experimental-strip-types scripts/download-biblia.mts",
     "db:migrate": "node scripts/migrate.mjs",
     "build:dev": "node scripts/with-app-env.mjs vite build --mode development",
     "preview": "node scripts/with-app-env.mjs vite preview",
