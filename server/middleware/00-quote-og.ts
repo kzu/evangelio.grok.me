@@ -8,8 +8,8 @@ import {
 } from "../../src/lib/cita/lookup";
 import { parseQuoteSlug } from "../../src/lib/quote-ref";
 
-const PNG_PATH = /^\/citas\/(mt|mc|lc|jn)\/(\d+\.\d+)\.png$/i;
-const VERSE_PATH = /^\/citas\/(mt|mc|lc|jn)\/(\d+\.\d+)\/?$/i;
+const PNG_PATH = /^\/citas\/(mt|mc|lc|jn|hch)\/(\d+\.\d+)\.png$/i;
+const VERSE_PATH = /^\/citas\/(mt|mc|lc|jn|hch)\/(\d+\.\d+)\/?$/i;
 const SLUG_PATH = /^\/citas\/([A-Za-z0-9-]+)$/;
 const CRAWLER =
   /bot|crawler|spider|facebookexternalhit|facebot|whatsapp|twitterbot|telegram|slackbot|linkedinbot|discordbot|pinterest|skypeuripreview|applebot|iframely|embedly|preview|vkshare|redditbot|qwantify|nuzzel|bitlybot|x\.com/i;

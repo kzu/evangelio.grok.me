@@ -1,18 +1,19 @@
-import type { GospelBook } from "@/lib/gospel/types";
+import type { CitaBook } from "@/lib/gospel/types";
 
 export type CanonVerse = {
-  book: GospelBook;
+  book: CitaBook;
   chapter: number;
   verse: number;
   text: string;
   theme: "dark" | "light";
 };
 
-const BOOK_LABEL: Record<GospelBook, string> = {
+const BOOK_LABEL: Record<CitaBook, string> = {
   mt: "Mt",
   mc: "Mc",
   lc: "Lc",
   jn: "Jn",
+  hch: "Hch",
 };
 
 /** First three verses of the first Gospel (Matthew 1), Libro del Pueblo de Dios. */
@@ -41,7 +42,7 @@ export const PREGENERATED_VERSES: CanonVerse[] = [
 ];
 
 export function canonBookLabel(book: string): string {
-  return BOOK_LABEL[book as GospelBook] ?? book.toUpperCase();
+  return BOOK_LABEL[book as CitaBook] ?? book.toUpperCase();
 }
 
 export function canonReference(verse: CanonVerse): string {

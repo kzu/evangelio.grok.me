@@ -1,17 +1,21 @@
 /**
- * Fetch the four NT gospels from Vatican ESL0506 (Libro del Pueblo de Dios)
- * and write a compact lookup table for /cita/[book]/[chapter].[verse].
+ * Fetch NT books from Vatican ESL0506 (Libro del Pueblo de Dios)
+ * and write a compact lookup table for /citas/[book]/[chapter].[verse].
+ *
+ * Usage: node --experimental-strip-types scripts/index-nt-gospels.mts [hch|mt|...]
+ * With no args, fetches books missing from the current index.
  */
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { load } from "cheerio";
 import { vaticanChapterUrl } from "../src/lib/gospel/vatican-map.ts";
-import type { GospelBook } from "../src/lib/gospel/types.ts";
+import type { CitaBook } from "../src/lib/gospel/types.ts";
+import { NT_GOSPELS as EXISTING } from "../src/lib/cita/nt-gospels.ts";
 
 const ROOT = join(fileURLToPath(new URL(".", import.meta.url)), "..");
 const OUT = join(ROOT, "src/lib/cita/nt-gospels.ts");
-const BOOKS: GospelBook[] = ["mt", "mc", "lc", "jn"];
+const ALL: CitaBook[] = ["mt", "mc", "lc", "jn", "hch"];
 const HEADERS = {
   "User-Agent":
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
@@ -69,7 +73,7 @@ async function mapPool<T, R>(items: T[], limit: number, fn: (item: T) => Promise
   return out;
 }
 
-async function loadBook(book: GospelBook): Promise<string[][]> {
+async function loadBook(book: CitaBook): Promise<string[][]> {
   const chapters: { chapter: number; url: string }[] = [];
   for (let chapter = 1; ; chapter++) {
     const url = vaticanChapterUrl(book, chapter);
@@ -84,22 +88,27 @@ async function loadBook(book: GospelBook): Promise<string[][]> {
   });
 }
 
-const data: Record<GospelBook, string[][]> = {
-  mt: [],
-  mc: [],
-  lc: [],
-  jn: [],
+const requested = process.argv.slice(2).filter((value): value is CitaBook => ALL.includes(value as CitaBook));
+const data: Record<CitaBook, string[][]> = {
+  mt: EXISTING.mt ?? [],
+  mc: EXISTING.mc ?? [],
+  lc: EXISTING.lc ?? [],
+  jn: EXISTING.jn ?? [],
+  hch: (EXISTING as Record<string, string[][]>).hch ?? [],
 };
+const toFetch = requested.length
+  ? requested
+  : ALL.filter((book) => !(data[book] && data[book].length));
 
-for (const book of BOOKS) {
+for (const book of toFetch) {
   data[book] = await loadBook(book);
 }
 
-const verses = BOOKS.reduce((sum, book) => sum + data[book].reduce((n, ch) => n + ch.length, 0), 0);
-const source = `import type { GospelBook } from "@/lib/gospel/types";
+const verses = ALL.reduce((sum, book) => sum + data[book].reduce((n, ch) => n + ch.length, 0), 0);
+const source = `import type { CitaBook } from "@/lib/gospel/types";
 
-/** Libro del Pueblo de Dios — evangelios NT (Santa Sede, ESL0506). */
-export const NT_GOSPELS: Record<GospelBook, string[][]> = ${JSON.stringify(data)};
+/** Libro del Pueblo de Dios — NT (Santa Sede, ESL0506). */
+export const NT_GOSPELS: Record<CitaBook, string[][]> = ${JSON.stringify(data)};
 `;
 writeFileSync(OUT, source);
 console.log(`wrote ${OUT} (${verses} verses, ${source.length} bytes)`);

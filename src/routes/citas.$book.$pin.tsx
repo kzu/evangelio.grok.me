@@ -5,10 +5,12 @@ import { MarkCross } from "@/components/mark-cross";
 import {
   getAdjacentVerse,
   getIndexedVerse,
-  verseBookName,
   verseImagePath,
   versePath,
+  verseReadingLabel,
   verseRef,
+  verseWorkTitle,
+  verseClosing,
   type IndexedVerse,
 } from "@/lib/cita/lookup";
 import { vaticanChapterUrl } from "@/lib/gospel/vatican-map";
@@ -146,7 +148,7 @@ function CanonVersePage() {
                 <span className="h-px w-8 bg-rule" />
               </div>
               <p className="mt-3 font-sans text-xs font-medium uppercase tracking-mark text-muted">
-                Evangelio según {verseBookName(verse)}
+                {verseWorkTitle(verse)}
               </p>
               <h1 className="mt-1 font-display text-2xl font-medium tracking-tight text-fg sm:text-4xl">
                 {reference}
@@ -158,7 +160,7 @@ function CanonVersePage() {
 
         <article className="stagger-in relative mt-4 rounded-xl bg-surface px-6 pb-6 pt-4 shadow-card sm:px-10 sm:pb-10 sm:pt-6">
           <p className="font-sans text-xs font-medium uppercase tracking-label text-muted">
-            Lectura del santo Evangelio según {verseBookName(verse)}
+            {verseReadingLabel(verse)}
           </p>
           <p className="mt-2 font-display text-lg italic text-primary sm:text-xl">{reference}</p>
           <p className="mt-8 font-display text-lg leading-8 text-fg sm:text-xl sm:leading-9">
@@ -167,7 +169,7 @@ function CanonVersePage() {
             </sup>
             {verse.text}
           </p>
-          <p className="mt-8 font-display text-base italic text-muted">Palabra del Señor.</p>
+          <p className="mt-8 font-display text-base italic text-muted">{verseClosing(verse)}</p>
         </article>
 
         <div className="stagger-in mt-8 flex justify-center gap-3">

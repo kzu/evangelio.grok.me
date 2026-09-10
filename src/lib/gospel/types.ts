@@ -1,5 +1,8 @@
 export type GospelBook = "mt" | "mc" | "lc" | "jn";
 
+/** Books available as public /citas/[libro]/[cap].[ver] pages. */
+export type CitaBook = GospelBook | "hch";
+
 export type GospelEdition = "adult" | "family";
 
 export type VerseRange = {

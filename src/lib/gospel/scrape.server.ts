@@ -1,5 +1,5 @@
 import { load, type CheerioAPI } from "cheerio";
-import { BOOK_NAMES, parseGospelCitation, verseInRanges } from "./citation";
+import { BOOK_NAMES, isGospelBook, parseGospelCitation, verseInRanges } from "./citation";
 import { emptyGospel } from "./empty";
 import type {
   DailyGospel,
@@ -181,7 +181,7 @@ async function loadAdultGospel(date?: string): Promise<DailyGospel> {
     prevDate,
     nextDate,
     citation: citationDisplay,
-    book: parsed?.book ?? null,
+    book: parsed && isGospelBook(parsed.book) ? parsed.book : null,
     bookName: parsed ? BOOK_NAMES[parsed.book] : "el Evangelio",
     verses: verses,
     gospelHtmlFallback,
@@ -264,7 +264,7 @@ async function loadFamilyGospel(date?: string): Promise<DailyGospel> {
     prevDate: !first || prev >= first ? prev : null,
     nextDate: !last || next <= last ? next : null,
     citation: parsed?.display ?? citationRaw,
-    book: parsed?.book ?? null,
+    book: parsed && isGospelBook(parsed.book) ? parsed.book : null,
     bookName: parsed ? BOOK_NAMES[parsed.book] : "el Evangelio",
     verses: [
       {

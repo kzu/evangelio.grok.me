@@ -1,5 +1,5 @@
 import { parseGospelCitation } from "@/lib/gospel/citation";
-import type { GospelBook } from "@/lib/gospel/types";
+import type { CitaBook } from "@/lib/gospel/types";
 
 /** URL slug for a gospel citation, e.g. "Lc 6, 27–38" → "lc-6-27-38". */
 export function quoteSlug(reference: string): string {
@@ -13,12 +13,12 @@ export function quoteSlug(reference: string): string {
 
 export function parseQuoteSlug(
   slug: string,
-): { book: GospelBook; chapter: number; verse: number } | null {
+): { book: CitaBook; chapter: number; verse: number } | null {
   const match = String(slug ?? "")
     .toLowerCase()
-    .match(/^(mt|mc|lc|jn)-(\d+)-(\d+)/);
+    .match(/^(mt|mc|lc|jn|hch)-(\d+)-(\d+)/);
   if (!match) return null;
-  const book = match[1] as GospelBook;
+  const book = match[1] as CitaBook;
   const chapter = Number(match[2]);
   const verse = Number(match[3]);
   if (!Number.isInteger(chapter) || !Number.isInteger(verse) || chapter < 1 || verse < 1) {

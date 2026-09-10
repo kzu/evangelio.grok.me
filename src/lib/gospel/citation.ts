@@ -1,6 +1,6 @@
-import type { GospelBook, GospelVerse, VerseRange } from "./types";
+import type { CitaBook, GospelBook, GospelVerse, VerseRange } from "./types";
 
-const BOOK_ALIASES: Record<string, GospelBook> = {
+const BOOK_ALIASES: Record<string, CitaBook> = {
   mt: "mt",
   mateo: "mt",
   matthew: "mt",
@@ -15,23 +15,37 @@ const BOOK_ALIASES: Record<string, GospelBook> = {
   jn: "jn",
   juan: "jn",
   john: "jn",
+  hch: "hch",
+  hech: "hch",
+  hechos: "hch",
+  act: "hch",
+  acts: "hch",
+  ac: "hch",
 };
 
-export const BOOK_NAMES: Record<GospelBook, string> = {
+export const BOOK_NAMES: Record<CitaBook, string> = {
   mt: "san Mateo",
   mc: "san Marcos",
   lc: "san Lucas",
   jn: "san Juan",
+  hch: "los Hechos de los Apóstoles",
 };
 
-export const BOOK_ABBREV: Record<GospelBook, string> = {
+export const BOOK_ABBREV: Record<CitaBook, string> = {
   mt: "Mt",
   mc: "Mc",
   lc: "Lc",
   jn: "Jn",
+  hch: "Hch",
 };
 
-export function normalizeBook(raw: string): GospelBook | null {
+export const CITA_BOOKS: CitaBook[] = ["mt", "mc", "lc", "jn", "hch"];
+
+export function isGospelBook(value: string): value is GospelBook {
+  return value === "mt" || value === "mc" || value === "lc" || value === "jn";
+}
+
+export function normalizeBook(raw: string): CitaBook | null {
   const key = raw
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
@@ -49,7 +63,7 @@ export function normalizeBook(raw: string): GospelBook | null {
  *   Lc 1,26-38
  */
 export function parseGospelCitation(raw: string): {
-  book: GospelBook;
+  book: CitaBook;
   ranges: VerseRange[];
   display: string;
 } | null {
@@ -155,7 +169,7 @@ function collapseNumbers(nums: number[]): string {
 
 /** Mt 23, 27  ·  Mt 23, 27–32  ·  Lc 1, 5–7; 2, 1 */
 export function formatVerseReference(
-  book: GospelBook | null,
+  book: CitaBook | null,
   verses: Pick<GospelVerse, "chapter" | "number">[],
   fallback: string,
 ): string {

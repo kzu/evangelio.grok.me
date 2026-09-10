@@ -1,18 +1,16 @@
-import { BOOK_ABBREV, BOOK_NAMES, parseGospelCitation } from "@/lib/gospel/citation";
-import type { GospelBook } from "@/lib/gospel/types";
+import { BOOK_ABBREV, BOOK_NAMES, CITA_BOOKS, parseGospelCitation } from "@/lib/gospel/citation";
+import type { CitaBook } from "@/lib/gospel/types";
 import { NT_GOSPELS } from "@/lib/cita/nt-gospels";
 
-const BOOKS: GospelBook[] = ["mt", "mc", "lc", "jn"];
-
 export type IndexedVerse = {
-  book: GospelBook;
+  book: CitaBook;
   chapter: number;
   verse: number;
   text: string;
 };
 
-export function isGospelBook(value: string): value is GospelBook {
-  return value === "mt" || value === "mc" || value === "lc" || value === "jn";
+export function isCitaBook(value: string): value is CitaBook {
+  return (CITA_BOOKS as string[]).includes(value);
 }
 
 export function parseVersePin(pin: string): { chapter: number; verse: number } | null {
@@ -30,22 +28,22 @@ export function parseVersePin(pin: string): { chapter: number; verse: number } |
 }
 
 export function getIndexedVerse(book: string, pin: string): IndexedVerse | null {
-  if (!isGospelBook(book)) return null;
+  if (!isCitaBook(book)) return null;
   const parsed = parseVersePin(pin);
   if (!parsed) return null;
-  const text = NT_GOSPELS[book][parsed.chapter - 1]?.[parsed.verse - 1];
+  const text = NT_GOSPELS[book]?.[parsed.chapter - 1]?.[parsed.verse - 1];
   if (!text) return null;
   return { book, chapter: parsed.chapter, verse: parsed.verse, text };
 }
 
 export function getAdjacentVerse(current: IndexedVerse, direction: 1 | -1): IndexedVerse | null {
-  let bookIndex = BOOKS.indexOf(current.book);
+  let bookIndex = CITA_BOOKS.indexOf(current.book);
   let chapter = current.chapter;
   let verse = current.verse + direction;
 
-  while (bookIndex >= 0 && bookIndex < BOOKS.length) {
-    const book = BOOKS[bookIndex]!;
-    const chapters = NT_GOSPELS[book];
+  while (bookIndex >= 0 && bookIndex < CITA_BOOKS.length) {
+    const book = CITA_BOOKS[bookIndex]!;
+    const chapters = NT_GOSPELS[book] ?? [];
     while (chapter >= 1 && chapter <= chapters.length) {
       const verses = chapters[chapter - 1] ?? [];
       while (verse >= 1 && verse <= verses.length) {
@@ -58,9 +56,9 @@ export function getAdjacentVerse(current: IndexedVerse, direction: 1 | -1): Inde
       verse = direction === 1 ? 1 : (nextChapter?.length ?? 0);
     }
     bookIndex += direction;
-    if (bookIndex < 0 || bookIndex >= BOOKS.length) return null;
-    const nextBook = BOOKS[bookIndex]!;
-    const nextChapters = NT_GOSPELS[nextBook];
+    if (bookIndex < 0 || bookIndex >= CITA_BOOKS.length) return null;
+    const nextBook = CITA_BOOKS[bookIndex]!;
+    const nextChapters = NT_GOSPELS[nextBook] ?? [];
     chapter = direction === 1 ? 1 : nextChapters.length;
     verse = direction === 1 ? 1 : (nextChapters[chapter - 1]?.length ?? 0);
   }
@@ -81,6 +79,22 @@ export function verseImagePath(verse: IndexedVerse): string {
 
 export function verseBookName(verse: IndexedVerse): string {
   return BOOK_NAMES[verse.book];
+}
+
+export function verseWorkTitle(verse: IndexedVerse): string {
+  return verse.book === "hch"
+    ? "Hechos de los Apóstoles"
+    : `Evangelio según ${BOOK_NAMES[verse.book]}`;
+}
+
+export function verseReadingLabel(verse: IndexedVerse): string {
+  return verse.book === "hch"
+    ? "Lectura de los Hechos de los Apóstoles"
+    : `Lectura del santo Evangelio según ${BOOK_NAMES[verse.book]}`;
+}
+
+export function verseClosing(verse: IndexedVerse): string {
+  return verse.book === "hch" ? "Palabra de Dios." : "Palabra del Señor.";
 }
 
 /** First verse of a citation, including ranges like "Lc 6, 27–38". */
