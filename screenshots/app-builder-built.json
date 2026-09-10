@@ -1,0 +1,38 @@
+{
+  "url": "http://127.0.0.1:8081/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Evangelio de Hoy",
+      "hasCanvas": false,
+      "bodyTextLen": 4029,
+      "bodyTextHash": "21306cb3224ffcea5c95c02fd6e1dfef2b363094b3289d0b87bf66f538fe59cd",
+      "bodyTextPrefix": "EVANGELIO DE HOY Miércoles 26 de agosto de 2026 Miércoles 21 del",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Evangelio de Hoy",
+      "hasCanvas": false,
+      "bodyTextLen": 4010,
+      "bodyTextHash": "0e467a60deb7c71e2e7ca29611e1e594ebe640628471c4980ebb88ab5a3d2663",
+      "bodyTextPrefix": "EVANGELIO DE HOY Miércoles 26 de agosto de 2026 Miércoles 21 del",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-built.json",
+  "divergesFromBaseline": false,
+  "baselineReasons": []
+}

@@ -1,0 +1,1808 @@
+
+> preview
+> node scripts/with-app-env.mjs vite preview
+
+
+ ╭────────── [Build Info] ─────────────╮
+ │                                     │
+ │  - Build Directory: .vercel/output  │
+ │  - Date: 8/26/2026, 3:59:51 AM      │
+ │  - Nitro Version: 3.0.260610-beta   │
+ │  - Nitro Preset: vercel             │
+ │                                     │
+ ╰─────────────────────────────────────╯
+
+  ➜  Local:   http://127.0.0.1:8081/
+Error: aborted
+    at abortIncoming (node:_http_server:838:17)
+    ... 3 lines matching cause stack trace ...
+    at TCP.callbackTrampoline (node:internal/async_hooks:130:17) {
+  cause: Error: aborted
+      at abortIncoming (node:_http_server:838:17)
+      at socketOnClose (node:_http_server:832:3)
+      at Socket.emit (node:events:531:35)
+      at TCP.<anonymous> (node:net:347:12)
+      at TCP.callbackTrampoline (node:internal/async_hooks:130:17) {
+    code: 'ECONNRESET'
+  },
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+
+> preview
+> node scripts/with-app-env.mjs vite preview
+
+
+ ╭────────── [Build Info] ─────────────╮
+ │                                     │
+ │  - Build Directory: .vercel/output  │
+ │  - Date: 8/26/2026, 4:02:11 AM      │
+ │  - Nitro Version: 3.0.260610-beta   │
+ │  - Nitro Preset: vercel             │
+ │                                     │
+ ╰─────────────────────────────────────╯
+
+  ➜  Local:   http://127.0.0.1:8081/
+Error: aborted
+    at abortIncoming (node:_http_server:838:17)
+    ... 3 lines matching cause stack trace ...
+    at TCP.callbackTrampoline (node:internal/async_hooks:130:17) {
+  cause: Error: aborted
+      at abortIncoming (node:_http_server:838:17)
+      at socketOnClose (node:_http_server:832:3)
+      at Socket.emit (node:events:531:35)
+      at TCP.<anonymous> (node:net:347:12)
+      at TCP.callbackTrampoline (node:internal/async_hooks:130:17) {
+    code: 'ECONNRESET'
+  },
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+
+> preview
+> node scripts/with-app-env.mjs vite preview
+
+
+ ╭────────── [Build Info] ─────────────╮
+ │                                     │
+ │  - Build Directory: .vercel/output  │
+ │  - Date: 8/26/2026, 4:12:40 AM      │
+ │  - Nitro Version: 3.0.260610-beta   │
+ │  - Nitro Preset: vercel             │
+ │                                     │
+ ╰─────────────────────────────────────╯
+
+  ➜  Local:   http://127.0.0.1:8081/
+Error: aborted
+    at abortIncoming (node:_http_server:838:17)
+    ... 3 lines matching cause stack trace ...
+    at TCP.callbackTrampoline (node:internal/async_hooks:130:17) {
+  cause: Error: aborted
+      at abortIncoming (node:_http_server:838:17)
+      at socketOnClose (node:_http_server:832:3)
+      at Socket.emit (node:events:531:35)
+      at TCP.<anonymous> (node:net:347:12)
+      at TCP.callbackTrampoline (node:internal/async_hooks:130:17) {
+    code: 'ECONNRESET'
+  },
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+AbortError: This operation was aborted
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    ... 8 lines matching cause stack trace ...
+    at TCP.<anonymous> (node:net:347:12) {
+  cause: DOMException [AbortError]: This operation was aborted
+      at new DOMException (node:internal/per_context/domexception:76:18)
+      at AbortController.abort (node:internal/abort_controller:504:18)
+      at abort (file:///workspace/node_modules/srvx/dist/adapters/node.mjs:316:51)
+      at ServerResponse.<anonymous> (file:///workspace/node_modules/srvx/dist/adapters/node.mjs:320:35)
+      at Object.onceWrapper (node:events:633:28)
+      at ServerResponse.emit (node:events:519:28)
+      at emitCloseNT (node:_http_server:1066:10)
+      at Socket.onServerResponseClose (node:_http_server:285:5)
+      at Socket.emit (node:events:531:35)
+      at TCP.<anonymous> (node:net:347:12),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+AbortError: This operation was aborted
+    at new DOMException (node:internal/per_context/domexception:76:18)
+    ... 8 lines matching cause stack trace ...
+    at TCP.<anonymous> (node:net:347:12) {
+  cause: DOMException [AbortError]: This operation was aborted
+      at new DOMException (node:internal/per_context/domexception:76:18)
+      at AbortController.abort (node:internal/abort_controller:504:18)
+      at abort (file:///workspace/node_modules/srvx/dist/adapters/node.mjs:316:51)
+      at ServerResponse.<anonymous> (file:///workspace/node_modules/srvx/dist/adapters/node.mjs:320:35)
+      at Object.onceWrapper (node:events:633:28)
+      at ServerResponse.emit (node:events:519:28)
+      at emitCloseNT (node:_http_server:1066:10)
+      at Socket.onServerResponseClose (node:_http_server:285:5)
+      at Socket.emit (node:events:531:35)
+      at TCP.<anonymous> (node:net:347:12),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+
+> preview
+> node scripts/with-app-env.mjs vite preview
+
+
+ ╭────────── [Build Info] ─────────────╮
+ │                                     │
+ │  - Build Directory: .vercel/output  │
+ │  - Date: 9/10/2026, 5:30:15 AM      │
+ │  - Nitro Version: 3.0.260610-beta   │
+ │  - Nitro Preset: vercel             │
+ │                                     │
+ ╰─────────────────────────────────────╯
+
+  ➜  Local:   http://127.0.0.1:8081/
+TypeError: createSsrRpc is not a function
+    at file:///workspace/.vercel/output/functions/__server.func/_ssr/router-CW_Di-Wa2.mjs:1027:12
+    ... 3 lines matching cause stack trace ...
+    at async loadEntries (file:///workspace/.vercel/output/functions/__server.func/_ssr/ssr.mjs:1445:52) {
+  cause: TypeError: createSsrRpc is not a function
+      at file:///workspace/.vercel/output/functions/__server.func/_ssr/router-CW_Di-Wa2.mjs:1027:12
+      at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+      at async Promise.all (index 0)
+      at async loadEntries (file:///workspace/.vercel/output/functions/__server.func/_ssr/ssr.mjs:1445:52),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+[db] PGLite bootstrap failed: Error: ENOENT: no such file or directory, open '/workspace/.vercel/output/functions/__server.func/_libs/pglite.data'
+    at async open (node:internal/fs/promises:639:25)
+    at async Module.readFile (node:internal/fs/promises:1252:14)
+    at async Object.w$2 (file:///workspace/.vercel/output/functions/__server.func/_libs/electric-sql__pglite.mjs:114:16) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/workspace/.vercel/output/functions/__server.func/_libs/pglite.data'
+}
+node:internal/process/promises:394
+    triggerUncaughtException(err, true /* fromPromise */);
+    ^
+
+Error: ENOENT: no such file or directory, open '/workspace/.vercel/output/functions/__server.func/_libs/pglite.data'
+    at async open (node:internal/fs/promises:639:25)
+    at async Module.readFile (node:internal/fs/promises:1252:14)
+    at async Object.w$2 (file:///workspace/.vercel/output/functions/__server.func/_libs/electric-sql__pglite.mjs:114:16) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/workspace/.vercel/output/functions/__server.func/_libs/pglite.data'
+}
+
+Node.js v22.23.2
+
+> preview
+> node scripts/with-app-env.mjs vite preview
+
+
+ ╭────────── [Build Info] ─────────────╮
+ │                                     │
+ │  - Build Directory: .vercel/output  │
+ │  - Date: 9/10/2026, 5:33:51 AM      │
+ │  - Nitro Version: 3.0.260610-beta   │
+ │  - Nitro Preset: vercel             │
+ │                                     │
+ ╰─────────────────────────────────────╯
+
+  ➜  Local:   http://127.0.0.1:8081/
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+SyntaxError: Export 'ssr_exports' is not defined in module
+    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+    ... 7 lines matching cause stack trace ...
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25) {
+  cause: SyntaxError: Export 'ssr_exports' is not defined in module
+      at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+      at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:110:18)
+      at #translate (node:internal/modules/esm/loader:559:20)
+      at afterLoad (node:internal/modules/esm/loader:612:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:617:12)
+      at #createModuleJob (node:internal/modules/esm/loader:640:36)
+      at #getJobFromResolveResult (node:internal/modules/esm/loader:353:34)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:321:41)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:25),
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}
+
+> preview
+> node scripts/with-app-env.mjs vite preview
+
+
+ ╭────────── [Build Info] ─────────────╮
+ │                                     │
+ │  - Build Directory: .vercel/output  │
+ │  - Date: 9/10/2026, 5:35:02 AM      │
+ │  - Nitro Version: 3.0.260610-beta   │
+ │  - Nitro Preset: vercel             │
+ │                                     │
+ ╰─────────────────────────────────────╯
+
+  ➜  Local:   http://127.0.0.1:8081/
+[db] PGLite bootstrap failed: Error: ENOENT: no such file or directory, open '/workspace/.vercel/output/functions/__server.func/pglite.data'
+    at async open (node:internal/fs/promises:639:25)
+    at async Module.readFile (node:internal/fs/promises:1252:14)
+    at async Object.w$1 (file:///workspace/.vercel/output/functions/__server.func/index.mjs:30383:16) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/workspace/.vercel/output/functions/__server.func/pglite.data'
+}
+node:internal/process/promises:394
+    triggerUncaughtException(err, true /* fromPromise */);
+    ^
+
+Error: ENOENT: no such file or directory, open '/workspace/.vercel/output/functions/__server.func/pglite.data'
+    at async open (node:internal/fs/promises:639:25)
+    at async Module.readFile (node:internal/fs/promises:1252:14)
+    at async Object.w$1 (file:///workspace/.vercel/output/functions/__server.func/index.mjs:30383:16) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/workspace/.vercel/output/functions/__server.func/pglite.data'
+}
+
+Node.js v22.23.2
+
+> preview
+> node scripts/with-app-env.mjs vite preview
+
+
+ ╭────────── [Build Info] ─────────────╮
+ │                                     │
+ │  - Build Directory: .vercel/output  │
+ │  - Date: 9/10/2026, 5:36:02 AM      │
+ │  - Nitro Version: 3.0.260610-beta   │
+ │  - Nitro Preset: vercel             │
+ │                                     │
+ ╰─────────────────────────────────────╯
+
+  ➜  Local:   http://127.0.0.1:8081/
+[db] PGLite bootstrap failed: Error: ENOENT: no such file or directory, open '/workspace/.vercel/output/functions/__server.func/pglite.data'
+    at async open (node:internal/fs/promises:639:25)
+    at async Module.readFile (node:internal/fs/promises:1252:14)
+    at async Object.w$1 (file:///workspace/.vercel/output/functions/__server.func/index.mjs:30383:16) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/workspace/.vercel/output/functions/__server.func/pglite.data'
+}
+[db] PGLite bootstrap failed: Error: ENOENT: no such file or directory, open '/workspace/.vercel/output/functions/__server.func/pglite.data'
+    at async open (node:internal/fs/promises:639:25)
+    at async Module.readFile (node:internal/fs/promises:1252:14)
+    at async Object.w$1 (file:///workspace/.vercel/output/functions/__server.func/index.mjs:30383:16) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/workspace/.vercel/output/functions/__server.func/pglite.data'
+}
+node:internal/process/promises:394
+    triggerUncaughtException(err, true /* fromPromise */);
+    ^
+
+Error: ENOENT: no such file or directory, open '/workspace/.vercel/output/functions/__server.func/pglite.data'
+    at async open (node:internal/fs/promises:639:25)
+    at async Module.readFile (node:internal/fs/promises:1252:14)
+    at async Object.w$1 (file:///workspace/.vercel/output/functions/__server.func/index.mjs:30383:16) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/workspace/.vercel/output/functions/__server.func/pglite.data'
+}
+
+Node.js v22.23.2
+
+> preview
+> node scripts/with-app-env.mjs vite preview
+
+
+ ╭────────── [Build Info] ─────────────╮
+ │                                     │
+ │  - Build Directory: .vercel/output  │
+ │  - Date: 9/10/2026, 5:39:42 AM      │
+ │  - Nitro Version: 3.0.260610-beta   │
+ │  - Nitro Preset: vercel             │
+ │                                     │
+ ╰─────────────────────────────────────╯
+
+  ➜  Local:   http://127.0.0.1:8081/
+Error: aborted
+    at abortIncoming (node:_http_server:838:17)
+    ... 3 lines matching cause stack trace ...
+    at TCP.callbackTrampoline (node:internal/async_hooks:130:17) {
+  cause: Error: aborted
+      at abortIncoming (node:_http_server:838:17)
+      at socketOnClose (node:_http_server:832:3)
+      at Socket.emit (node:events:531:35)
+      at TCP.<anonymous> (node:net:347:12)
+      at TCP.callbackTrampoline (node:internal/async_hooks:130:17) {
+    code: 'ECONNRESET'
+  },
+  status: 500,
+  statusText: undefined,
+  headers: undefined,
+  data: undefined,
+  body: undefined,
+  unhandled: true
+}

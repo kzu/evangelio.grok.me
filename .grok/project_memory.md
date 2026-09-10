@@ -1,0 +1,8 @@
+- kzu.grok.me personal page data refreshed from live sources (GitHub/NuGet/X/blog) on 2026-08-05; main @ 7382e3f [2026-08-05]
+- Grok Computer project chat is NOT the same filesystem as App Builder /workspace [2026-08-05]
+- Truco-related files (artifacts/truco, PLAN.md, truco-preview.png) deleted from this project [2026-08-05]
+- Naming a Grok Chief of Staff bot; tastes: Clarke, Asimov, Vinge, Daemon/Freedom, Nexus, Neuromancer, Cryptonomicon, Bobiverse [2026-08-26]
+- Briefly chose Deamon (Suarez), then asked for a more heavenly name still on-topic [2026-08-26]
+- Chief of Staff Grok bot named Smith; avatar direction: The Matrix [2026-08-26]
+- Creating GitHub issues in private repo devlooped/grokbox (user said Devluped/Grokbox); GitHub connected as kzu; issue types Task/Bug/Feature; fields Priority/Effort/dates; no specific template [2026-08-27]
+- Job pipeline spec: upload spreadsheet → self-hosted worker → SSE progress → 24h blobs; no Chat Hub/Web PubSub; prefer CF Worker+R2+Queue+D1; spec at artifacts/job-pipeline-cloud-spec.md [2026-08-28]
