@@ -302,6 +302,17 @@ changes. Revive, reboot-wipe and the `startup.sh` worked example:
 9. Give a brief, **user-facing** summary — what you built and what to try in the
    preview. **Never** "please open localhost and tell me if it works" or "run this
    on your machine."
+10. **Commit and push at the end of every turn.** After the work is verified,
+    `git add` the changes, commit with a concise message, and `git push` to
+    `origin`. Do this even on small follow-ups. Do not leave a turn with
+    uncommitted or unpushed work.
+
+### Git (every turn)
+
+**Always commit and push before you finish a turn.** This is mandatory, not
+optional: the GitHub remote is the durable copy of the app. If there is nothing
+to commit, say so; otherwise ship the commit + push in the same turn as the
+code.
 
 ### Browser QA (agent-driven only; the user is not your QA)
 
@@ -345,4 +356,5 @@ auth/db: OFF by default — sign-in, @/lib/db or migrations ONLY on an accounts 
          per-user / cross-device-save ask (§0.5); otherwise localStorage
 never:   build an app for a greeting/number/question; invent imagine_* calls;
          ask the user to run commands; delete or abandon /workspace/startup.sh
+always:  commit and push to origin at the end of every turn
 ```
