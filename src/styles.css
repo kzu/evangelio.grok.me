@@ -41,14 +41,35 @@
 
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --text-scale: 1;
+  --text-xs: calc(0.75rem * var(--text-scale));
+  --text-sm: calc(0.875rem * var(--text-scale));
+  --text-base: calc(1rem * var(--text-scale));
+  --text-lg: calc(1.125rem * var(--text-scale));
+  --text-xl: calc(1.25rem * var(--text-scale));
+  --text-2xl: calc(1.5rem * var(--text-scale));
+  --text-3xl: calc(1.875rem * var(--text-scale));
+  --text-4xl: calc(2.25rem * var(--text-scale));
+  --text-5xl: calc(3rem * var(--text-scale));
+  --text-6xl: calc(3.75rem * var(--text-scale));
+  --leading-5: calc(1.25rem * var(--text-scale));
+  --leading-6: calc(1.5rem * var(--text-scale));
+  --leading-8: calc(2rem * var(--text-scale));
+  --leading-9: calc(2.25rem * var(--text-scale));
+  --leading-10: calc(2.5rem * var(--text-scale));
 }
 
 @layer base {
   html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-size: calc(100% * var(--text-scale, 1));
+    font-size: 100%;
     color-scheme: light;
+  }
+
+  /* Keep chrome/hit targets at the unscaled rem; only reading type uses --text-scale. */
+  button,
+  [role="button"] {
+    --text-scale: 1;
   }
 
   html.dark {

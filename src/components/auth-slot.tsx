@@ -44,7 +44,7 @@ export function AuthSlot() {
           <DropdownMenu.Content
             align="end"
             sideOffset={8}
-            className="z-50 min-w-40 rounded-md border border-border bg-surface p-1 shadow-card"
+            className="z-50 min-w-40 rounded-md border border-border bg-surface p-1 shadow-card [--text-scale:1]"
           >
             <DropdownMenu.Item asChild>
               <Link
