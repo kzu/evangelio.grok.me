@@ -107,17 +107,7 @@ export function GospelView({
           )}
           aria-hidden="true"
         />
-        {gospel.commentTitle ? (
-          <h2 className="font-display text-xl font-medium italic leading-snug text-primary sm:text-2xl">
-            {gospel.commentTitle}
-          </h2>
-        ) : null}
-        <p
-          className={cn(
-            "font-sans text-xs font-medium uppercase tracking-label text-muted",
-            gospel.commentTitle ? "mt-4" : null,
-          )}
-        >
+        <p className="font-sans text-xs font-medium uppercase tracking-label text-muted">
           Lectura del santo Evangelio según {gospel.bookName}
         </p>
         <p className="mt-2 font-display text-lg italic text-primary sm:text-xl">
@@ -172,6 +162,9 @@ export function GospelView({
       {gospel.commentary.length > 0 ? (
         <section className="stagger-in mt-8 flex flex-col gap-5">
           <SectionTitle>Comentario</SectionTitle>
+          {gospel.commentTitle ? (
+            <p className="font-display text-xl italic text-primary">{gospel.commentTitle}</p>
+          ) : null}
           {gospel.authorName ? (
             <p className="font-sans text-sm text-muted">
               {gospel.authorName}

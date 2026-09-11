@@ -37,6 +37,21 @@ export const Route = createFileRoute("/e/$date")({
   pendingMs: 120,
   pendingComponent: GospelSkeleton,
   errorComponent: GospelRouteError,
+  head: ({ loaderData }) => {
+    const quote = loaderData?.commentTitle?.trim();
+    const title = quote ? `${quote} · Evangelio de Hoy` : "Evangelio de Hoy";
+    return {
+      meta: [
+        { title },
+        ...(quote
+          ? [
+              { property: "og:title", content: title },
+              { name: "twitter:title", content: title },
+            ]
+          : []),
+      ],
+    };
+  },
   component: lazyRouteComponent(() => import("@/components/home-page")),
 });
 
