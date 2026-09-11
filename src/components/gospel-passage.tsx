@@ -33,6 +33,48 @@ function nodeOverlapsRange(node: Node, range: Range): boolean {
   }
 }
 
+function rangeContainsNodeContents(range: Range, node: Node): boolean {
+  try {
+    const nodeRange = document.createRange();
+    nodeRange.selectNodeContents(node);
+    return (
+      range.compareBoundaryPoints(Range.START_TO_START, nodeRange) <= 0 &&
+      range.compareBoundaryPoints(Range.END_TO_END, nodeRange) >= 0
+    );
+  } catch {
+    return false;
+  }
+}
+
+function overlappingVerseNodes(root: HTMLElement, range: Range): HTMLElement[] {
+  const hits: HTMLElement[] = [];
+  root.querySelectorAll<HTMLElement>("[data-verse-index]").forEach((node) => {
+    if (nodeOverlapsRange(node, range)) hits.push(node);
+  });
+  hits.sort((a, b) => Number(a.dataset.verseIndex) - Number(b.dataset.verseIndex));
+  return hits;
+}
+
+/** Snap a gospel-only selection to whole verse(s) when none is fully selected. */
+function expandGospelSelectionIfNeeded(root: HTMLElement): void {
+  const selection = window.getSelection();
+  if (!selection || selection.rangeCount === 0 || selection.isCollapsed) return;
+  const range = selection.getRangeAt(0);
+  const ancestor = range.commonAncestorContainer;
+  const ancestorEl = ancestor.nodeType === Node.ELEMENT_NODE ? ancestor : ancestor.parentNode;
+  if (!ancestorEl || !root.contains(ancestorEl)) return;
+
+  const hits = overlappingVerseNodes(root, range);
+  if (!hits.length) return;
+  if (hits.some((node) => rangeContainsNodeContents(range, node))) return;
+
+  const next = document.createRange();
+  next.setStartBefore(hits[0]!);
+  next.setEndAfter(hits[hits.length - 1]!);
+  selection.removeAllRanges();
+  selection.addRange(next);
+}
+
 function isUnauthorized(error: unknown): boolean {
   return error instanceof Error && error.message === "Unauthorized";
 }
@@ -172,13 +214,10 @@ export function GospelPassage({
     if (!selected) return null;
 
     const currentVerses = versesRef.current;
-    const hits: number[] = [];
-    const nodes = root.querySelectorAll<HTMLElement>("[data-verse-index]");
-    nodes.forEach((node) => {
-      if (!nodeOverlapsRange(node, range)) return;
-      const index = Number(node.dataset.verseIndex);
-      if (Number.isInteger(index)) hits.push(index);
-    });
+    const nodes = overlappingVerseNodes(root, range);
+    const hits = nodes
+      .map((node) => Number(node.dataset.verseIndex))
+      .filter((index) => Number.isInteger(index));
     if (!hits.length) return null;
     const from = Math.min(...hits);
     const to = Math.max(...hits);
@@ -219,6 +258,8 @@ export function GospelPassage({
 
   useEffect(() => {
     let raf = 0;
+    let pointers = 0;
+    let pendingExpand = false;
     function apply(next: FloatState | null) {
       setFloat((prev) => {
         if (!prev && !next) return prev;
@@ -240,43 +281,60 @@ export function GospelPassage({
     }
     function sync() {
       raf = 0;
+      const expand = pendingExpand;
+      pendingExpand = false;
       try {
+        if (expand && pointers === 0 && rootRef.current) {
+          expandGospelSelectionIfNeeded(rootRef.current);
+        }
         apply(readSelection());
       } catch {
         apply(null);
       }
     }
-    function schedule() {
+    function schedule(expand = false) {
+      if (expand) pendingExpand = true;
       if (raf) return;
       raf = window.requestAnimationFrame(sync);
+    }
+    function onSelectionChange() {
+      schedule(pointers === 0);
     }
     function onPointerDown(event: PointerEvent) {
       const target = event.target as Node | null;
       if (barRef.current?.contains(target)) return;
+      pointers += 1;
       if (!rootRef.current?.contains(target) && !window.getSelection()?.toString()) {
         apply(null);
       }
     }
-    document.addEventListener("selectionchange", schedule);
+    function onPointerUp() {
+      pointers = Math.max(0, pointers - 1);
+      schedule(true);
+    }
+    function onMove() {
+      schedule(false);
+    }
+    document.addEventListener("selectionchange", onSelectionChange);
     document.addEventListener("pointerdown", onPointerDown);
-    document.addEventListener("pointerup", schedule);
-    document.addEventListener("pointermove", schedule);
-    document.addEventListener("touchmove", schedule, { passive: true });
-    document.addEventListener("touchend", schedule);
-    window.addEventListener("scroll", schedule, true);
-    window.visualViewport?.addEventListener("scroll", schedule);
-    window.visualViewport?.addEventListener("resize", schedule);
+    document.addEventListener("pointerup", onPointerUp);
+    document.addEventListener("pointermove", onMove);
+    document.addEventListener("touchmove", onMove, { passive: true });
+    document.addEventListener("touchend", onPointerUp);
+    window.addEventListener("scroll", onMove, true);
+    window.visualViewport?.addEventListener("scroll", onMove);
+    window.visualViewport?.addEventListener("resize", onMove);
     return () => {
       if (raf) window.cancelAnimationFrame(raf);
-      document.removeEventListener("selectionchange", schedule);
+      document.removeEventListener("selectionchange", onSelectionChange);
       document.removeEventListener("pointerdown", onPointerDown);
-      document.removeEventListener("pointerup", schedule);
-      document.removeEventListener("pointermove", schedule);
-      document.removeEventListener("touchmove", schedule);
-      document.removeEventListener("touchend", schedule);
-      window.removeEventListener("scroll", schedule, true);
-      window.visualViewport?.removeEventListener("scroll", schedule);
-      window.visualViewport?.removeEventListener("resize", schedule);
+      document.removeEventListener("pointerup", onPointerUp);
+      document.removeEventListener("pointermove", onMove);
+      document.removeEventListener("touchmove", onMove);
+      document.removeEventListener("touchend", onPointerUp);
+      window.removeEventListener("scroll", onMove, true);
+      window.visualViewport?.removeEventListener("scroll", onMove);
+      window.visualViewport?.removeEventListener("resize", onMove);
     };
   }, []);
 
