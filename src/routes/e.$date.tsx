@@ -1,6 +1,7 @@
 import { createFileRoute, lazyRouteComponent, notFound, useRouter } from "@tanstack/react-router";
 import { GospelError, GospelSkeleton } from "@/components/gospel-view";
 import { emptyGospel } from "@/lib/gospel/empty";
+import { dailyGospelUnfurl } from "@/lib/gospel/share";
 import { isIsoDate } from "@/lib/gospel/today";
 
 export type GospelSearch = {
@@ -38,17 +39,28 @@ export const Route = createFileRoute("/e/$date")({
   pendingComponent: GospelSkeleton,
   errorComponent: GospelRouteError,
   head: ({ loaderData }) => {
-    const quote = loaderData?.commentTitle?.trim();
-    const title = quote ? `${quote} · Evangelio de Hoy` : "Evangelio de Hoy";
+    if (!loaderData) {
+      return { meta: [{ title: "Evangelio de Hoy" }] };
+    }
+    const share = dailyGospelUnfurl(loaderData);
+    const image = share.imagePath;
     return {
       meta: [
-        { title },
-        ...(quote
-          ? [
-              { property: "og:title", content: title },
-              { name: "twitter:title", content: title },
-            ]
-          : []),
+        { title: share.documentTitle },
+        { name: "description", content: share.description },
+        { property: "og:site_name", content: "Evangelio de Hoy" },
+        { property: "og:locale", content: "es_LA" },
+        { property: "og:type", content: "article" },
+        { property: "og:title", content: share.title },
+        { property: "og:description", content: share.description },
+        { property: "og:image", content: image },
+        { property: "og:image:type", content: "image/png" },
+        { property: "og:image:width", content: "1200" },
+        { property: "og:image:height", content: "630" },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: share.title },
+        { name: "twitter:description", content: share.description },
+        { name: "twitter:image", content: image },
       ],
     };
   },

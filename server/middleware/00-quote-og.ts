@@ -1,5 +1,6 @@
 import { resolvePublicHost } from "../../scripts/grok-pwa-shared.mjs";
 import { getIndexedVerse, verseRef } from "../../src/lib/cita/lookup";
+import { dailyGospelUnfurl } from "../../src/lib/gospel/share";
 import {
   displayUsfmRef,
   firstVerseSlug,
@@ -9,6 +10,7 @@ import {
 
 const PNG_PATH = /^\/(?:citas|biblia)\/([A-Za-z][A-Za-z0-9]*)\.(\d+)\.(\d+)\.png$/i;
 const FRAGMENT_PATH = /^\/biblia\/([^/]+)\/?$/;
+const GOSPEL_DATE = /^\/e\/(\d{4}-\d{2}-\d{2})\/?$/;
 const CRAWLER =
   /bot|crawler|spider|facebookexternalhit|facebot|whatsapp|twitterbot|telegram|slackbot|linkedinbot|discordbot|pinterest|skypeuripreview|applebot|iframely|embedly|preview|vkshare|redditbot|qwantify|nuzzel|bitlybot|x\.com/i;
 
@@ -116,6 +118,37 @@ function fragmentCard(slug: string, origin: string) {
   };
 }
 
+function isFamilySearch(url: URL) {
+  const value = url.searchParams.get("familia");
+  return value === "1" || value === "true";
+}
+
+async function gospelCard(pathname: string, url: URL, origin: string) {
+  let date: string | undefined;
+  if (pathname === "/" || pathname === "") {
+    const fecha = url.searchParams.get("fecha");
+    date = fecha && /^\d{4}-\d{2}-\d{2}$/.test(fecha) ? fecha : undefined;
+  } else {
+    const match = GOSPEL_DATE.exec(pathname);
+    if (!match) return null;
+    date = match[1];
+  }
+  const edition = isFamilySearch(url) ? "family" : "adult";
+  const { loadDailyGospel } = await import("../../src/lib/gospel/scrape.server");
+  const gospel = await loadDailyGospel(date, edition);
+  const share = dailyGospelUnfurl(gospel);
+  if (!share.description && !gospel.citation) return null;
+  const qs = edition === "family" ? "?familia=1" : "";
+  return {
+    title: share.title,
+    description: share.description,
+    url: `${origin}/e/${gospel.date}${qs}`,
+    image: `${origin}${share.imagePath}`,
+    body: share.description,
+    reference: gospel.citation,
+  };
+}
+
 export default async function quoteOgMiddleware(
   event: QuoteOgEvent,
   next: () => unknown | Promise<unknown>,
@@ -166,7 +199,9 @@ export default async function quoteOgMiddleware(
 
   const origin = requestOrigin(event);
   const fragmentMatch = FRAGMENT_PATH.exec(pathname);
-  const card = fragmentMatch ? fragmentCard(fragmentMatch[1] ?? "", origin) : null;
+  const card =
+    (await gospelCard(pathname, event.url, origin)) ??
+    (fragmentMatch ? fragmentCard(fragmentMatch[1] ?? "", origin) : null);
   if (!card) return next();
 
   if (isCrawler(event)) {
