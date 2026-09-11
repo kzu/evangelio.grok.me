@@ -2,44 +2,18 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { ShareButton } from "@/components/share-button";
 import { MarkCross } from "@/components/mark-cross";
-import { adjacentVerseInBook, versesFromBook } from "@/lib/biblia/verses";
 import type { GospelVerse } from "@/lib/gospel/types";
-import { displayUsfmRef, firstVerseSlug, formatUsfmSlug, parseUsfmSlug } from "@/lib/quote-ref";
+import { displayUsfmRef, firstVerseSlug } from "@/lib/quote-ref";
 import { cn } from "@/lib/utils";
 
 type Neighbor = { slug: string } | null;
 
 export const Route = createFileRoute("/biblia/$slug")({
   loader: async ({ params }) => {
-    const parsed = parseUsfmSlug(params.slug);
-    if (!parsed) throw notFound();
-    const { loadBibliaBook } = await import("@/lib/biblia/load.server");
-    const book = loadBibliaBook(parsed.usfm);
-    if (!book) throw notFound();
-    const verses = versesFromBook(book, parsed.ranges);
-    if (!verses.length) throw notFound();
-    const first = verses[0]!;
-    const last = verses[verses.length - 1]!;
-    const prevHit = adjacentVerseInBook(book, first.chapter, first.number, -1);
-    const nextHit = adjacentVerseInBook(book, last.chapter, last.number, 1);
-    return {
-      ref: parsed,
-      verses,
-      prev: prevHit
-        ? {
-            slug: formatUsfmSlug(parsed.usfm, [
-              { chapter: prevHit.chapter, start: prevHit.verse, end: prevHit.verse },
-            ]),
-          }
-        : null,
-      next: nextHit
-        ? {
-            slug: formatUsfmSlug(parsed.usfm, [
-              { chapter: nextHit.chapter, start: nextHit.verse, end: nextHit.verse },
-            ]),
-          }
-        : null,
-    };
+    const { fetchBibliaFragment } = await import("@/lib/biblia/get-fragment");
+    const data = await fetchBibliaFragment(params.slug);
+    if (!data) throw notFound();
+    return data;
   },
   notFoundComponent: FragmentMissing,
   head: ({ loaderData }) => {
