@@ -106,68 +106,58 @@ function createNeonSql(): Promise<Sql> {
 }
 
 async function createPgliteSql(): Promise<Sql> {
-  if (process.env.NODE_ENV === "production") {
-    throw new Error("PGLite is not available in the production bundle");
-  }
-  // Embedded Postgres, imported on demand so it never loads on the Neon path.
-  // One in-memory instance per process, shared across HMR module instances, so
-  // data survives source edits (it resets on dev-server restart).
-  globalRef.__pgliteInstance__ ??= (async () => {
+  // Import is nested in `!PROD` so Rolldown drops PGLite WASM from the
+  // Vercel function — Grok's publish cap rejects the 5.8MB inlined file.
+  if (!import.meta.env.PROD) {
     const { PGlite } = await import("@electric-sql/pglite");
-    const pg = new PGlite({
-      parsers: {
-        [OID_INT8]: Number,
-        [OID_DATE]: identity,
-        [OID_INTERVAL]: identity,
-      },
-    });
-    await pg.waitReady;
-    await pg.exec(
-      "create table if not exists _migrations (name text primary key, applied_at timestamptz not null default now())",
-    );
-    return pg;
-  })().catch((err) => {
-    globalRef.__pgliteInstance__ = undefined;
-    throw err;
-  });
-  const pg = await globalRef.__pgliteInstance__;
-
-  // Apply migrations/ (the single schema source) so preview matches production.
-  // SQL is inlined by the bundler via import.meta.glob (no runtime fs); applied
-  // files are tracked in _migrations. The glob does not descend, so the opt-in
-  // auth schema under migrations/auth/ stays out. Runs once per module instance
-  // — so an HMR reload after adding a migration file applies it live — with
-  // passes serialized on a global chain so concurrent callers never
-  // double-apply.
-  const migrate = async (): Promise<void> => {
-    const migrations = import.meta.glob("/migrations/*.sql", {
-      query: "?raw",
-      import: "default",
-      eager: true,
-    }) as Record<string, string>;
-    const doneRows = await pg.query<{ name: string }>(
-      "select name from _migrations",
-    );
-    const done = doneRows.rows.map((r) => r.name);
-    for (const { name, path } of pendingMigrations(Object.keys(migrations), done)) {
-      // Apply + record atomically (parity with scripts/migrate.mjs) so a failed
-      // statement can't leave a file half-applied but untracked.
-      await pg.transaction(async (tx) => {
-        await tx.exec(migrations[path]);
-        await tx.query("insert into _migrations (name) values ($1)", [name]);
+    globalRef.__pgliteInstance__ ??= (async () => {
+      const pg = new PGlite({
+        parsers: {
+          [OID_INT8]: Number,
+          [OID_DATE]: identity,
+          [OID_INTERVAL]: identity,
+        },
       });
-    }
-  };
-  const pass = (globalRef.__pgliteMigrateChain__ ?? Promise.resolve())
-    .catch(() => undefined) // an earlier failed pass must not wedge the chain
-    .then(migrate);
-  globalRef.__pgliteMigrateChain__ = pass;
-  await pass;
+      await pg.waitReady;
+      await pg.exec(
+        "create table if not exists _migrations (name text primary key, applied_at timestamptz not null default now())",
+      );
+      return pg;
+    })().catch((err) => {
+      globalRef.__pgliteInstance__ = undefined;
+      throw err;
+    });
+    const pg = await globalRef.__pgliteInstance__;
 
-  return toSql(async <T>(text: string, params: unknown[]) => {
-    const result = await pg.query<T>(text, params);
-    return result.rows;
-  });
+    const migrate = async (): Promise<void> => {
+      const migrations = import.meta.glob("/migrations/*.sql", {
+        query: "?raw",
+        import: "default",
+        eager: true,
+      }) as Record<string, string>;
+      const doneRows = await pg.query<{ name: string }>(
+        "select name from _migrations",
+      );
+      const done = doneRows.rows.map((r) => r.name);
+      for (const { name, path } of pendingMigrations(Object.keys(migrations), done)) {
+        await pg.transaction(async (tx) => {
+          await tx.exec(migrations[path]);
+          await tx.query("insert into _migrations (name) values ($1)", [name]);
+        });
+      }
+    };
+    const pass = (globalRef.__pgliteMigrateChain__ ?? Promise.resolve())
+      .catch(() => undefined)
+      .then(migrate);
+    globalRef.__pgliteMigrateChain__ = pass;
+    await pass;
+
+    return toSql(async <T>(text: string, params: unknown[]) => {
+      const result = await pg.query<T>(text, params);
+      return result.rows;
+    });
+  }
+  throw new Error("PGLite is not available in the production bundle");
 }
 
 let sqlPromise: Promise<Sql> | null = null;

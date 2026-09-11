@@ -226,10 +226,14 @@ export default defineConfig(({ command, isPreview }) => ({
             // (`createSsrRpc is not a function` / missing `ssr_exports`) which
             // 500 the deployed app.
             inlineDynamicImports: true,
+            minify: true,
             // PGLite is preview-only. Inlining it (plus its WASM) blew the
             // serverless file past Grok's upload cap. Bible JSON lives on the
             // CDN (`public/biblia` is gitignored and stripped after emit).
-            traceDeps: ["!@electric-sql/pglite"],
+            traceDeps: ["!@electric-sql/pglite", "!undici"],
+            rollupConfig: {
+              external: ["@electric-sql/pglite", "undici"],
+            },
           }),
         ]
       : []),
