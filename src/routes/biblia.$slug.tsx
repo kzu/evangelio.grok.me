@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { ShareButton } from "@/components/share-button";
 import { MarkCross } from "@/components/mark-cross";
 import type { GospelVerse } from "@/lib/gospel/types";
-import { displayUsfmRef, firstVerseSlug } from "@/lib/quote-ref";
+import { displayUsfmRef, quotePngUrl } from "@/lib/quote-ref";
 import { cn } from "@/lib/utils";
 
 type Neighbor = { slug: string } | null;
@@ -26,7 +26,7 @@ export const Route = createFileRoute("/biblia/$slug")({
     const title = `${displayUsfmRef(data.ref)} · Evangelio de Hoy`;
     const first = data.verses[0]!;
     const description = `«${first.text}»`;
-    const image = `/citas/${firstVerseSlug(data.ref)}.png`;
+    const image = quotePngUrl(data.ref);
     return {
       meta: [
         { title },

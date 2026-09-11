@@ -1,12 +1,14 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import {
+  CITA_THUMB_ORIGIN,
   displayQuoteReference,
   firstVerseSlug,
   mapCitaThumbPath,
   parseUsfmSlug,
   quotePngAssetPath,
   quotePngPath,
+  quotePngUrl,
   quoteSharePath,
   toUsfmSlug,
 } from "./quote-ref.ts";
@@ -54,12 +56,14 @@ describe("displayQuoteReference", () => {
 });
 
 describe("paths", () => {
-  it("points fragments at /biblia/Mt.5.3-12 and thumbs at /citas/Mt.5.3.png", () => {
+  it("points fragments at /biblia/Mt.5.3-12 and thumbs at the R2 CDN", () => {
     assert.equal(quoteSharePath("Lc 6, 39–42"), "/biblia/Lc.6.39-42");
-    assert.equal(quotePngPath("Mt.5.3-12"), "/citas/Mt.5.3.png");
+    assert.equal(quotePngPath("Mt.5.3-12"), `${CITA_THUMB_ORIGIN}/citas/Mt/5.3.png`);
+    assert.equal(quotePngPath("Hch.1.1"), `${CITA_THUMB_ORIGIN}/citas/Hch/1.1.png`);
     const parsed = parseUsfmSlug("LUK.23.44-24.3");
     assert.equal(parsed && firstVerseSlug(parsed), "Lc.23.44");
     assert.equal(parsed && quotePngAssetPath(parsed), "/citas/Lc/23.44.png");
+    assert.equal(parsed && quotePngUrl(parsed), `${CITA_THUMB_ORIGIN}/citas/Lc/23.44.png`);
   });
 
   it("maps unfurl thumbs onto liturgical folders", () => {

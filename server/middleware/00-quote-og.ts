@@ -3,9 +3,9 @@ import { getIndexedVerse, verseRef } from "../../src/lib/cita/lookup";
 import { dailyGospelUnfurl } from "../../src/lib/gospel/share";
 import {
   displayUsfmRef,
-  firstVerseSlug,
   mapCitaThumbPath,
   parseUsfmSlug,
+  quotePngUrl,
 } from "../../src/lib/quote-ref";
 
 const PNG_PATH = /^\/(?:citas|biblia)\/([A-Za-z][A-Za-z0-9]*)\.(\d+)\.(\d+)\.png$/i;
@@ -112,7 +112,7 @@ function fragmentCard(slug: string, origin: string) {
     title,
     description,
     url: `${origin}/biblia/${parsed.slug}`,
-    image: `${origin}/citas/${firstVerseSlug(parsed)}.png`,
+    image: quotePngUrl(parsed),
     body: verse.text,
     reference: displayUsfmRef(parsed),
   };
@@ -143,7 +143,9 @@ async function gospelCard(pathname: string, url: URL, origin: string) {
     title: share.title,
     description: share.description,
     url: `${origin}/e/${gospel.date}${qs}`,
-    image: `${origin}${share.imagePath}`,
+    image: /^https?:\/\//i.test(share.imagePath)
+      ? share.imagePath
+      : `${origin}${share.imagePath}`,
     body: share.description,
     reference: gospel.citation,
   };

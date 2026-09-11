@@ -149,18 +149,26 @@ export function quoteSharePath(reference: string): string {
   return slug ? `/biblia/${slug}` : "/citas";
 }
 
-/** Public unfurl URL — always a single verse: `/citas/Mt.5.3.png`. */
-export function quotePngPath(reference: string): string {
-  const parsed = parseUsfmSlug(toUsfmSlug(reference) ?? "");
-  if (!parsed) return "";
-  return `/citas/${firstVerseSlug(parsed)}.png`;
-}
+/** CDN that serves the ignored `public/citas/` upload (R2 key layout). */
+export const CITA_THUMB_ORIGIN = "https://evangelio.groked.cc";
 
-/** Static file under `public/`: `/citas/Mt/5.3.png` (USFM MAT → liturgical Mt). */
+/** Static file / R2 key: `/citas/Mt/5.3.png` (USFM MAT → liturgical Mt). */
 export function quotePngAssetPath(ref: UsfmRef): string {
   const range = ref.ranges[0];
   if (!range) return "";
   return `/citas/${displayUsfmBook(ref.usfm)}/${range.chapter}.${range.start}.png`;
+}
+
+/** Absolute unfurl URL — first verse: `https://evangelio.groked.cc/citas/Mt/5.3.png`. */
+export function quotePngUrl(ref: UsfmRef): string {
+  const asset = quotePngAssetPath(ref);
+  return asset ? `${CITA_THUMB_ORIGIN}${asset}` : "";
+}
+
+/** Public unfurl URL from liturgical text or a slug. */
+export function quotePngPath(reference: string): string {
+  const parsed = parseUsfmSlug(toUsfmSlug(reference) ?? "");
+  return parsed ? quotePngUrl(parsed) : "";
 }
 
 export function displayQuoteReference(reference: string): string {

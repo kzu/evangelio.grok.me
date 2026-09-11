@@ -1,5 +1,6 @@
 import { citaBookToUsfm, displayUsfmBook } from "@/lib/biblia/usfm";
 import type { CitaBook } from "@/lib/gospel/types";
+import { quotePngUrl } from "@/lib/quote-ref";
 
 export type CanonVerse = {
   book: CitaBook;
@@ -57,7 +58,11 @@ export function canonPath(verse: CanonVerse): string {
 
 export function canonImagePath(verse: CanonVerse): string {
   const usfm = citaBookToUsfm(verse.book);
-  return `/citas/${displayUsfmBook(usfm)}.${verse.chapter}.${verse.verse}.png`;
+  return quotePngUrl({
+    usfm,
+    ranges: [{ chapter: verse.chapter, start: verse.verse, end: verse.verse }],
+    slug: `${displayUsfmBook(usfm)}.${verse.chapter}.${verse.verse}`,
+  });
 }
 
 export function parseCanonPin(pin: string): { chapter: number; verse: number } | null {

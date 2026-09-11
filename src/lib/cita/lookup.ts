@@ -2,7 +2,7 @@ import { citaBookToUsfm, displayUsfmBook, isUsfmId, usfmToCitaBook } from "@/lib
 import { NT_GOSPELS } from "@/lib/cita/nt-gospels";
 import { BOOK_NAMES, CITA_BOOKS } from "@/lib/gospel/citation";
 import type { CitaBook } from "@/lib/gospel/types";
-import { firstVerseSlug, parseUsfmSlug } from "@/lib/quote-ref";
+import { quotePngPath, quotePngUrl, parseUsfmSlug } from "@/lib/quote-ref";
 
 export type IndexedVerse = {
   book: string;
@@ -83,7 +83,11 @@ export function verseRef(verse: IndexedVerse): string {
 }
 
 export function verseImagePath(verse: IndexedVerse): string {
-  return `/citas/${displayUsfmBook(verse.book)}.${verse.chapter}.${verse.verse}.png`;
+  return quotePngUrl({
+    usfm: verse.book,
+    ranges: [{ chapter: verse.chapter, start: verse.verse, end: verse.verse }],
+    slug: `${displayUsfmBook(verse.book)}.${verse.chapter}.${verse.verse}`,
+  });
 }
 
 export function verseBookName(verse: IndexedVerse): string {
@@ -116,7 +120,5 @@ export function firstIndexedVerse(reference: string): IndexedVerse | null {
 }
 
 export function fragmentThumbPath(reference: string): string {
-  const parsed = parseUsfmSlug(reference);
-  if (!parsed) return "";
-  return `/citas/${firstVerseSlug(parsed)}.png`;
+  return quotePngPath(reference);
 }
