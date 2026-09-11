@@ -135,7 +135,7 @@ async function loadAdultGospel(date?: string): Promise<DailyGospel> {
 
   if (parsed) {
     const usfm = citaBookToUsfm(parsed.book);
-    const bookJson = loadBibliaBook(usfm);
+    const bookJson = await loadBibliaBook(usfm);
     if (bookJson) {
       verses = versesFromBook(bookJson, parsed.ranges);
       if (verses.length) {

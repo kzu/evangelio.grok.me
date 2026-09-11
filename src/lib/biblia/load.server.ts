@@ -1,33 +1,46 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
-/**
- * Bundled at build time so Vercel (no public/ on the function FS) still has
- * the corpus. Disk fallback covers `npm run dev` if the glob is empty.
- */
-const bundled = import.meta.glob("../../../public/biblia/*.json", {
-  eager: true,
-  import: "default",
-}) as Record<string, string[][]>;
-
 const cache = new Map<string, string[][]>();
 
-for (const [path, data] of Object.entries(bundled)) {
-  const match = path.match(/([A-Z0-9]+)\.json$/i);
-  if (!match || !Array.isArray(data)) continue;
-  cache.set(match[1]!.toUpperCase(), data);
+function parseBook(raw: string): string[][] | null {
+  try {
+    const data = JSON.parse(raw) as unknown;
+    return Array.isArray(data) ? (data as string[][]) : null;
+  } catch {
+    return null;
+  }
 }
 
-export function loadBibliaBook(usfm: string): string[][] | null {
+function publicOrigin(): string {
+  const host =
+    process.env.VERCEL_PROJECT_PRODUCTION_URL ||
+    process.env.VERCEL_URL ||
+    "evangelio.grok.me";
+  return /^https?:\/\//i.test(host) ? host.replace(/\/$/, "") : `https://${host}`;
+}
+
+/** One book of *El Libro del Pueblo de Dios* (USFM id → chapters → verses). */
+export async function loadBibliaBook(usfm: string): Promise<string[][] | null> {
   const id = usfm.trim().toUpperCase();
   if (!id) return null;
   const hit = cache.get(id);
   if (hit) return hit;
+
   const disk = join(process.cwd(), "public", "biblia", `${id}.json`);
-  if (!existsSync(disk)) return null;
+  if (existsSync(disk)) {
+    const data = parseBook(readFileSync(disk, "utf8"));
+    if (data) {
+      cache.set(id, data);
+      return data;
+    }
+  }
+
   try {
-    const data = JSON.parse(readFileSync(disk, "utf8")) as string[][];
-    if (!Array.isArray(data)) return null;
+    const res = await fetch(`${publicOrigin()}/biblia/${id}.json`);
+    if (!res.ok) return null;
+    const data = parseBook(await res.text());
+    if (!data) return null;
     cache.set(id, data);
     return data;
   } catch {

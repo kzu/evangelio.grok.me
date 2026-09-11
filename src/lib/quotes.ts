@@ -94,7 +94,7 @@ export const listQuotes = createServerFn({ method: "GET" })
     for (const row of rows) {
       const id = Number(row.id);
       const parsed = parseUsfmSlug(row.reference);
-      const json = parsed ? loadBibliaBook(parsed.usfm) : null;
+      const json = parsed ? await loadBibliaBook(parsed.usfm) : null;
       if (!parsed || !json || !versesFromBook(json, parsed.ranges).length) {
         stale.push(id);
         continue;
@@ -144,7 +144,7 @@ export const addQuote = createServerFn({ method: "POST" })
     const parsed = parseUsfmSlug(reference);
     const { loadBibliaBook } = await import("@/lib/biblia/load.server");
     const { versesFromBook } = await import("@/lib/biblia/verses");
-    const json = parsed ? loadBibliaBook(parsed.usfm) : null;
+    const json = parsed ? await loadBibliaBook(parsed.usfm) : null;
     if (!parsed || !json || !versesFromBook(json, parsed.ranges).length) return { created: false };
     const book = parsed.usfm;
     const slug = quoteSlug(reference);

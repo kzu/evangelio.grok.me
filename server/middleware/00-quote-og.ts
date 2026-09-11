@@ -1,14 +1,14 @@
 import { resolvePublicHost } from "../../scripts/grok-pwa-shared.mjs";
-import { getIndexedVerse, verseRef } from "../../src/lib/cita/lookup";
+import { getIndexedVerse } from "../../src/lib/cita/lookup";
 import { dailyGospelUnfurl } from "../../src/lib/gospel/share";
 import {
+  CITA_THUMB_ORIGIN,
   displayUsfmRef,
   mapCitaThumbPath,
   parseUsfmSlug,
   quotePngUrl,
 } from "../../src/lib/quote-ref";
 
-const PNG_PATH = /^\/(?:citas|biblia)\/([A-Za-z][A-Za-z0-9]*)\.(\d+)\.(\d+)\.png$/i;
 const FRAGMENT_PATH = /^\/biblia\/([^/]+)\/?$/;
 const GOSPEL_DATE = /^\/e\/(\d{4}-\d{2}-\d{2})\/?$/;
 const CRAWLER =
@@ -161,42 +161,7 @@ export default async function quoteOgMiddleware(
   const pathname = event.url.pathname;
   const mappedThumb = mapCitaThumbPath(pathname);
   if (mappedThumb) {
-    if (mappedThumb !== pathname) event.url.pathname = mappedThumb;
-    const served = await next();
-    if (
-      served instanceof Response &&
-      served.ok &&
-      String(served.headers.get("content-type") ?? "").includes("image/png")
-    ) {
-      return served;
-    }
-    const pngMatch = PNG_PATH.exec(pathname);
-    const parsed = pngMatch
-      ? parseUsfmSlug(`${pngMatch[1]}.${pngMatch[2]}.${pngMatch[3]}`)
-      : null;
-    const range = parsed?.ranges[0];
-    const verse =
-      parsed && range ? getIndexedVerse(parsed.usfm, `${range.chapter}.${range.start}`) : null;
-    if (!verse) {
-      return served instanceof Response
-        ? served
-        : new Response("Not found", {
-            status: 404,
-            headers: { "Cache-Control": "no-store, max-age=0, must-revalidate" },
-          });
-    }
-    const { quoteOgPng } = await import("../../src/lib/quote-og-png");
-    const png = quoteOgPng({
-      reference: verseRef(verse),
-      body: verse.text,
-      theme: "light",
-    });
-    return new Response(new Uint8Array(png), {
-      headers: {
-        "Content-Type": "image/png",
-        "Cache-Control": "public, max-age=86400",
-      },
-    });
+    return Response.redirect(`${CITA_THUMB_ORIGIN}${mappedThumb}`, 302);
   }
 
   const origin = requestOrigin(event);

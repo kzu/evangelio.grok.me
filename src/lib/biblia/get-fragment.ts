@@ -18,7 +18,7 @@ export const getBibliaFragment = createServerFn({ method: "GET" })
     const parsed = parseUsfmSlug(data.slug);
     if (!parsed) return null;
     const { loadBibliaBook } = await import("./load.server");
-    const book = loadBibliaBook(parsed.usfm);
+    const book = await loadBibliaBook(parsed.usfm);
     if (!book) return null;
     const verses = versesFromBook(book, parsed.ranges);
     if (!verses.length) return null;

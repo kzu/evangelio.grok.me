@@ -55,7 +55,7 @@ export async function findQuoteBySlug(rawSlug: string): Promise<PublicQuote | nu
   const { loadBibliaBook } = await import("@/lib/biblia/load.server");
   const { versesFromBook } = await import("@/lib/biblia/verses");
   const parsed = parseUsfmSlug(row.reference);
-  const json = parsed ? loadBibliaBook(parsed.usfm) : null;
+  const json = parsed ? await loadBibliaBook(parsed.usfm) : null;
   if (!parsed || !json || !versesFromBook(json, parsed.ranges).length) {
     await sql`delete from quotes where id = ${Number(row.id)}`;
     return null;
