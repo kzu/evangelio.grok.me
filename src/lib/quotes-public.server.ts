@@ -1,6 +1,6 @@
 import { getRequest } from "@tanstack/react-start/server";
 import { getSql } from "@/lib/db";
-import { quoteSlug } from "@/lib/quote-ref";
+import { parseUsfmSlug, quoteSlug } from "@/lib/quote-ref";
 import type { GospelEdition } from "@/lib/gospel/types";
 import { resolvePublicHost } from "../../scripts/grok-pwa-shared.mjs";
 
@@ -52,8 +52,11 @@ export async function findQuoteBySlug(rawSlug: string): Promise<PublicQuote | nu
   `;
   const row = rows[0];
   if (!row) return null;
-  const { firstIndexedVerse } = await import("@/lib/cita/lookup");
-  if (!firstIndexedVerse(row.reference)) {
+  const { loadBibliaBook } = await import("@/lib/biblia/load.server");
+  const { versesFromBook } = await import("@/lib/biblia/verses");
+  const parsed = parseUsfmSlug(row.reference);
+  const json = parsed ? loadBibliaBook(parsed.usfm) : null;
+  if (!parsed || !json || !versesFromBook(json, parsed.ranges).length) {
     await sql`delete from quotes where id = ${Number(row.id)}`;
     return null;
   }

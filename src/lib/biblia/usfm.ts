@@ -179,6 +179,7 @@ const ALIASES: Record<string, string> = {
   john: "JHN",
   act: "ACT",
   hch: "ACT",
+  hc: "ACT",
   hechos: "ACT",
   hechosdelosapostoles: "ACT",
   acts: "ACT",
@@ -254,6 +255,20 @@ export const CITA_TO_USFM: Record<CitaBook, string> = {
   jn: "JHN",
   hch: "ACT",
 };
+
+/** Inverse display labels — always this casing. */
+export const USFM_DISPLAY: Record<string, string> = {
+  MAT: "Mt",
+  MRK: "Mc",
+  LUK: "Lc",
+  JHN: "Jn",
+  ACT: "Hch",
+};
+
+export function displayUsfmBook(usfm: string): string {
+  const id = usfm.trim().toUpperCase();
+  return USFM_DISPLAY[id] ?? id;
+}
 
 export function foldBookKey(raw: string): string {
   return raw

@@ -1,17 +1,13 @@
 import { resolvePublicHost } from "../../scripts/grok-pwa-shared.mjs";
-import { CITA_TO_USFM } from "../../src/lib/biblia/usfm";
+import { getIndexedVerse, verseRef } from "../../src/lib/cita/lookup";
 import {
-  firstIndexedVerse,
-  getIndexedVerse,
-  verseImagePath,
-  versePath,
-  verseRef,
-} from "../../src/lib/cita/lookup";
-import { parseQuoteSlug } from "../../src/lib/quote-ref";
+  displayUsfmRef,
+  firstVerseSlug,
+  parseUsfmSlug,
+} from "../../src/lib/quote-ref";
 
-const PNG_PATH = /^\/citas\/(mt|mc|lc|jn|hch)\/(\d+\.\d+)\.png$/i;
-const VERSE_PATH = /^\/citas\/([A-Za-z0-9]+)\/(\d+\.\d+)\/?$/i;
-const SLUG_PATH = /^\/citas\/([A-Za-z0-9-]+)$/;
+const PNG_PATH = /^\/citas\/([A-Za-z][A-Za-z0-9]*)\.(\d+)\.(\d+)\.png$/i;
+const BIBLIA_PATH = /^\/biblia\/([^/]+)\/?$/;
 const CRAWLER =
   /bot|crawler|spider|facebookexternalhit|facebot|whatsapp|twitterbot|telegram|slackbot|linkedinbot|discordbot|pinterest|skypeuripreview|applebot|iframely|embedly|preview|vkshare|redditbot|qwantify|nuzzel|bitlybot|x\.com/i;
 
@@ -101,49 +97,21 @@ function patchDocument(
   return crawlerDocument({ ...input, body: input.description, reference: input.title });
 }
 
-async function loadQuote(slug: string) {
-  const { findQuoteBySlug } = await import("../../src/lib/quotes-public.server");
-  return findQuoteBySlug(slug);
-}
-
-function cardFor(quote: { reference: string; body: string }, origin: string) {
-  const first = firstIndexedVerse(quote.reference);
-  if (!first) return null;
-  return verseCard(first, origin);
-}
-
-function verseFromPathBook(book: string, pin: string) {
-  const key = book.trim();
-  const usfm =
-    CITA_TO_USFM[key.toLowerCase() as keyof typeof CITA_TO_USFM] ?? key;
-  return getIndexedVerse(usfm, pin);
-}
-
-function resolveIndexedVerse(pathname: string) {
-  const verseMatch = VERSE_PATH.exec(pathname);
-  if (verseMatch) {
-    return verseFromPathBook(verseMatch[1]!, verseMatch[2]!);
-  }
-  const slugMatch = SLUG_PATH.exec(pathname);
-  if (!slugMatch) return null;
-  const parsed = parseQuoteSlug(slugMatch[1]!);
-  if (!parsed) return null;
-  return getIndexedVerse(parsed.book, `${parsed.chapter}.${parsed.verse}`);
-}
-
-function verseCard(
-  verse: NonNullable<ReturnType<typeof getIndexedVerse>>,
-  origin: string,
-) {
-  const title = `${verseRef(verse)} · Evangelio de Hoy`;
+function fragmentCard(slug: string, origin: string) {
+  const parsed = parseUsfmSlug(slug);
+  const range = parsed?.ranges[0];
+  if (!parsed || !range) return null;
+  const verse = getIndexedVerse(parsed.usfm, `${range.chapter}.${range.start}`);
+  if (!verse) return null;
+  const title = `${displayUsfmRef(parsed)} · Evangelio de Hoy`;
   const description = `«${verse.text}»`;
   return {
     title,
     description,
-    url: `${origin}${versePath(verse)}`,
-    image: `${origin}${verseImagePath(verse)}`,
+    url: `${origin}/biblia/${parsed.slug}`,
+    image: `${origin}/citas/${firstVerseSlug(parsed)}.png`,
     body: verse.text,
-    reference: verseRef(verse),
+    reference: displayUsfmRef(parsed),
   };
 }
 
@@ -157,7 +125,11 @@ export default async function quoteOgMiddleware(
   const pathname = event.url.pathname;
   const pngMatch = PNG_PATH.exec(pathname);
   if (pngMatch) {
-    const verse = verseFromPathBook(pngMatch[1]!, pngMatch[2]!);
+    const parsed = parseUsfmSlug(`${pngMatch[1]}.${pngMatch[2]}.${pngMatch[3]}`);
+    const range = parsed?.ranges[0];
+    const verse = parsed && range
+      ? getIndexedVerse(parsed.usfm, `${range.chapter}.${range.start}`)
+      : null;
     if (!verse) {
       return new Response("Not found", {
         status: 404,
@@ -179,41 +151,18 @@ export default async function quoteOgMiddleware(
   }
 
   const origin = requestOrigin(event);
-  const verse = resolveIndexedVerse(pathname);
-  const slugMatch = !verse ? SLUG_PATH.exec(pathname) : null;
-
-  if (!verse && !slugMatch) return next();
+  const bibliaMatch = BIBLIA_PATH.exec(pathname);
+  const card = bibliaMatch ? fragmentCard(bibliaMatch[1] ?? "", origin) : null;
+  if (!card) return next();
 
   if (isCrawler(event)) {
     try {
-      if (verse) {
-        return new Response(crawlerDocument(verseCard(verse, origin)), {
-          headers: {
-            "content-type": "text/html; charset=utf-8",
-            "cache-control": "public, max-age=300",
-          },
-        });
-      }
-      const quote = await loadQuote(slugMatch![1] ?? "");
-      const card = quote ? cardFor(quote, origin) : null;
-      if (card) {
-        return new Response(crawlerDocument(card), {
-          headers: {
-            "content-type": "text/html; charset=utf-8",
-            "cache-control": "public, max-age=300",
-          },
-        });
-      }
-      return new Response(
-        `<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><title>Cita no encontrada</title><meta name="robots" content="noindex, nofollow"></head><body>Cita no encontrada</body></html>`,
-        {
-          status: 404,
-          headers: {
-            "content-type": "text/html; charset=utf-8",
-            "cache-control": "no-store, max-age=0, must-revalidate",
-          },
+      return new Response(crawlerDocument(card), {
+        headers: {
+          "content-type": "text/html; charset=utf-8",
+          "cache-control": "public, max-age=300",
         },
-      );
+      });
     } catch (err) {
       console.error("[quote-og] crawler document failed:", err);
     }
@@ -229,20 +178,6 @@ export default async function quoteOgMiddleware(
   }
 
   try {
-    if (verse) {
-      const html = await result.text();
-      const patched = patchDocument(html, verseCard(verse, origin));
-      const headers = new Headers(result.headers);
-      headers.delete("content-length");
-      return new Response(patched, {
-        status: result.status,
-        statusText: result.statusText,
-        headers,
-      });
-    }
-    const quote = await loadQuote(slugMatch![1] ?? "");
-    const card = quote ? cardFor(quote, origin) : null;
-    if (!card) return result;
     const html = await result.text();
     const patched = patchDocument(html, card);
     const headers = new Headers(result.headers);

@@ -21,6 +21,7 @@ const BOOK_ALIASES: Record<string, CitaBook> = {
   luk: "lc",
   jhn: "jn",
   hch: "hch",
+  hc: "hch",
   hech: "hch",
   hechos: "hch",
   act: "hch",
@@ -142,7 +143,7 @@ export function parseGospelCitation(raw: string): {
   if (!ranges.length) return null;
 
   const usfm = citaBookToUsfm(book);
-  const display = `${usfm} ${rest.replace(/,/g, ", ").replace(/-/g, "–")}`;
+  const display = `${BOOK_ABBREV[book]} ${rest.replace(/,/g, ", ").replace(/-/g, "–")}`;
   return { book, usfm, ranges, display };
 }
 

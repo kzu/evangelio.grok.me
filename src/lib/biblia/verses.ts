@@ -1,4 +1,4 @@
-import type { GospelVerse, VerseRange } from "@/lib/gospel/types";
+import type { GospelVerse, VerseRange } from "../gospel/types.ts";
 
 /** `book[chapter - 1][verse - 1]` → liturgical verse objects in range order. */
 export function versesFromBook(book: string[][], ranges: VerseRange[]): GospelVerse[] {
@@ -14,4 +14,26 @@ export function versesFromBook(book: string[][], ranges: VerseRange[]): GospelVe
     }
   }
   return out;
+}
+
+export function adjacentVerseInBook(
+  book: string[][],
+  chapter: number,
+  verse: number,
+  direction: 1 | -1,
+): { chapter: number; verse: number; text: string } | null {
+  let ch = chapter;
+  let v = verse + direction;
+  while (ch >= 1 && ch <= book.length) {
+    const verses = book[ch - 1] ?? [];
+    while (v >= 1 && v <= verses.length) {
+      const text = verses[v - 1];
+      if (text) return { chapter: ch, verse: v, text };
+      v += direction;
+    }
+    ch += direction;
+    const next = book[ch - 1];
+    v = direction === 1 ? 1 : (next?.length ?? 0);
+  }
+  return null;
 }

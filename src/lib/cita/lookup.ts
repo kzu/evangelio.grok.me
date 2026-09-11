@@ -1,7 +1,8 @@
-import { citaBookToUsfm, isUsfmId, usfmToCitaBook } from "@/lib/biblia/usfm";
+import { citaBookToUsfm, displayUsfmBook, isUsfmId, usfmToCitaBook } from "@/lib/biblia/usfm";
 import { NT_GOSPELS } from "@/lib/cita/nt-gospels";
-import { BOOK_NAMES, CITA_BOOKS, parseUsfmCitation } from "@/lib/gospel/citation";
+import { BOOK_NAMES, CITA_BOOKS } from "@/lib/gospel/citation";
 import type { CitaBook } from "@/lib/gospel/types";
+import { firstVerseSlug, parseUsfmSlug } from "@/lib/quote-ref";
 
 export type IndexedVerse = {
   book: string;
@@ -74,16 +75,15 @@ export function getAdjacentVerse(current: IndexedVerse, direction: 1 | -1): Inde
 }
 
 export function versePath(verse: IndexedVerse): string {
-  return `/citas/${verse.book}/${verse.chapter}.${verse.verse}`;
+  return `/biblia/${verse.book}.${verse.chapter}.${verse.verse}`;
 }
 
 export function verseRef(verse: IndexedVerse): string {
-  return `${verse.book} ${verse.chapter}, ${verse.verse}`;
+  return `${displayUsfmBook(verse.book)} ${verse.chapter}, ${verse.verse}`;
 }
 
 export function verseImagePath(verse: IndexedVerse): string {
-  const cita = usfmToCitaBook(verse.book) ?? verse.book.toLowerCase();
-  return `/citas/${cita}/${verse.chapter}.${verse.verse}.png`;
+  return `/citas/${verse.book}.${verse.chapter}.${verse.verse}.png`;
 }
 
 export function verseBookName(verse: IndexedVerse): string {
@@ -107,10 +107,16 @@ export function verseClosing(verse: IndexedVerse): string {
   return verse.book === "ACT" ? "Palabra de Dios." : "Palabra del Señor.";
 }
 
-/** First verse of a USFM citation (`LUK 6, 27–38`). */
+/** First verse of a canonical slug (`LUK.6.39-42`). */
 export function firstIndexedVerse(reference: string): IndexedVerse | null {
-  const parsed = parseUsfmCitation(reference);
+  const parsed = parseUsfmSlug(reference);
   const range = parsed?.ranges[0];
   if (!parsed || !range) return null;
   return getIndexedVerse(parsed.usfm, `${range.chapter}.${range.start}`);
+}
+
+export function fragmentThumbPath(reference: string): string {
+  const parsed = parseUsfmSlug(reference);
+  if (!parsed) return "";
+  return `/citas/${firstVerseSlug(parsed)}.png`;
 }

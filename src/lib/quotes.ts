@@ -1,8 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { authMiddleware } from "@/lib/auth/middleware";
 import type { GospelEdition } from "@/lib/gospel/types";
-import { bookToUsfm } from "@/lib/biblia/usfm";
-import { quoteSlug, toUsfmReference } from "@/lib/quote-ref";
+import { parseUsfmSlug, quoteSlug, toUsfmSlug } from "@/lib/quote-ref";
 
 export type QuoteMode = "verse" | "selection";
 
@@ -88,12 +87,15 @@ export const listQuotes = createServerFn({ method: "GET" })
       where user_id = ${context.userId}
       order by created_at desc
     `;
-    const { firstIndexedVerse } = await import("@/lib/cita/lookup");
+    const { loadBibliaBook } = await import("@/lib/biblia/load.server");
+    const { versesFromBook } = await import("@/lib/biblia/verses");
     const items: QuoteItem[] = [];
     const stale: number[] = [];
     for (const row of rows) {
       const id = Number(row.id);
-      if (!firstIndexedVerse(row.reference)) {
+      const parsed = parseUsfmSlug(row.reference);
+      const json = parsed ? loadBibliaBook(parsed.usfm) : null;
+      if (!parsed || !json || !versesFromBook(json, parsed.ranges).length) {
         stale.push(id);
         continue;
       }
@@ -137,12 +139,14 @@ export const addQuote = createServerFn({ method: "POST" })
   }))
   .handler(async ({ context, data }): Promise<{ created: boolean }> => {
     if (!data.body || !data.reference) return { created: false };
-    const reference = toUsfmReference(data.reference);
+    const reference = toUsfmSlug(data.reference);
     if (!reference) return { created: false };
-    const { firstIndexedVerse } = await import("@/lib/cita/lookup");
-    if (!firstIndexedVerse(reference)) return { created: false };
-    const book = bookToUsfm(data.book) || bookToUsfm(reference.split(/\s+/)[0] ?? "") || "";
-    if (!book) return { created: false };
+    const parsed = parseUsfmSlug(reference);
+    const { loadBibliaBook } = await import("@/lib/biblia/load.server");
+    const { versesFromBook } = await import("@/lib/biblia/verses");
+    const json = parsed ? loadBibliaBook(parsed.usfm) : null;
+    if (!parsed || !json || !versesFromBook(json, parsed.ranges).length) return { created: false };
+    const book = parsed.usfm;
     const slug = quoteSlug(reference);
     const { getSql } = await import("@/lib/db");
     const sql = await getSql();

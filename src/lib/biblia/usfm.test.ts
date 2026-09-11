@@ -12,6 +12,7 @@ describe("bookToUsfm", () => {
     assert.equal(bookToUsfm("Jn"), "JHN");
     assert.equal(bookToUsfm("Hechos"), "ACT");
     assert.equal(bookToUsfm("Hch"), "ACT");
+    assert.equal(bookToUsfm("Hc"), "ACT");
     assert.equal(bookToUsfm("Génesis"), "GEN");
     assert.equal(bookToUsfm("Salmos"), "PSA");
   });

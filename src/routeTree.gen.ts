@@ -14,13 +14,9 @@ import { Route as CitasRouteImport } from './routes/citas'
 import { Route as FavoritosRouteImport } from './routes/favoritos'
 import { Route as IngresarRouteImport } from './routes/ingresar'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as BibliaSlugRouteImport } from './routes/biblia.$slug'
 import { Route as CitasIndexRouteImport } from './routes/citas.index'
-import { Route as CitasRefRouteImport } from './routes/citas.$ref'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
-import { Route as CitaBookPinRouteImport } from './routes/cita.$book.$pin'
-import { Route as CitasBookPinRouteImport } from './routes/citas.$book.$pin'
-import { Route as OgCitaRefRouteImport } from './routes/og.cita.$ref'
-import { Route as OgCitaBookPinRouteImport } from './routes/og.cita.$book.$pin'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -47,39 +43,19 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BibliaSlugRoute = BibliaSlugRouteImport.update({
+  id: '/biblia/$slug',
+  path: '/biblia/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CitasIndexRoute = CitasIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => CitasRoute,
 } as any)
-const CitasRefRoute = CitasRefRouteImport.update({
-  id: '/$ref',
-  path: '/$ref',
-  getParentRoute: () => CitasRoute,
-} as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CitaBookPinRoute = CitaBookPinRouteImport.update({
-  id: '/cita/$book/$pin',
-  path: '/cita/$book/$pin',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CitasBookPinRoute = CitasBookPinRouteImport.update({
-  id: '/$book/$pin',
-  path: '/$book/$pin',
-  getParentRoute: () => CitasRoute,
-} as any)
-const OgCitaRefRoute = OgCitaRefRouteImport.update({
-  id: '/og/cita/$ref',
-  path: '/og/cita/$ref',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OgCitaBookPinRoute = OgCitaBookPinRouteImport.update({
-  id: '/og/cita/$book/$pin',
-  path: '/og/cita/$book/$pin',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -89,26 +65,18 @@ export interface FileRoutesByFullPath {
   '/favoritos': typeof FavoritosRoute
   '/ingresar': typeof IngresarRoute
   '/login': typeof LoginRoute
-  '/citas/$ref': typeof CitasRefRoute
+  '/biblia/$slug': typeof BibliaSlugRoute
   '/citas/': typeof CitasIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
-  '/cita/$book/$pin': typeof CitaBookPinRoute
-  '/citas/$book/$pin': typeof CitasBookPinRoute
-  '/og/cita/$ref': typeof OgCitaRefRoute
-  '/og/cita/$book/$pin': typeof OgCitaBookPinRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/favoritos': typeof FavoritosRoute
   '/ingresar': typeof IngresarRoute
   '/login': typeof LoginRoute
-  '/citas/$ref': typeof CitasRefRoute
+  '/biblia/$slug': typeof BibliaSlugRoute
   '/citas': typeof CitasIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
-  '/cita/$book/$pin': typeof CitaBookPinRoute
-  '/citas/$book/$pin': typeof CitasBookPinRoute
-  '/og/cita/$ref': typeof OgCitaRefRoute
-  '/og/cita/$book/$pin': typeof OgCitaBookPinRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -117,13 +85,9 @@ export interface FileRoutesById {
   '/favoritos': typeof FavoritosRoute
   '/ingresar': typeof IngresarRoute
   '/login': typeof LoginRoute
-  '/citas/$ref': typeof CitasRefRoute
+  '/biblia/$slug': typeof BibliaSlugRoute
   '/citas/': typeof CitasIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
-  '/cita/$book/$pin': typeof CitaBookPinRoute
-  '/citas/$book/$pin': typeof CitasBookPinRoute
-  '/og/cita/$ref': typeof OgCitaRefRoute
-  '/og/cita/$book/$pin': typeof OgCitaBookPinRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -133,26 +97,18 @@ export interface FileRouteTypes {
     | '/favoritos'
     | '/ingresar'
     | '/login'
-    | '/citas/$ref'
+    | '/biblia/$slug'
     | '/citas/'
     | '/api/auth/$'
-    | '/cita/$book/$pin'
-    | '/citas/$book/$pin'
-    | '/og/cita/$ref'
-    | '/og/cita/$book/$pin'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/favoritos'
     | '/ingresar'
     | '/login'
-    | '/citas/$ref'
+    | '/biblia/$slug'
     | '/citas'
     | '/api/auth/$'
-    | '/cita/$book/$pin'
-    | '/citas/$book/$pin'
-    | '/og/cita/$ref'
-    | '/og/cita/$book/$pin'
   id:
     | '__root__'
     | '/'
@@ -160,13 +116,9 @@ export interface FileRouteTypes {
     | '/favoritos'
     | '/ingresar'
     | '/login'
-    | '/citas/$ref'
+    | '/biblia/$slug'
     | '/citas/'
     | '/api/auth/$'
-    | '/cita/$book/$pin'
-    | '/citas/$book/$pin'
-    | '/og/cita/$ref'
-    | '/og/cita/$book/$pin'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -175,10 +127,8 @@ export interface RootRouteChildren {
   FavoritosRoute: typeof FavoritosRoute
   IngresarRoute: typeof IngresarRoute
   LoginRoute: typeof LoginRoute
+  BibliaSlugRoute: typeof BibliaSlugRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
-  CitaBookPinRoute: typeof CitaBookPinRoute
-  OgCitaRefRoute: typeof OgCitaRefRoute
-  OgCitaBookPinRoute: typeof OgCitaBookPinRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -218,18 +168,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/biblia/$slug': {
+      id: '/biblia/$slug'
+      path: '/biblia/$slug'
+      fullPath: '/biblia/$slug'
+      preLoaderRoute: typeof BibliaSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/citas/': {
       id: '/citas/'
       path: '/'
       fullPath: '/citas/'
       preLoaderRoute: typeof CitasIndexRouteImport
-      parentRoute: typeof CitasRoute
-    }
-    '/citas/$ref': {
-      id: '/citas/$ref'
-      path: '/$ref'
-      fullPath: '/citas/$ref'
-      preLoaderRoute: typeof CitasRefRouteImport
       parentRoute: typeof CitasRoute
     }
     '/api/auth/$': {
@@ -239,47 +189,15 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/cita/$book/$pin': {
-      id: '/cita/$book/$pin'
-      path: '/cita/$book/$pin'
-      fullPath: '/cita/$book/$pin'
-      preLoaderRoute: typeof CitaBookPinRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/citas/$book/$pin': {
-      id: '/citas/$book/$pin'
-      path: '/$book/$pin'
-      fullPath: '/citas/$book/$pin'
-      preLoaderRoute: typeof CitasBookPinRouteImport
-      parentRoute: typeof CitasRoute
-    }
-    '/og/cita/$ref': {
-      id: '/og/cita/$ref'
-      path: '/og/cita/$ref'
-      fullPath: '/og/cita/$ref'
-      preLoaderRoute: typeof OgCitaRefRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/og/cita/$book/$pin': {
-      id: '/og/cita/$book/$pin'
-      path: '/og/cita/$book/$pin'
-      fullPath: '/og/cita/$book/$pin'
-      preLoaderRoute: typeof OgCitaBookPinRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
 interface CitasRouteChildren {
-  CitasRefRoute: typeof CitasRefRoute
   CitasIndexRoute: typeof CitasIndexRoute
-  CitasBookPinRoute: typeof CitasBookPinRoute
 }
 
 const CitasRouteChildren: CitasRouteChildren = {
-  CitasRefRoute: CitasRefRoute,
   CitasIndexRoute: CitasIndexRoute,
-  CitasBookPinRoute: CitasBookPinRoute,
 }
 
 const CitasRouteWithChildren = CitasRoute._addFileChildren(CitasRouteChildren)
@@ -290,10 +208,8 @@ const rootRouteChildren: RootRouteChildren = {
   FavoritosRoute: FavoritosRoute,
   IngresarRoute: IngresarRoute,
   LoginRoute: LoginRoute,
+  BibliaSlugRoute: BibliaSlugRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
-  CitaBookPinRoute: CitaBookPinRoute,
-  OgCitaRefRoute: OgCitaRefRoute,
-  OgCitaBookPinRoute: OgCitaBookPinRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

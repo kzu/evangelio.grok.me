@@ -4,7 +4,7 @@ import { useNavigate, useSearch } from "@tanstack/react-router";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useCurrentUserState } from "@/lib/auth/use-current-user";
-import { formatVerseReference } from "@/lib/gospel/citation";
+import { formatUsfmSlugFromCita } from "@/lib/quote-ref";
 import type { GospelBook, GospelEdition, GospelVerse } from "@/lib/gospel/types";
 import { clearPendingQuote, readPendingQuote, stashPendingQuote } from "@/lib/pending-quote";
 import { addQuote, type QuoteInput } from "@/lib/quotes";
@@ -185,7 +185,7 @@ export function GospelPassage({
     const { book: currentBook, citation: currentCitation, date: currentDate, edition: currentEdition } =
       metaRef.current;
     const verseBody = normalizeQuoteText(covered.map((verse) => verse.text).join(" "));
-    const reference = formatVerseReference(currentBook, covered, currentCitation);
+    const reference = formatUsfmSlugFromCita(currentBook, covered, currentCitation);
     const rects = range.getClientRects();
     const last = rects[rects.length - 1] ?? range.getBoundingClientRect();
     const coarse = window.matchMedia("(pointer: coarse)").matches;

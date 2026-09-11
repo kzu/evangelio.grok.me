@@ -2,49 +2,47 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { ShareButton } from "@/components/share-button";
 import { MarkCross } from "@/components/mark-cross";
-import {
-  getAdjacentVerse,
-  getIndexedVerse,
-  verseImagePath,
-  versePath,
-  verseReadingLabel,
-  verseRef,
-  verseWorkTitle,
-  verseClosing,
-  type IndexedVerse,
-} from "@/lib/cita/lookup";
+import { adjacentVerseInBook, versesFromBook } from "@/lib/biblia/verses";
+import { displayUsfmBook } from "@/lib/biblia/usfm";
 import { vaticanChapterUrl } from "@/lib/gospel/vatican-map";
+import type { GospelVerse } from "@/lib/gospel/types";
+import { displayUsfmRef, firstVerseSlug, parseUsfmSlug } from "@/lib/quote-ref";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/citas/$book/$pin")({
+type Neighbor = { slug: string } | null;
+
+export const Route = createFileRoute("/biblia/$slug")({
   loader: async ({ params }) => {
-    const verse = getIndexedVerse(params.book, params.pin);
-    if (!verse) throw notFound();
-    let origin = "https://evangelio.grok.me";
-    if (import.meta.env.SSR) {
-      const { requestOrigin } = await import("@/lib/quotes-public.server");
-      origin = requestOrigin() || origin;
-    }
+    const parsed = parseUsfmSlug(params.slug);
+    if (!parsed) throw notFound();
+    const { loadBibliaBook } = await import("@/lib/biblia/load.server");
+    const book = loadBibliaBook(parsed.usfm);
+    if (!book) throw notFound();
+    const verses = versesFromBook(book, parsed.ranges);
+    if (!verses.length) throw notFound();
+    const first = verses[0]!;
+    const last = verses[verses.length - 1]!;
+    const prevHit = adjacentVerseInBook(book, first.chapter, first.number, -1);
+    const nextHit = adjacentVerseInBook(book, last.chapter, last.number, 1);
     return {
-      verse,
-      prev: getAdjacentVerse(verse, -1),
-      next: getAdjacentVerse(verse, 1),
-      origin,
+      ref: parsed,
+      verses,
+      prev: prevHit ? { slug: `${parsed.usfm}.${prevHit.chapter}.${prevHit.verse}` } : null,
+      next: nextHit ? { slug: `${parsed.usfm}.${nextHit.chapter}.${nextHit.verse}` } : null,
     };
   },
-  notFoundComponent: VerseMissing,
+  notFoundComponent: FragmentMissing,
   head: ({ loaderData }) => {
-    const verse = loaderData?.verse;
-    if (!verse) {
+    const data = loaderData;
+    if (!data) {
       return {
         meta: [{ title: "Cita no encontrada" }, { name: "robots", content: "noindex, nofollow" }],
       };
     }
-    const origin = loaderData.origin.replace(/\/$/, "");
-    const title = `${verseRef(verse)} · Evangelio de Hoy`;
-    const description = `«${verse.text}»`;
-    const url = `${origin}${versePath(verse)}`;
-    const image = `${origin}${verseImagePath(verse)}`;
+    const title = `${displayUsfmRef(data.ref)} · Evangelio de Hoy`;
+    const first = data.verses[0]!;
+    const description = `«${first.text}»`;
+    const image = `/citas/${firstVerseSlug(data.ref)}.png`;
     return {
       meta: [
         { title },
@@ -54,7 +52,6 @@ export const Route = createFileRoute("/citas/$book/$pin")({
         { property: "og:type", content: "article" },
         { property: "og:title", content: title },
         { property: "og:description", content: description },
-        { property: "og:url", content: url },
         { property: "og:image", content: image },
         { property: "og:image:type", content: "image/png" },
         { property: "og:image:width", content: "1200" },
@@ -66,16 +63,16 @@ export const Route = createFileRoute("/citas/$book/$pin")({
       ],
     };
   },
-  component: CanonVersePage,
+  component: BibliaFragment,
 });
 
-function VerseMissing() {
+function FragmentMissing() {
   return (
     <main className="flex flex-1 flex-col bg-bg px-5 py-10 text-fg sm:px-8">
       <div className="mx-auto w-full max-w-2xl">
         <h1 className="font-display text-2xl font-medium tracking-tight">Cita no encontrada</h1>
         <p className="mt-4 font-sans text-sm leading-6 text-muted">
-          Ese versículo no está en el índice del Evangelio.
+          Esa referencia no está en el texto bíblico.
         </p>
         <Link
           to="/"
@@ -88,12 +85,12 @@ function VerseMissing() {
   );
 }
 
-function VerseLink({
+function NeighborLink({
   target,
   label,
   side,
 }: {
-  target: IndexedVerse | null;
+  target: Neighbor;
   label: string;
   side: "prev" | "next";
 }) {
@@ -116,21 +113,37 @@ function VerseLink({
     );
   }
   return (
-    <Link
-      to="/citas/$book/$pin"
-      params={{ book: target.book, pin: `${target.chapter}.${target.verse}` }}
-      className={className}
-      aria-label={label}
-    >
+    <Link to="/biblia/$slug" params={{ slug: target.slug }} className={className} aria-label={label}>
       {icon}
     </Link>
   );
 }
 
-function CanonVersePage() {
-  const { verse, prev, next } = Route.useLoaderData();
-  const reference = verseRef(verse);
-  const vaticanUrl = vaticanChapterUrl(verse.book, verse.chapter);
+function workTitle(usfm: string) {
+  const name = displayUsfmBook(usfm);
+  if (usfm === "ACT") return "Hechos de los Apóstoles";
+  if (usfm === "MAT" || usfm === "MRK" || usfm === "LUK" || usfm === "JHN") {
+    return `Evangelio según ${
+      usfm === "MAT" ? "san Mateo" : usfm === "MRK" ? "san Marcos" : usfm === "LUK" ? "san Lucas" : "san Juan"
+    }`;
+  }
+  return name;
+}
+
+function readingLabel(usfm: string) {
+  if (usfm === "ACT") return "Lectura de los Hechos de los Apóstoles";
+  if (usfm === "MAT" || usfm === "MRK" || usfm === "LUK" || usfm === "JHN") {
+    return `Lectura del santo Evangelio según ${
+      usfm === "MAT" ? "san Mateo" : usfm === "MRK" ? "san Marcos" : usfm === "LUK" ? "san Lucas" : "san Juan"
+    }`;
+  }
+  return `Lectura de ${displayUsfmBook(usfm)}`;
+}
+
+function BibliaFragment() {
+  const { ref, verses, prev, next } = Route.useLoaderData();
+  const reference = displayUsfmRef(ref);
+  const vaticanUrl = vaticanChapterUrl(ref.usfm, verses[0]?.chapter ?? 1);
 
   return (
     <main className="flex flex-1 flex-col bg-bg text-fg">
@@ -140,7 +153,7 @@ function CanonVersePage() {
             className="grid grid-cols-[2.75rem_minmax(0,1fr)_2.75rem] items-center"
             aria-label="Versículos"
           >
-            <VerseLink target={prev} label="Versículo anterior" side="prev" />
+            <NeighborLink target={prev} label="Versículo anterior" side="prev" />
             <div className="flex min-w-0 flex-col items-center text-center">
               <div className="flex items-center gap-3 text-muted">
                 <span className="h-px w-8 bg-rule" />
@@ -148,32 +161,39 @@ function CanonVersePage() {
                 <span className="h-px w-8 bg-rule" />
               </div>
               <p className="mt-3 font-sans text-xs font-medium uppercase tracking-mark text-muted">
-                {verseWorkTitle(verse)}
+                {workTitle(ref.usfm)}
               </p>
               <h1 className="mt-1 font-display text-2xl font-medium tracking-tight text-fg sm:text-4xl">
                 {reference}
               </h1>
             </div>
-            <VerseLink target={next} label="Versículo siguiente" side="next" />
+            <NeighborLink target={next} label="Versículo siguiente" side="next" />
           </nav>
         </header>
 
         <article className="stagger-in relative mt-4 rounded-xl bg-surface px-6 pb-6 pt-4 shadow-card sm:px-10 sm:pb-10 sm:pt-6">
           <p className="font-sans text-xs font-medium uppercase tracking-label text-muted">
-            {verseReadingLabel(verse)}
+            {readingLabel(ref.usfm)}
           </p>
           <p className="mt-2 font-display text-lg italic text-primary sm:text-xl">{reference}</p>
-          <p className="mt-8 font-display text-lg leading-8 text-fg sm:text-xl sm:leading-9">
-            <sup className="mr-1 select-none font-sans text-xs font-medium text-subtle">
-              {verse.verse}
-            </sup>
-            {verse.text}
+          <div className="mt-8 font-display text-lg leading-8 text-fg sm:text-xl sm:leading-9">
+            {verses.map((verse: GospelVerse, i: number) => (
+              <span key={`${verse.chapter}.${verse.number}`}>
+                <sup className="mr-1 select-none font-sans text-xs font-medium text-subtle">
+                  {verse.number}
+                </sup>
+                {verse.text}
+                {i < verses.length - 1 ? " " : ""}
+              </span>
+            ))}
+          </div>
+          <p className="mt-8 font-display text-base italic text-muted">
+            {ref.usfm === "ACT" ? "Palabra de Dios." : "Palabra del Señor."}
           </p>
-          <p className="mt-8 font-display text-base italic text-muted">{verseClosing(verse)}</p>
         </article>
 
         <div className="stagger-in mt-8 flex justify-center gap-3">
-          <ShareButton url={versePath(verse)} />
+          <ShareButton url={`/biblia/${ref.slug}`} />
         </div>
 
         <footer className="stagger-in mt-8 border-t border-border pt-6 text-center font-sans text-xs leading-5 text-subtle">

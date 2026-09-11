@@ -5,22 +5,10 @@ import { Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { ShareButton } from "@/components/share-button";
 import { listQuotes, removeQuote, type QuoteItem } from "@/lib/quotes";
-import { parseUsfmCitation } from "@/lib/gospel/citation";
-import { quoteSharePath } from "@/lib/quote-ref";
+import { displayQuoteReference, quoteSharePath, toUsfmSlug } from "@/lib/quote-ref";
 import { useCurrentUserState } from "@/lib/auth/use-current-user";
 
 export const Route = createFileRoute("/citas/")({ component: Citas });
-
-function verseLinkParams(item: QuoteItem): { book: string; pin: string } {
-  const parsed = parseUsfmCitation(item.reference);
-  const range = parsed?.ranges[0];
-  return {
-    book: parsed?.usfm ?? item.book,
-    pin: range
-      ? `${range.chapter}.${range.start}`
-      : `${item.chapterStart || 1}.${item.verseStart || 1}`,
-  };
-}
 
 function Citas() {
   const { user, isPending } = useCurrentUserState();
@@ -115,8 +103,8 @@ function QuoteRow({ item, onRemoved }: { item: QuoteItem; onRemoved: () => void 
   return (
     <div className="rounded-xl bg-surface p-4 shadow-card">
       <div className="flex items-center gap-2">
-        <p className="min-w-0 flex-1 font-sans text-xs font-medium uppercase tracking-label text-muted">
-          {item.reference}
+        <p className="min-w-0 flex-1 font-sans text-xs font-medium tracking-label text-muted">
+          {displayQuoteReference(item.reference)}
           {item.mode === "selection" ? " · Selección" : ""}
         </p>
         <ShareButton url={sharePath} compact />
@@ -131,7 +119,11 @@ function QuoteRow({ item, onRemoved }: { item: QuoteItem; onRemoved: () => void 
           <Trash2 className="size-4" strokeWidth={1.75} />
         </button>
       </div>
-      <Link to="/citas/$book/$pin" params={verseLinkParams(item)} className="mt-1 block">
+      <Link
+        to="/biblia/$slug"
+        params={{ slug: toUsfmSlug(item.reference) ?? item.reference }}
+        className="mt-1 block"
+      >
         <blockquote className="font-display text-lg leading-8 italic text-fg">
           «{item.body}»
         </blockquote>

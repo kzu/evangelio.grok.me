@@ -105,7 +105,9 @@ export default async function grokPwaMiddleware(
     String(result.headers.get("content-type") ?? "").includes("text/html") &&
     !result.headers.get("content-encoding")
   ) {
-    if (path.startsWith("/citas/") || path.startsWith("/cita/")) return result;
+    if (path.startsWith("/citas/") || path.startsWith("/cita/") || path.startsWith("/biblia/")) {
+      return result;
+    }
     return injectHeadStreaming(result, requestHost(event));
   }
   return result;

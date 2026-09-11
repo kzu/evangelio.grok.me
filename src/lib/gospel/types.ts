@@ -1,6 +1,6 @@
 export type GospelBook = "mt" | "mc" | "lc" | "jn";
 
-/** Books available as public /citas/[libro]/[cap].[ver] pages. */
+/** Gospel books in the daily reading / NT index (internal CitaBook keys). */
 export type CitaBook = GospelBook | "hch";
 
 export type GospelEdition = "adult" | "family";
