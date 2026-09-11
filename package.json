@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "node scripts/with-app-env.mjs vite dev --host 0.0.0.0 --port 8080",
-    "build": "node --experimental-strip-types scripts/pregenerate-citas.mts --skip-upload && node scripts/with-app-env.mjs vite build && npm run db:migrate",
+    "build": "node scripts/with-app-env.mjs vite build && npm run db:migrate",
     "pregenerate:citas": "node --experimental-strip-types scripts/pregenerate-citas.mts",
     "upload:citas": "node --experimental-strip-types scripts/citas-r2.mts",
     "download:biblia": "node --experimental-strip-types scripts/download-biblia.mts",
