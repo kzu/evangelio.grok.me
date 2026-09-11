@@ -1,6 +1,4 @@
 import { createFileRoute, Link, Navigate } from "@tanstack/react-router";
-import { format, parseISO } from "date-fns";
-import { es } from "date-fns/locale";
 import { Heart } from "lucide-react";
 import { useEffect, useState } from "react";
 import { listFavorites, removeFavorite, type FavoriteItem } from "@/lib/favorites";
@@ -87,7 +85,7 @@ function Favoritos() {
 
 function FavoriteRow({ item, onRemoved }: { item: FavoriteItem; onRemoved: () => void }) {
   const [busy, setBusy] = useState(false);
-  const label = format(parseISO(item.date), "EEEE d 'de' MMMM", { locale: es });
+  const label = item.date;
 
   async function unsave() {
     if (busy) return;

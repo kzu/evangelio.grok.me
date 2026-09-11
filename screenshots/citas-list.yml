@@ -1,0 +1,26 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - button "Ver Evangelio familiar" [ref=e5] [cursor=pointer]:
+        - img [ref=e6]
+      - generic [ref=e9]:
+        - button "Reducir texto" [ref=e10] [cursor=pointer]:
+          - generic [ref=e11]: A
+          - generic [ref=e12]: −
+        - button "Aumentar texto" [ref=e14] [cursor=pointer]:
+          - generic [ref=e15]: A
+          - generic [ref=e16]: +
+      - button "Activar modo oscuro" [ref=e17] [cursor=pointer]:
+        - img [ref=e18]
+      - button "Ingresar con Google" [ref=e26] [cursor=pointer]:
+        - img [ref=e27]
+  - main [ref=e30]:
+    - generic [ref=e31]:
+      - img [ref=e32]
+      - heading "Para guardar citas" [level=1] [ref=e35]
+      - paragraph [ref=e36]: Las citas se guardan en tu cuenta. Iniciá sesión con Google para guardar este versículo y verlo después.
+      - button "Iniciar sesión con Google" [ref=e37] [cursor=pointer]:
+        - img [ref=e38]
+        - text: Iniciar sesión con Google
+      - link "Volver al Evangelio" [ref=e41] [cursor=pointer]:
+        - /url: /

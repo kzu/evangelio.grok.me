@@ -1,6 +1,4 @@
 import { Link } from "@tanstack/react-router";
-import { format, parseISO } from "date-fns";
-import { es } from "date-fns/locale";
 import { ChevronLeft, ChevronRight, RotateCcw } from "lucide-react";
 import { MarkCross } from "@/components/mark-cross";
 import { ShareButton } from "@/components/share-button";
@@ -28,16 +26,6 @@ const COLOR_CLASS: Record<LiturgicalColor, string> = {
   black: "bg-lit-black",
   unknown: "bg-primary",
 };
-
-function formatLongDate(iso: string) {
-  try {
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(iso)) return iso;
-    const raw = format(parseISO(iso), "EEEE d 'de' MMMM 'de' yyyy", { locale: es });
-    return raw.charAt(0).toUpperCase() + raw.slice(1);
-  } catch {
-    return iso;
-  }
-}
 
 export function GospelView({
   gospel,
@@ -72,8 +60,8 @@ export function GospelView({
             <p className="mt-3 font-sans text-xs font-medium uppercase tracking-mark text-muted">
               {gospel.edition === "family" ? "Evangelio familiar" : "Evangelio de hoy"}
             </p>
-            <h1 className="mt-1 font-display text-2xl font-medium tracking-tight text-fg sm:text-4xl">
-              {formatLongDate(gospel.date)}
+            <h1 className="mt-1 font-display text-2xl font-medium tracking-tight text-fg tabular-nums sm:text-4xl">
+              <time dateTime={gospel.date}>{gospel.date}</time>
             </h1>
             <div className="mt-1 flex flex-wrap items-center justify-center gap-x-2 gap-y-0 text-sm leading-snug">
               <span className="inline-flex items-center gap-2 text-muted">

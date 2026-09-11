@@ -1,6 +1,4 @@
 import { createFileRoute, Link, Navigate } from "@tanstack/react-router";
-import { format, parseISO } from "date-fns";
-import { es } from "date-fns/locale";
 import { Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { ShareButton } from "@/components/share-button";
@@ -86,7 +84,7 @@ function Citas() {
 
 function QuoteRow({ item, onRemoved }: { item: QuoteItem; onRemoved: () => void }) {
   const [busy, setBusy] = useState(false);
-  const label = format(parseISO(item.date), "d 'de' MMMM yyyy", { locale: es });
+  const label = item.date;
   const sharePath = quoteSharePath(item.reference);
 
   async function unsave() {
