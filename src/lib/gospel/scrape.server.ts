@@ -1,5 +1,8 @@
 import { load, type CheerioAPI } from "cheerio";
-import { BOOK_NAMES, isGospelBook, parseGospelCitation, verseInRanges } from "./citation";
+import { citaBookToUsfm } from "@/lib/biblia/usfm";
+import { loadBibliaBook } from "@/lib/biblia/load.server";
+import { versesFromBook } from "@/lib/biblia/verses";
+import { BOOK_NAMES, isGospelBook, parseGospelCitation } from "./citation";
 import { emptyGospel } from "./empty";
 import type {
   DailyGospel,
@@ -101,7 +104,7 @@ function applyLatinoToCache(date: string, edition: GospelEdition, latino: Latino
 async function loadAdultGospel(date?: string): Promise<DailyGospel> {
   const evangeliUrl = date ? `https://evangeli.net/evangelio/dia/${date}` : EVANGELI_TODAY;
 
-  const html = await fetchText(evangeliUrl, "utf-8");
+  const html = await fetchText(evangeliUrl);
   const $ = load(html);
 
   const isoDate =
@@ -131,26 +134,14 @@ async function loadAdultGospel(date?: string): Promise<DailyGospel> {
   let vaticanUrl: string | null = null;
 
   if (parsed) {
-    const chapters = [...new Set(parsed.ranges.map((r) => r.chapter))];
-    const collected: GospelVerse[] = [];
-    for (const chapter of chapters) {
-      const url = vaticanChapterUrl(parsed.book, chapter);
-      if (!url) continue;
-      vaticanUrl = vaticanUrl ?? url;
-      try {
-        const chapterVerses = await fetchVaticanVerses(url, chapter);
-        collected.push(
-          ...chapterVerses.filter((v) =>
-            verseInRanges(v.chapter, v.number, parsed.ranges),
-          ),
-        );
-      } catch (err) {
-        console.warn("[gospel] Vatican chapter failed", url, err);
+    const usfm = citaBookToUsfm(parsed.book);
+    const bookJson = loadBibliaBook(usfm);
+    if (bookJson) {
+      verses = versesFromBook(bookJson, parsed.ranges);
+      if (verses.length) {
+        source = "vatican";
+        vaticanUrl = vaticanChapterUrl(parsed.book, parsed.ranges[0]?.chapter ?? 1);
       }
-    }
-    if (collected.length) {
-      verses = collected;
-      source = "vatican";
     }
   }
 
@@ -219,7 +210,7 @@ async function loadFamilyGospel(date?: string): Promise<DailyGospel> {
     ? `https://family.evangeli.net/es/dia/${date}`
     : FAMILY_TODAY;
 
-  const html = await fetchText(familyUrl, "utf-8");
+  const html = await fetchText(familyUrl);
   const $ = load(html);
   const raw = $("script#__NEXT_DATA__").text();
   if (!raw) throw new Error("No se pudo leer el Evangelio familiar");
@@ -287,7 +278,7 @@ async function loadFamilyGospel(date?: string): Promise<DailyGospel> {
   };
 }
 
-async function fetchText(url: string, encoding: "utf-8" | "latin1") {
+async function fetchText(url: string) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 12000);
   try {
@@ -299,29 +290,10 @@ async function fetchText(url: string, encoding: "utf-8" | "latin1") {
     if (!res.ok) {
       throw new Error(`No se pudo leer la fuente (${res.status})`);
     }
-    const buf = await res.arrayBuffer();
-    return new TextDecoder(encoding === "latin1" ? "latin1" : "utf-8").decode(buf);
+    return await res.text();
   } finally {
     clearTimeout(timer);
   }
-}
-
-async function fetchVaticanVerses(url: string, chapter: number): Promise<GospelVerse[]> {
-  const html = await fetchText(url, "latin1");
-  const $ = load(html);
-  const verses: GospelVerse[] = [];
-
-  $("p.MsoNormal").each((_, el) => {
-    const raw = collapseWhitespace($(el).text());
-    const match = raw.match(/^(\d+)\s+(.*)$/);
-    if (!match) return;
-    let text = match[2].replace(/^a\s+(?=[A-ZÁÉÍÓÚÑ])/u, "").trim();
-    text = text.replace(/\s+([.,;:!?»”])/g, "$1");
-    if (!text) return;
-    verses.push({ chapter, number: Number(match[1]), text });
-  });
-
-  return verses;
 }
 
 function parseLiturgicalColor(className: string): LiturgicalColor {
