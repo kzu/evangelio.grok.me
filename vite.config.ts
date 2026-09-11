@@ -62,7 +62,7 @@ function pgliteBootstrapPlugin(): Plugin {
  * and returns the 302 / completion HTML. Deployed apps do not use the popup
  * (full-page OAuth redirect), so `apply: "serve"` is enough.
  */
-/** Serve `/citas/Mt.5.3.png` from `public/citas/Mt/5.3.png`. */
+/** Serve `/citas/Mt.5.3.png` from `public/citas/Mt/5.3.png` (liturgical folders). */
 function citaThumbRewritePlugin(): Plugin {
   const rewrite = (req: { url?: string }) => {
     const raw = req.url ?? "";

@@ -179,6 +179,7 @@ const ALIASES: Record<string, string> = {
   john: "JHN",
   act: "ACT",
   hch: "ACT",
+  hcn: "ACT",
   hc: "ACT",
   hechos: "ACT",
   hechosdelosapostoles: "ACT",

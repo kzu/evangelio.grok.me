@@ -156,11 +156,11 @@ export function quotePngPath(reference: string): string {
   return `/citas/${firstVerseSlug(parsed)}.png`;
 }
 
-/** Static file under `public/`: `/citas/MAT/5.3.png` (liturgical Mt → USFM MAT). */
+/** Static file under `public/`: `/citas/Mt/5.3.png` (USFM MAT → liturgical Mt). */
 export function quotePngAssetPath(ref: UsfmRef): string {
   const range = ref.ranges[0];
   if (!range) return "";
-  return `/citas/${ref.usfm}/${range.chapter}.${range.start}.png`;
+  return `/citas/${displayUsfmBook(ref.usfm)}/${range.chapter}.${range.start}.png`;
 }
 
 export function displayQuoteReference(reference: string): string {
