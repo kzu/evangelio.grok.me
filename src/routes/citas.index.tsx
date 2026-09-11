@@ -120,7 +120,7 @@ function QuoteRow({ item, onRemoved }: { item: QuoteItem; onRemoved: () => void 
         </button>
       </div>
       <Link
-        to="/biblia/$slug"
+        to="/citas/$slug"
         params={{ slug: toUsfmSlug(item.reference) ?? item.reference }}
         className="mt-1 block"
       >

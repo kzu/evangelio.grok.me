@@ -75,7 +75,7 @@ export function getAdjacentVerse(current: IndexedVerse, direction: 1 | -1): Inde
 }
 
 export function versePath(verse: IndexedVerse): string {
-  return `/biblia/${verse.book}.${verse.chapter}.${verse.verse}`;
+  return `/citas/${displayUsfmBook(verse.book)}.${verse.chapter}.${verse.verse}`;
 }
 
 export function verseRef(verse: IndexedVerse): string {
@@ -83,7 +83,7 @@ export function verseRef(verse: IndexedVerse): string {
 }
 
 export function verseImagePath(verse: IndexedVerse): string {
-  return `/citas/${verse.book}.${verse.chapter}.${verse.verse}.png`;
+  return `/citas/${displayUsfmBook(verse.book)}.${verse.chapter}.${verse.verse}.png`;
 }
 
 export function verseBookName(verse: IndexedVerse): string {
@@ -107,7 +107,7 @@ export function verseClosing(verse: IndexedVerse): string {
   return verse.book === "ACT" ? "Palabra de Dios." : "Palabra del Señor.";
 }
 
-/** First verse of a canonical slug (`LUK.6.39-42`). */
+/** First verse of a public slug (`Lc.6.39-42` → LUK.json). */
 export function firstIndexedVerse(reference: string): IndexedVerse | null {
   const parsed = parseUsfmSlug(reference);
   const range = parsed?.ranges[0];

@@ -7,7 +7,7 @@ import {
 } from "../../src/lib/quote-ref";
 
 const PNG_PATH = /^\/citas\/([A-Za-z][A-Za-z0-9]*)\.(\d+)\.(\d+)\.png$/i;
-const BIBLIA_PATH = /^\/biblia\/([^/]+)\/?$/;
+const FRAGMENT_PATH = /^\/(?:biblia|citas)\/([^/]+)\/?$/;
 const CRAWLER =
   /bot|crawler|spider|facebookexternalhit|facebot|whatsapp|twitterbot|telegram|slackbot|linkedinbot|discordbot|pinterest|skypeuripreview|applebot|iframely|embedly|preview|vkshare|redditbot|qwantify|nuzzel|bitlybot|x\.com/i;
 
@@ -108,7 +108,7 @@ function fragmentCard(slug: string, origin: string) {
   return {
     title,
     description,
-    url: `${origin}/biblia/${parsed.slug}`,
+    url: `${origin}/citas/${parsed.slug}`,
     image: `${origin}/citas/${firstVerseSlug(parsed)}.png`,
     body: verse.text,
     reference: displayUsfmRef(parsed),
@@ -151,8 +151,8 @@ export default async function quoteOgMiddleware(
   }
 
   const origin = requestOrigin(event);
-  const bibliaMatch = BIBLIA_PATH.exec(pathname);
-  const card = bibliaMatch ? fragmentCard(bibliaMatch[1] ?? "", origin) : null;
+  const fragmentMatch = FRAGMENT_PATH.exec(pathname);
+  const card = fragmentMatch ? fragmentCard(fragmentMatch[1] ?? "", origin) : null;
   if (!card) return next();
 
   if (isCrawler(event)) {

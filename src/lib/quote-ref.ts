@@ -9,22 +9,23 @@ export type UsfmRef = {
 };
 
 /**
- * Canonical public slugs:
- *   MAT.5.3
- *   MAT.5.3-12
- *   LUK.23.44-24.3
+ * Public slugs (Spanish liturgical book + USFM numbers):
+ *   Mt.5.3
+ *   Mt.5.3-12
+ *   Lc.23.44-24.3
+ * Internal `usfm` remains MAT / LUK / … for JSON lookup.
  */
 export function formatUsfmSlug(usfm: string, ranges: VerseRange[]): string {
-  const id = usfm.trim().toUpperCase();
+  const label = displayUsfmBook(usfm);
   const first = ranges[0];
   const last = ranges[ranges.length - 1];
-  if (!first || !last) return id;
+  if (!first || !last) return label;
   const end = last.end;
   if (first.chapter === last.chapter) {
-    if (first.start === end) return `${id}.${first.chapter}.${first.start}`;
-    return `${id}.${first.chapter}.${first.start}-${end}`;
+    if (first.start === end) return `${label}.${first.chapter}.${first.start}`;
+    return `${label}.${first.chapter}.${first.start}-${end}`;
   }
-  return `${id}.${first.chapter}.${first.start}-${last.chapter}.${end}`;
+  return `${label}.${first.chapter}.${first.start}-${last.chapter}.${end}`;
 }
 
 export function displayUsfmRef(ref: UsfmRef): string {
@@ -135,12 +136,14 @@ export function parseQuoteSlug(slug: string): { book: string; chapter: number; v
 export function firstVerseSlug(ref: UsfmRef): string {
   const range = ref.ranges[0];
   if (!range) return ref.slug;
-  return `${ref.usfm}.${range.chapter}.${range.start}`;
+  return formatUsfmSlug(ref.usfm, [
+    { chapter: range.chapter, start: range.start, end: range.start },
+  ]);
 }
 
 export function quoteSharePath(reference: string): string {
   const slug = toUsfmSlug(reference);
-  return slug ? `/biblia/${slug}` : "/citas";
+  return slug ? `/citas/${slug}` : "/citas";
 }
 
 export function quotePngPath(reference: string): string {
