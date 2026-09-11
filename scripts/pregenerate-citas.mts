@@ -36,7 +36,7 @@ for (const book of BOOKS) {
     for (let n = 1; n <= verses.length; n++) {
       const text = verses[n - 1];
       if (!text) continue;
-      const dest = join(PUBLIC, "citas", label, `${chapter}.${n}.png`);
+      const dest = join(PUBLIC, "citas", usfm, `${chapter}.${n}.png`);
       if (existsSync(dest)) {
         skipped += 1;
         continue;

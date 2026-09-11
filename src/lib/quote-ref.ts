@@ -1,9 +1,9 @@
 import { bookToUsfm, citaBookToUsfm, displayUsfmBook, isUsfmId } from "./biblia/usfm.ts";
 import { mapCitaThumbPath } from "./cita-thumb.ts";
-
-export { mapCitaThumbPath };
 import { parseGospelCitation } from "./gospel/citation.ts";
 import type { CitaBook, GospelVerse, VerseRange } from "./gospel/types.ts";
+
+export { mapCitaThumbPath };
 
 export type UsfmRef = {
   usfm: string;
@@ -156,22 +156,11 @@ export function quotePngPath(reference: string): string {
   return `/citas/${firstVerseSlug(parsed)}.png`;
 }
 
-/** Static file under `public/`: `/citas/Mt/5.3.png`. */
+/** Static file under `public/`: `/citas/MAT/5.3.png` (liturgical Mt → USFM MAT). */
 export function quotePngAssetPath(ref: UsfmRef): string {
   const range = ref.ranges[0];
   if (!range) return "";
-  return `/citas/${displayUsfmBook(ref.usfm)}/${range.chapter}.${range.start}.png`;
-}
-
-const THUMB_PNG = /^\/(?:citas|biblia)\/([A-Za-z][A-Za-z0-9]*)\.(\d+)\.(\d+)\.png$/i;
-
-/** Map `/citas/Mt.5.3.png` (or legacy `/biblia/…`) onto `/citas/Mt/5.3.png`. */
-export function mapCitaThumbPath(pathname: string): string | null {
-  const match = THUMB_PNG.exec(pathname);
-  if (!match) return null;
-  const parsed = parseUsfmSlug(`${match[1]}.${match[2]}.${match[3]}`);
-  if (!parsed) return null;
-  return quotePngAssetPath(parsed);
+  return `/citas/${ref.usfm}/${range.chapter}.${range.start}.png`;
 }
 
 export function displayQuoteReference(reference: string): string {

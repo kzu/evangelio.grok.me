@@ -125,40 +125,11 @@ export default async function quoteOgMiddleware(
 
   const pathname = event.url.pathname;
   const mappedThumb = mapCitaThumbPath(pathname);
-  if (mappedThumb) {
-    if (mappedThumb !== pathname) event.url.pathname = mappedThumb;
-    const served = await next();
-    if (
-      served instanceof Response &&
-      served.ok &&
-      String(served.headers.get("content-type") ?? "").includes("image/png")
-    ) {
-      return served;
-    }
-    const pngMatch = PNG_PATH.exec(pathname);
-    const parsed = pngMatch
-      ? parseUsfmSlug(`${pngMatch[1]}.${pngMatch[2]}.${pngMatch[3]}`)
-      : null;
-    const range = parsed?.ranges[0];
-    const verse =
-      parsed && range ? getIndexedVerse(parsed.usfm, `${range.chapter}.${range.start}`) : null;
-    if (!verse) {
-      return served instanceof Response
-        ? served
-        : new Response("Not found", {
-            status: 404,
-            headers: { "Cache-Control": "no-store, max-age=0, must-revalidate" },
-          });
-    }
-    const { quoteOgPng } = await import("../../src/lib/quote-og-png");
-    const png = quoteOgPng({
-      reference: verseRef(verse),
-      body: verse.text,
-      theme: "light",
-    });
-    return new Response(new Uint8Array(png), {
+  if (mappedThumb && mappedThumb !== pathname) {
+    return new Response(null, {
+      status: 301,
       headers: {
-        "Content-Type": "image/png",
+        Location: mappedThumb,
         "Cache-Control": "public, max-age=86400",
       },
     });

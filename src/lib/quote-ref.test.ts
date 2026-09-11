@@ -59,15 +59,15 @@ describe("paths", () => {
     assert.equal(quotePngPath("Mt.5.3-12"), "/citas/Mt.5.3.png");
     const parsed = parseUsfmSlug("LUK.23.44-24.3");
     assert.equal(parsed && firstVerseSlug(parsed), "Lc.23.44");
-    assert.equal(parsed && quotePngAssetPath(parsed), "/citas/Lc/23.44.png");
+    assert.equal(parsed && quotePngAssetPath(parsed), "/citas/LUK/23.44.png");
   });
 
-  it("maps unfurl thumbs onto liturgical folders", () => {
-    assert.equal(mapCitaThumbPath("/citas/Mt.5.3.png"), "/citas/Mt/5.3.png");
-    assert.equal(mapCitaThumbPath("/citas/jn.3.16.png"), "/citas/Jn/3.16.png");
-    assert.equal(mapCitaThumbPath("/citas/Hch.2.1.png"), "/citas/Hch/2.1.png");
-    assert.equal(mapCitaThumbPath("/citas/MAT.5.3.png"), "/citas/Mt/5.3.png");
-    assert.equal(mapCitaThumbPath("/biblia/Mt.5.3.png"), "/citas/Mt/5.3.png");
+  it("maps unfurl thumbs onto USFM folders", () => {
+    assert.equal(mapCitaThumbPath("/citas/Mt.5.3.png"), "/citas/MAT/5.3.png");
+    assert.equal(mapCitaThumbPath("/citas/jn.3.16.png"), "/citas/JHN/3.16.png");
+    assert.equal(mapCitaThumbPath("/citas/Hch.2.1.png"), "/citas/ACT/2.1.png");
+    assert.equal(mapCitaThumbPath("/citas/MAT.5.3.png"), "/citas/MAT/5.3.png");
+    assert.equal(mapCitaThumbPath("/biblia/Mt.5.3.png"), "/citas/MAT/5.3.png");
     assert.equal(mapCitaThumbPath("/citas/Mt/5.3.png"), null);
   });
 });
