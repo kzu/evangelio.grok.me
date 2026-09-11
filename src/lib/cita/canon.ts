@@ -57,7 +57,7 @@ export function canonPath(verse: CanonVerse): string {
 
 export function canonImagePath(verse: CanonVerse): string {
   const usfm = citaBookToUsfm(verse.book);
-  return `/biblia/${displayUsfmBook(usfm)}.${verse.chapter}.${verse.verse}.png`;
+  return `/citas/${displayUsfmBook(usfm)}.${verse.chapter}.${verse.verse}.png`;
 }
 
 export function parseCanonPin(pin: string): { chapter: number; verse: number } | null {

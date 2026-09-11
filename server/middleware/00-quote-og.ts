@@ -3,10 +3,11 @@ import { getIndexedVerse, verseRef } from "../../src/lib/cita/lookup";
 import {
   displayUsfmRef,
   firstVerseSlug,
+  mapCitaThumbPath,
   parseUsfmSlug,
 } from "../../src/lib/quote-ref";
 
-const PNG_PATH = /^\/biblia\/([A-Za-z][A-Za-z0-9]*)\.(\d+)\.(\d+)\.png$/i;
+const PNG_PATH = /^\/(?:citas|biblia)\/([A-Za-z][A-Za-z0-9]*)\.(\d+)\.(\d+)\.png$/i;
 const FRAGMENT_PATH = /^\/biblia\/([^/]+)\/?$/;
 const CRAWLER =
   /bot|crawler|spider|facebookexternalhit|facebot|whatsapp|twitterbot|telegram|slackbot|linkedinbot|discordbot|pinterest|skypeuripreview|applebot|iframely|embedly|preview|vkshare|redditbot|qwantify|nuzzel|bitlybot|x\.com/i;
@@ -109,7 +110,7 @@ function fragmentCard(slug: string, origin: string) {
     title,
     description,
     url: `${origin}/biblia/${parsed.slug}`,
-    image: `${origin}/biblia/${firstVerseSlug(parsed)}.png`,
+    image: `${origin}/citas/${firstVerseSlug(parsed)}.png`,
     body: verse.text,
     reference: displayUsfmRef(parsed),
   };
@@ -123,18 +124,31 @@ export default async function quoteOgMiddleware(
   if (method !== "GET") return next();
 
   const pathname = event.url.pathname;
-  const pngMatch = PNG_PATH.exec(pathname);
-  if (pngMatch) {
-    const parsed = parseUsfmSlug(`${pngMatch[1]}.${pngMatch[2]}.${pngMatch[3]}`);
-    const range = parsed?.ranges[0];
-    const verse = parsed && range
-      ? getIndexedVerse(parsed.usfm, `${range.chapter}.${range.start}`)
+  const mappedThumb = mapCitaThumbPath(pathname);
+  if (mappedThumb) {
+    if (mappedThumb !== pathname) event.url.pathname = mappedThumb;
+    const served = await next();
+    if (
+      served instanceof Response &&
+      served.ok &&
+      String(served.headers.get("content-type") ?? "").includes("image/png")
+    ) {
+      return served;
+    }
+    const pngMatch = PNG_PATH.exec(pathname);
+    const parsed = pngMatch
+      ? parseUsfmSlug(`${pngMatch[1]}.${pngMatch[2]}.${pngMatch[3]}`)
       : null;
+    const range = parsed?.ranges[0];
+    const verse =
+      parsed && range ? getIndexedVerse(parsed.usfm, `${range.chapter}.${range.start}`) : null;
     if (!verse) {
-      return new Response("Not found", {
-        status: 404,
-        headers: { "Cache-Control": "no-store, max-age=0, must-revalidate" },
-      });
+      return served instanceof Response
+        ? served
+        : new Response("Not found", {
+            status: 404,
+            headers: { "Cache-Control": "no-store, max-age=0, must-revalidate" },
+          });
     }
     const { quoteOgPng } = await import("../../src/lib/quote-og-png");
     const png = quoteOgPng({

@@ -83,7 +83,7 @@ export function verseRef(verse: IndexedVerse): string {
 }
 
 export function verseImagePath(verse: IndexedVerse): string {
-  return `/biblia/${displayUsfmBook(verse.book)}.${verse.chapter}.${verse.verse}.png`;
+  return `/citas/${displayUsfmBook(verse.book)}.${verse.chapter}.${verse.verse}.png`;
 }
 
 export function verseBookName(verse: IndexedVerse): string {
@@ -118,5 +118,5 @@ export function firstIndexedVerse(reference: string): IndexedVerse | null {
 export function fragmentThumbPath(reference: string): string {
   const parsed = parseUsfmSlug(reference);
   if (!parsed) return "";
-  return `/biblia/${firstVerseSlug(parsed)}.png`;
+  return `/citas/${firstVerseSlug(parsed)}.png`;
 }

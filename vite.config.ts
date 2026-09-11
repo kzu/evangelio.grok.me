@@ -11,6 +11,7 @@ import { grokPwaPlugin } from "./scripts/grok-pwa-plugin.mjs";
 // @ts-expect-error JS plugin alongside the TS vite config
 import { appEnvPlugin } from "./scripts/app-env-plugin.mjs";
 import { isMigrationFile } from "./scripts/migration-plan.mjs";
+import { mapCitaThumbPath } from "./src/lib/cita-thumb.ts";
 
 /** The files `src/lib/db.ts` globs — same directory, same non-recursive scope. */
 function hasGlobbedMigrations(root: string): boolean {
@@ -61,6 +62,33 @@ function pgliteBootstrapPlugin(): Plugin {
  * and returns the 302 / completion HTML. Deployed apps do not use the popup
  * (full-page OAuth redirect), so `apply: "serve"` is enough.
  */
+/** Serve `/citas/Mt.5.3.png` from `public/citas/Mt/5.3.png`. */
+function citaThumbRewritePlugin(): Plugin {
+  const rewrite = (req: { url?: string }) => {
+    const raw = req.url ?? "";
+    const pathOnly = raw.split("?", 1)[0] ?? "";
+    const mapped = mapCitaThumbPath(pathOnly);
+    if (mapped && mapped !== pathOnly) {
+      req.url = mapped + raw.slice(pathOnly.length);
+    }
+  };
+  return {
+    name: "cita-thumb-rewrite",
+    configureServer(server) {
+      server.middlewares.use((req, _res, next) => {
+        rewrite(req);
+        next();
+      });
+    },
+    configurePreviewServer(server) {
+      server.middlewares.use((req, _res, next) => {
+        rewrite(req);
+        next();
+      });
+    },
+  };
+}
+
 function authPopupPlugin(): Plugin {
   return {
     name: "app-builder:auth-popup",
@@ -159,6 +187,7 @@ export default defineConfig(({ command, isPreview }) => ({
   resolve: { tsconfigPaths: true },
   plugins: [
     pgliteBootstrapPlugin(),
+    citaThumbRewritePlugin(),
     // Before tanstackStart so /auth/popup never falls through to the SPA.
     authPopupPlugin(),
     // Dev-only /__app-env, read by scripts/check-auth-invariant.mjs.

@@ -1,6 +1,6 @@
 /**
- * Pregenerate light-mode OG thumbnails at /citas/USFM/chapter.verse.png
- * Usage: node --experimental-strip-types scripts/pregenerate-citas.mts [ACT|MAT|...]
+ * Pregenerate light-mode OG thumbnails at /citas/Mt/chapter.verse.png
+ * Usage: node --experimental-strip-types scripts/pregenerate-citas.mts [Mt|Jn|…]
  * Skips files that already exist.
  */
 import { existsSync, mkdirSync, writeFileSync } from "node:fs";
@@ -13,11 +13,16 @@ import type { CitaBook } from "../src/lib/gospel/types.ts";
 
 const ROOT = join(fileURLToPath(new URL(".", import.meta.url)), "..");
 const PUBLIC = join(ROOT, "public");
-const requested = process.argv.slice(2).map((value) => value.toUpperCase());
+const requested = process.argv.slice(2).map((value) => value.toLowerCase());
 const BOOKS = (Object.keys(NT_GOSPELS) as CitaBook[]).filter((book) => {
   if (!requested.length) return true;
   const usfm = citaBookToUsfm(book);
-  return requested.includes(usfm) || requested.includes(book.toUpperCase());
+  const label = displayUsfmBook(usfm).toLowerCase();
+  return (
+    requested.includes(usfm.toLowerCase()) ||
+    requested.includes(book.toLowerCase()) ||
+    requested.includes(label)
+  );
 });
 
 let wrote = 0;
@@ -31,7 +36,7 @@ for (const book of BOOKS) {
     for (let n = 1; n <= verses.length; n++) {
       const text = verses[n - 1];
       if (!text) continue;
-      const dest = join(PUBLIC, "citas", usfm, `${chapter}.${n}.png`);
+      const dest = join(PUBLIC, "citas", label, `${chapter}.${n}.png`);
       if (existsSync(dest)) {
         skipped += 1;
         continue;

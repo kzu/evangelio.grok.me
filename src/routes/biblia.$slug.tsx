@@ -26,7 +26,7 @@ export const Route = createFileRoute("/biblia/$slug")({
     const title = `${displayUsfmRef(data.ref)} · Evangelio de Hoy`;
     const first = data.verses[0]!;
     const description = `«${first.text}»`;
-    const image = `/biblia/${firstVerseSlug(data.ref)}.png`;
+    const image = `/citas/${firstVerseSlug(data.ref)}.png`;
     return {
       meta: [
         { title },
