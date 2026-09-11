@@ -273,3 +273,11 @@ export function bookToUsfm(raw: string): string | null {
 export function citaBookToUsfm(book: CitaBook): string {
   return CITA_TO_USFM[book];
 }
+
+const USFM_TO_CITA = Object.fromEntries(
+  Object.entries(CITA_TO_USFM).map(([cita, usfm]) => [usfm, cita]),
+) as Record<string, CitaBook>;
+
+export function usfmToCitaBook(usfm: string): CitaBook | null {
+  return USFM_TO_CITA[usfm.trim().toUpperCase()] ?? null;
+}

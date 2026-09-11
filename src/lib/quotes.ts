@@ -1,7 +1,8 @@
 import { createServerFn } from "@tanstack/react-start";
 import { authMiddleware } from "@/lib/auth/middleware";
 import type { GospelEdition } from "@/lib/gospel/types";
-import { quoteSlug } from "@/lib/quote-ref";
+import { bookToUsfm } from "@/lib/biblia/usfm";
+import { quoteSlug, toUsfmReference } from "@/lib/quote-ref";
 
 export type QuoteMode = "verse" | "selection";
 
@@ -119,12 +120,15 @@ export const addQuote = createServerFn({ method: "POST" })
   }))
   .handler(async ({ context, data }): Promise<{ created: boolean }> => {
     if (!data.body || !data.reference) return { created: false };
-    const slug = quoteSlug(data.reference);
+    const reference = toUsfmReference(data.reference);
+    const book = bookToUsfm(data.book) || bookToUsfm(reference.split(/\s+/)[0] ?? "") || data.book;
+    const slug = quoteSlug(reference);
     const { getSql } = await import("@/lib/db");
     const sql = await getSql();
     const existing = await sql<{ id: number }>`
       select id from quotes
-      where user_id = ${context.userId} and reference = ${data.reference}
+      where user_id = ${context.userId}
+        and (reference = ${reference} or reference = ${data.reference})
       limit 1
     `;
     if (existing.length) return { created: false };
@@ -133,8 +137,8 @@ export const addQuote = createServerFn({ method: "POST" })
       userId: context.userId,
       date: data.date,
       edition: data.edition,
-      book: data.book,
-      reference: data.reference,
+      book,
+      reference,
       mode: data.mode,
       body: data.body,
       verseStart: data.verseStart,

@@ -22,6 +22,11 @@ describe("bookToUsfm", () => {
     assert.equal(citaBookToUsfm("hch"), "ACT");
     assert.equal(bookToUsfm("mt"), "MAT");
   });
+
+  it("round-trips USFM liturgical codes", () => {
+    assert.equal(bookToUsfm("Lc"), "LUK");
+    assert.equal(bookToUsfm("LUK"), "LUK");
+  });
 });
 
 describe("versesFromBook", () => {

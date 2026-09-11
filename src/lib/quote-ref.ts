@@ -1,5 +1,6 @@
-import { parseGospelCitation } from "@/lib/gospel/citation";
-import type { CitaBook } from "@/lib/gospel/types";
+import { bookToUsfm, citaBookToUsfm } from "./biblia/usfm.ts";
+import { normalizeBook, parseGospelCitation } from "./gospel/citation.ts";
+import type { CitaBook } from "./gospel/types.ts";
 
 /** URL slug for a gospel citation, e.g. "Lc 6, 27–38" → "lc-6-27-38". */
 export function quoteSlug(reference: string): string {
@@ -16,15 +17,30 @@ export function parseQuoteSlug(
 ): { book: CitaBook; chapter: number; verse: number } | null {
   const match = String(slug ?? "")
     .toLowerCase()
-    .match(/^(mt|mc|lc|jn|hch)-(\d+)-(\d+)/);
+    .match(/^([a-z0-9]+)-(\d+)-(\d+)/);
   if (!match) return null;
-  const book = match[1] as CitaBook;
+  const book = normalizeBook(match[1] ?? "");
   const chapter = Number(match[2]);
   const verse = Number(match[3]);
-  if (!Number.isInteger(chapter) || !Number.isInteger(verse) || chapter < 1 || verse < 1) {
+  if (!book || !Number.isInteger(chapter) || !Number.isInteger(verse) || chapter < 1 || verse < 1) {
     return null;
   }
   return { book, chapter, verse };
+}
+
+/** `Lc 6, 39–42` → `LUK 6, 39–42`. Idempotent if already USFM. */
+export function toUsfmReference(reference: string): string {
+  const raw = String(reference ?? "").trim();
+  if (!raw) return raw;
+  const parsed = parseGospelCitation(raw);
+  if (parsed) {
+    const rest = parsed.display.replace(/^\S+\s+/, "");
+    return rest ? `${citaBookToUsfm(parsed.book)} ${rest}` : citaBookToUsfm(parsed.book);
+  }
+  const parts = raw.match(/^(\S+)\s+(.+)$/);
+  if (!parts) return bookToUsfm(raw) ?? raw;
+  const usfm = bookToUsfm(parts[1] ?? "");
+  return usfm ? `${usfm} ${parts[2]}` : raw;
 }
 
 /** Public URL for a verse: /citas/lc/6.35 */
