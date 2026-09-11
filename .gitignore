@@ -5,4 +5,5 @@ node_modules/
 .env.*
 /public/citas/
 .vercel/output/
+.playwright-cli
 
