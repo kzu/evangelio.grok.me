@@ -52,9 +52,9 @@ describe("displayQuoteReference", () => {
 });
 
 describe("paths", () => {
-  it("points fragments at /citas/Mt.5.3-12 and thumbs at /citas/Mt.5.3.png", () => {
-    assert.equal(quoteSharePath("Lc 6, 39–42"), "/citas/Lc.6.39-42");
-    assert.equal(quotePngPath("Mt.5.3-12"), "/citas/Mt.5.3.png");
+  it("points fragments at /biblia/Mt.5.3-12 and thumbs at /biblia/Mt.5.3.png", () => {
+    assert.equal(quoteSharePath("Lc 6, 39–42"), "/biblia/Lc.6.39-42");
+    assert.equal(quotePngPath("Mt.5.3-12"), "/biblia/Mt.5.3.png");
     const parsed = parseUsfmSlug("LUK.23.44-24.3");
     assert.equal(parsed && firstVerseSlug(parsed), "Lc.23.44");
   });

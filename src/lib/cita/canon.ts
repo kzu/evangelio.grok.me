@@ -52,12 +52,12 @@ export function canonReference(verse: CanonVerse): string {
 
 export function canonPath(verse: CanonVerse): string {
   const usfm = citaBookToUsfm(verse.book);
-  return `/citas/${displayUsfmBook(usfm)}.${verse.chapter}.${verse.verse}`;
+  return `/biblia/${displayUsfmBook(usfm)}.${verse.chapter}.${verse.verse}`;
 }
 
 export function canonImagePath(verse: CanonVerse): string {
   const usfm = citaBookToUsfm(verse.book);
-  return `/citas/${displayUsfmBook(usfm)}.${verse.chapter}.${verse.verse}.png`;
+  return `/biblia/${displayUsfmBook(usfm)}.${verse.chapter}.${verse.verse}.png`;
 }
 
 export function parseCanonPin(pin: string): { chapter: number; verse: number } | null {

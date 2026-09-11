@@ -1,7 +1,8 @@
 "use client";
 
 import { Baby, Moon, Sun } from "lucide-react";
-import { useNavigate, useSearch } from "@tanstack/react-router";
+import { useNavigate, useParams, useSearch } from "@tanstack/react-router";
+import { isIsoDate, todayISO } from "@/lib/gospel/today";
 import { useLayoutEffect, useState, type ReactNode } from "react";
 import { PwaInstallHeaderButton } from "@/components/pwa-install-prompt";
 import { AuthSlot } from "@/components/auth-slot";
@@ -61,7 +62,9 @@ function applyScaleToDom(scale: number) {
 
 export function CommandBar() {
   const navigate = useNavigate();
-  const search = useSearch({ strict: false }) as { fecha?: string; familia?: boolean };
+  const search = useSearch({ strict: false }) as { familia?: boolean };
+  const params = useParams({ strict: false }) as { date?: string };
+  const gospelDate = isIsoDate(params.date ?? "") ? params.date! : todayISO();
   const [theme, setTheme] = useState<"light" | "dark">("light");
   const [scale, setScale] = useState(1);
   const [family, setFamily] = useState(() => Boolean(search.familia));
@@ -77,8 +80,9 @@ export function CommandBar() {
     setFamily(nextFamily);
     if (nextFamily && !search.familia) {
       void navigate({
-        to: "/",
-        search: { fecha: search.fecha, familia: true },
+        to: "/e/$date",
+        params: { date: gospelDate },
+        search: { familia: true },
         replace: true,
       });
     }
@@ -100,8 +104,9 @@ export function CommandBar() {
     localStorage.setItem(FAMILY_KEY, next ? "family" : "adult");
     setFamily(next);
     void navigate({
-      to: "/",
-      search: { fecha: search.fecha, familia: next ? true : undefined },
+      to: "/e/$date",
+      params: { date: gospelDate },
+      search: { familia: next ? true : undefined },
       replace: true,
     });
   }

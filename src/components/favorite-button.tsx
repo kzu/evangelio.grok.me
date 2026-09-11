@@ -24,7 +24,7 @@ export function FavoriteButton({
   liturgicalDay: string;
 }) {
   const { user, isPending } = useCurrentUserState();
-  const search = useSearch({ from: "/", shouldThrow: false }) as
+  const search = useSearch({ from: "/e/$date", shouldThrow: false }) as
     | { favorito?: boolean }
     | undefined;
   const navigate = useNavigate();
@@ -58,9 +58,10 @@ export function FavoriteButton({
         if (cancelled) return;
         setSaved(true);
         void navigate({
-          to: "/",
+          to: "/e/$date",
+          params: { date },
           search: (prev) => {
-            const next = { ...prev } as { fecha?: string; familia?: boolean; favorito?: boolean };
+            const next = { ...prev } as { familia?: boolean; favorito?: boolean };
             delete next.favorito;
             return next;
           },

@@ -6,7 +6,7 @@ import { GospelView } from "@/components/gospel-view";
 import { adaptDailyGospel } from "@/lib/gospel/get-daily";
 import type { DailyGospel } from "@/lib/gospel/types";
 
-const homeRoute = getRouteApi("/");
+const homeRoute = getRouteApi("/e/$date");
 
 export default function HomePage() {
   const gospel = homeRoute.useLoaderData();

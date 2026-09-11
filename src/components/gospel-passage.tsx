@@ -52,12 +52,18 @@ type FloatState = {
   payloadSelection: QuoteInput;
 };
 
-function PendingQuoteFlush({ onSaved }: { onSaved: (created: boolean) => void }) {
+function PendingQuoteFlush({
+  date,
+  onSaved,
+}: {
+  date: string;
+  onSaved: (created: boolean) => void;
+}) {
   const { user } = useCurrentUserState();
   const navigate = useNavigate();
   const onSavedRef = useRef(onSaved);
   onSavedRef.current = onSaved;
-  const search = useSearch({ from: "/", shouldThrow: false }) as
+  const search = useSearch({ from: "/e/$date", shouldThrow: false }) as
     | { cita?: boolean }
     | undefined;
 
@@ -66,9 +72,10 @@ function PendingQuoteFlush({ onSaved }: { onSaved: (created: boolean) => void })
     const pending = readPendingQuote();
     if (!pending) {
       void navigate({
-        to: "/",
+        to: "/e/$date",
+        params: { date },
         search: (prev) => {
-          const next = { ...prev } as { fecha?: string; familia?: boolean; cita?: boolean };
+          const next = { ...prev } as { familia?: boolean; cita?: boolean };
           delete next.cita;
           return next;
         },
@@ -88,9 +95,10 @@ function PendingQuoteFlush({ onSaved }: { onSaved: (created: boolean) => void })
       })
       .finally(() => {
         void navigate({
-          to: "/",
+          to: "/e/$date",
+          params: { date: pending.date || date },
           search: (prev) => {
-            const next = { ...prev } as { fecha?: string; familia?: boolean; cita?: boolean };
+            const next = { ...prev } as { familia?: boolean; cita?: boolean };
             delete next.cita;
             return next;
           },
@@ -100,7 +108,7 @@ function PendingQuoteFlush({ onSaved }: { onSaved: (created: boolean) => void })
     return () => {
       cancelled = true;
     };
-  }, [user, search?.cita, navigate]);
+  }, [user, search?.cita, navigate, date]);
 
   return null;
 }
@@ -306,6 +314,7 @@ export function GospelPassage({
     <>
       <Suspense fallback={null}>
         <PendingQuoteFlush
+          date={date}
           onSaved={(created) => {
             setSavedFlash(created ? "Cita guardada" : "Ya estaba guardada");
             window.setTimeout(() => setSavedFlash(null), 1600);

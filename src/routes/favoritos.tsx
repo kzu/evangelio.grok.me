@@ -103,8 +103,9 @@ function FavoriteRow({ item, onRemoved }: { item: FavoriteItem; onRemoved: () =>
   return (
     <div className="flex items-stretch gap-2 rounded-xl bg-surface p-4 shadow-card">
       <Link
-        to="/"
-        search={{ fecha: item.date, ...(item.edition === "family" ? { familia: true } : {}) }}
+        to="/e/$date"
+        params={{ date: item.date }}
+        search={{ ...(item.edition === "family" ? { familia: true } : {}) }}
         className="min-w-0 flex-1"
       >
         <p className="font-sans text-xs font-medium uppercase tracking-label text-muted">

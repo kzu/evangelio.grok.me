@@ -16,7 +16,7 @@ import { Route as IngresarRouteImport } from './routes/ingresar'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as BibliaSlugRouteImport } from './routes/biblia.$slug'
 import { Route as CitasIndexRouteImport } from './routes/citas.index'
-import { Route as CitasSlugRouteImport } from './routes/citas.$slug'
+import { Route as EDateRouteImport } from './routes/e.$date'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
 const IndexRoute = IndexRouteImport.update({
@@ -54,10 +54,10 @@ const CitasIndexRoute = CitasIndexRouteImport.update({
   path: '/',
   getParentRoute: () => CitasRoute,
 } as any)
-const CitasSlugRoute = CitasSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => CitasRoute,
+const EDateRoute = EDateRouteImport.update({
+  id: '/e/$date',
+  path: '/e/$date',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
@@ -72,7 +72,7 @@ export interface FileRoutesByFullPath {
   '/ingresar': typeof IngresarRoute
   '/login': typeof LoginRoute
   '/biblia/$slug': typeof BibliaSlugRoute
-  '/citas/$slug': typeof CitasSlugRoute
+  '/e/$date': typeof EDateRoute
   '/citas/': typeof CitasIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
@@ -82,7 +82,7 @@ export interface FileRoutesByTo {
   '/ingresar': typeof IngresarRoute
   '/login': typeof LoginRoute
   '/biblia/$slug': typeof BibliaSlugRoute
-  '/citas/$slug': typeof CitasSlugRoute
+  '/e/$date': typeof EDateRoute
   '/citas': typeof CitasIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
@@ -94,7 +94,7 @@ export interface FileRoutesById {
   '/ingresar': typeof IngresarRoute
   '/login': typeof LoginRoute
   '/biblia/$slug': typeof BibliaSlugRoute
-  '/citas/$slug': typeof CitasSlugRoute
+  '/e/$date': typeof EDateRoute
   '/citas/': typeof CitasIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
@@ -107,7 +107,7 @@ export interface FileRouteTypes {
     | '/ingresar'
     | '/login'
     | '/biblia/$slug'
-    | '/citas/$slug'
+    | '/e/$date'
     | '/citas/'
     | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
@@ -117,7 +117,7 @@ export interface FileRouteTypes {
     | '/ingresar'
     | '/login'
     | '/biblia/$slug'
-    | '/citas/$slug'
+    | '/e/$date'
     | '/citas'
     | '/api/auth/$'
   id:
@@ -128,7 +128,7 @@ export interface FileRouteTypes {
     | '/ingresar'
     | '/login'
     | '/biblia/$slug'
-    | '/citas/$slug'
+    | '/e/$date'
     | '/citas/'
     | '/api/auth/$'
   fileRoutesById: FileRoutesById
@@ -140,6 +140,7 @@ export interface RootRouteChildren {
   IngresarRoute: typeof IngresarRoute
   LoginRoute: typeof LoginRoute
   BibliaSlugRoute: typeof BibliaSlugRoute
+  EDateRoute: typeof EDateRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
@@ -194,12 +195,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CitasIndexRouteImport
       parentRoute: typeof CitasRoute
     }
-    '/citas/$slug': {
-      id: '/citas/$slug'
-      path: '/$slug'
-      fullPath: '/citas/$slug'
-      preLoaderRoute: typeof CitasSlugRouteImport
-      parentRoute: typeof CitasRoute
+    '/e/$date': {
+      id: '/e/$date'
+      path: '/e/$date'
+      fullPath: '/e/$date'
+      preLoaderRoute: typeof EDateRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/api/auth/$': {
       id: '/api/auth/$'
@@ -212,12 +213,10 @@ declare module '@tanstack/react-router' {
 }
 
 interface CitasRouteChildren {
-  CitasSlugRoute: typeof CitasSlugRoute
   CitasIndexRoute: typeof CitasIndexRoute
 }
 
 const CitasRouteChildren: CitasRouteChildren = {
-  CitasSlugRoute: CitasSlugRoute,
   CitasIndexRoute: CitasIndexRoute,
 }
 
@@ -230,6 +229,7 @@ const rootRouteChildren: RootRouteChildren = {
   IngresarRoute: IngresarRoute,
   LoginRoute: LoginRoute,
   BibliaSlugRoute: BibliaSlugRoute,
+  EDateRoute: EDateRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport

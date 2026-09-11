@@ -6,6 +6,7 @@ import { MarkCross } from "@/components/mark-cross";
 import { ShareButton } from "@/components/share-button";
 import { FavoriteButton } from "@/components/favorite-button";
 import { GospelPassage } from "@/components/gospel-passage";
+import { todayISO } from "@/lib/gospel/today";
 import type { DailyGospel, LiturgicalColor } from "@/lib/gospel/types";
 import { cn } from "@/lib/utils";
 const COLOR_LABEL: Record<LiturgicalColor, string> = {
@@ -36,12 +37,6 @@ function formatLongDate(iso: string) {
   } catch {
     return iso;
   }
-}
-
-function todayISO() {
-  return new Intl.DateTimeFormat("en-CA", {
-    timeZone: "America/Argentina/Buenos_Aires",
-  }).format(new Date());
 }
 
 export function GospelView({
@@ -93,10 +88,10 @@ export function GospelView({
               </span>
               {isToday ? null : (
                 <Link
-                  to="/"
+                  to="/e/$date"
+                  params={{ date: todayISO() }}
                   search={(prev) => {
-                    const next = { ...prev, fecha: undefined } as {
-                      fecha?: string;
+                    const next = { ...prev } as {
                       familia?: boolean;
                       favorito?: boolean;
                       cita?: boolean;
@@ -327,10 +322,10 @@ function DayLink({
 
   return (
     <Link
-      to="/"
+      to="/e/$date"
+      params={{ date }}
       search={(prev) => {
-        const next = { ...prev, fecha: date } as {
-          fecha?: string;
+        const next = { ...prev } as {
           familia?: boolean;
           favorito?: boolean;
           cita?: boolean;

@@ -143,13 +143,13 @@ export function firstVerseSlug(ref: UsfmRef): string {
 
 export function quoteSharePath(reference: string): string {
   const slug = toUsfmSlug(reference);
-  return slug ? `/citas/${slug}` : "/citas";
+  return slug ? `/biblia/${slug}` : "/citas";
 }
 
 export function quotePngPath(reference: string): string {
   const parsed = parseUsfmSlug(toUsfmSlug(reference) ?? "");
   if (!parsed) return "";
-  return `/citas/${firstVerseSlug(parsed)}.png`;
+  return `/biblia/${firstVerseSlug(parsed)}.png`;
 }
 
 export function displayQuoteReference(reference: string): string {

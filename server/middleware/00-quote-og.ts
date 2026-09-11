@@ -6,8 +6,8 @@ import {
   parseUsfmSlug,
 } from "../../src/lib/quote-ref";
 
-const PNG_PATH = /^\/citas\/([A-Za-z][A-Za-z0-9]*)\.(\d+)\.(\d+)\.png$/i;
-const FRAGMENT_PATH = /^\/(?:biblia|citas)\/([^/]+)\/?$/;
+const PNG_PATH = /^\/biblia\/([A-Za-z][A-Za-z0-9]*)\.(\d+)\.(\d+)\.png$/i;
+const FRAGMENT_PATH = /^\/biblia\/([^/]+)\/?$/;
 const CRAWLER =
   /bot|crawler|spider|facebookexternalhit|facebot|whatsapp|twitterbot|telegram|slackbot|linkedinbot|discordbot|pinterest|skypeuripreview|applebot|iframely|embedly|preview|vkshare|redditbot|qwantify|nuzzel|bitlybot|x\.com/i;
 
@@ -108,8 +108,8 @@ function fragmentCard(slug: string, origin: string) {
   return {
     title,
     description,
-    url: `${origin}/citas/${parsed.slug}`,
-    image: `${origin}/citas/${firstVerseSlug(parsed)}.png`,
+    url: `${origin}/biblia/${parsed.slug}`,
+    image: `${origin}/biblia/${firstVerseSlug(parsed)}.png`,
     body: verse.text,
     reference: displayUsfmRef(parsed),
   };
