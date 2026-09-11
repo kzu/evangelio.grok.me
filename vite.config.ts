@@ -230,9 +230,11 @@ export default defineConfig(({ command, isPreview }) => ({
             // PGLite is preview-only. Inlining it (plus its WASM) blew the
             // serverless file past Grok's upload cap. Bible JSON lives on the
             // CDN (`public/biblia` is gitignored and stripped after emit).
-            traceDeps: ["!@electric-sql/pglite", "!undici"],
+            // Do not externalize `undici`: Nitro emits `import "undici"` and
+            // Vercel then crashes with FUNCTION_INVOCATION_FAILED.
+            traceDeps: ["!@electric-sql/pglite"],
             rollupConfig: {
-              external: ["@electric-sql/pglite", "undici"],
+              external: ["@electric-sql/pglite"],
             },
           }),
         ]
