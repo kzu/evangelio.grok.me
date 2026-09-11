@@ -1,3 +1,4 @@
+import { citaBookToUsfm, isUsfmId } from "../biblia/usfm.ts";
 import type { CitaBook, GospelBook, GospelVerse, VerseRange } from "./types";
 
 const BOOK_ALIASES: Record<string, CitaBook> = {
@@ -68,6 +69,7 @@ export function normalizeBook(raw: string): CitaBook | null {
  */
 export function parseGospelCitation(raw: string): {
   book: CitaBook;
+  usfm: string;
   ranges: VerseRange[];
   display: string;
 } | null {
@@ -80,7 +82,10 @@ export function parseGospelCitation(raw: string): {
   if (!match) return null;
   const book = normalizeBook(match[1] ?? "");
   if (!book) return null;
-  const rest = (match[2] ?? "").replace(/\s+/g, "").replace(/[:;]+$/g, "");
+  const rest = (match[2] ?? "")
+    .replace(/\s+/g, "")
+    .replace(/[–—−]/g, "-")
+    .replace(/[:;]+$/g, "");
   const ranges: VerseRange[] = [];
   let currentChapter: number | null = null;
 
@@ -136,8 +141,18 @@ export function parseGospelCitation(raw: string): {
 
   if (!ranges.length) return null;
 
-  const display = `${BOOK_ABBREV[book]} ${rest.replace(/,/g, ", ").replace(/-/g, "–")}`;
-  return { book, ranges, display };
+  const usfm = citaBookToUsfm(book);
+  const display = `${usfm} ${rest.replace(/,/g, ", ").replace(/-/g, "–")}`;
+  return { book, usfm, ranges, display };
+}
+
+/** Strict USFM only (`LUK 6, 39–42`). Rejects liturgical `Lc 6, 39–42`. */
+export function parseUsfmCitation(raw: string) {
+  const token = String(raw ?? "")
+    .trim()
+    .split(/\s+/)[0];
+  if (!token || !isUsfmId(token)) return null;
+  return parseGospelCitation(raw);
 }
 
 export function verseInRanges(
@@ -185,7 +200,7 @@ export function formatVerseReference(
     if (last && last.chapter === verse.chapter) last.nums.push(verse.number);
     else groups.push({ chapter: verse.chapter, nums: [verse.number] });
   }
-  const abbr = BOOK_ABBREV[book];
+  const abbr = citaBookToUsfm(book);
   if (groups.length === 1) {
     const group = groups[0]!;
     return `${abbr} ${group.chapter}, ${collapseNumbers(group.nums)}`;

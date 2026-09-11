@@ -5,17 +5,17 @@ import { Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { ShareButton } from "@/components/share-button";
 import { listQuotes, removeQuote, type QuoteItem } from "@/lib/quotes";
-import { parseGospelCitation } from "@/lib/gospel/citation";
+import { parseUsfmCitation } from "@/lib/gospel/citation";
 import { quoteSharePath } from "@/lib/quote-ref";
 import { useCurrentUserState } from "@/lib/auth/use-current-user";
 
 export const Route = createFileRoute("/citas/")({ component: Citas });
 
 function verseLinkParams(item: QuoteItem): { book: string; pin: string } {
-  const parsed = parseGospelCitation(item.reference);
+  const parsed = parseUsfmCitation(item.reference);
   const range = parsed?.ranges[0];
   return {
-    book: parsed?.book ?? item.book ?? "mt",
+    book: parsed?.usfm ?? item.book,
     pin: range
       ? `${range.chapter}.${range.start}`
       : `${item.chapterStart || 1}.${item.verseStart || 1}`,

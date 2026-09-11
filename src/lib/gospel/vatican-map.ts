@@ -1,3 +1,4 @@
+import { usfmToCitaBook } from "@/lib/biblia/usfm";
 import type { CitaBook, GospelBook } from "./types";
 
 /** IntraText chapter codes for El Libro del Pueblo de Dios (Vatican ESL0506). */
@@ -17,8 +18,10 @@ const CHAPTER_CODES: Record<CitaBook, string[]> = {
   ),
 };
 
-export function vaticanChapterUrl(book: CitaBook | GospelBook, chapter: number): string | null {
-  const code = CHAPTER_CODES[book][chapter - 1];
+export function vaticanChapterUrl(book: CitaBook | GospelBook | string, chapter: number): string | null {
+  const cita = (book in CHAPTER_CODES ? book : usfmToCitaBook(String(book))) as CitaBook | null;
+  if (!cita) return null;
+  const code = CHAPTER_CODES[cita][chapter - 1];
   if (!code) return null;
   return `https://www.vatican.va/archive/ESL0506/__${code}.HTM`;
 }

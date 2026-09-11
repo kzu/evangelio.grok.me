@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { bookToUsfm, citaBookToUsfm } from "./usfm.ts";
+import { bookToUsfm, citaBookToUsfm, isUsfmId } from "./usfm.ts";
 import { versesFromBook } from "./verses.ts";
 
 describe("bookToUsfm", () => {
@@ -26,6 +26,10 @@ describe("bookToUsfm", () => {
   it("round-trips USFM liturgical codes", () => {
     assert.equal(bookToUsfm("Lc"), "LUK");
     assert.equal(bookToUsfm("LUK"), "LUK");
+    assert.equal(isUsfmId("LUK"), true);
+    assert.equal(isUsfmId("luk"), true);
+    assert.equal(isUsfmId("Lc"), false);
+    assert.equal(isUsfmId("mt"), false);
   });
 });
 

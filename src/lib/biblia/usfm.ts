@@ -270,6 +270,12 @@ export function bookToUsfm(raw: string): string | null {
   return ALIASES[key] ?? null;
 }
 
+/** True only for a canonical USFM id (`LUK`, `1CO`), not `Lc` / `mt`. */
+export function isUsfmId(raw: string): boolean {
+  const id = raw.trim().toUpperCase();
+  return Boolean(id) && bookToUsfm(id) === id;
+}
+
 export function citaBookToUsfm(book: CitaBook): string {
   return CITA_TO_USFM[book];
 }

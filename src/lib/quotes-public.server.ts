@@ -37,21 +37,26 @@ export async function findQuoteBySlug(rawSlug: string): Promise<PublicQuote | nu
   if (!slug) return null;
   const sql = await getSql();
   const rows = await sql<{
+    id: number;
     reference: string;
     body: string;
     book: string;
     gospel_date: string;
     edition: string;
   }>`
-    select reference, body, book, gospel_date, edition
+    select id, reference, body, book, gospel_date, edition
     from quotes
     where slug = ${slug}
-       or trim(both '-' from lower(regexp_replace(reference, '[^a-zA-Z0-9]+', '-', 'g'))) = ${slug}
     order by created_at desc
     limit 1
   `;
   const row = rows[0];
   if (!row) return null;
+  const { firstIndexedVerse } = await import("@/lib/cita/lookup");
+  if (!firstIndexedVerse(row.reference)) {
+    await sql`delete from quotes where id = ${Number(row.id)}`;
+    return null;
+  }
   return {
     reference: row.reference,
     body: row.body,

@@ -88,20 +88,37 @@ export const listQuotes = createServerFn({ method: "GET" })
       where user_id = ${context.userId}
       order by created_at desc
     `;
-    return rows.map((row) => ({
-      id: Number(row.id),
-      date: row.gospel_date,
-      edition: parseEdition(row.edition),
-      book: row.book,
-      reference: row.reference,
-      mode: parseMode(row.mode),
-      body: row.body,
-      verseStart: Number(row.verse_start) || 0,
-      verseEnd: Number(row.verse_end) || 0,
-      chapterStart: Number(row.chapter_start) || 0,
-      chapterEnd: Number(row.chapter_end) || 0,
-      createdAt: row.created_at,
-    }));
+    const { firstIndexedVerse } = await import("@/lib/cita/lookup");
+    const items: QuoteItem[] = [];
+    const stale: number[] = [];
+    for (const row of rows) {
+      const id = Number(row.id);
+      if (!firstIndexedVerse(row.reference)) {
+        stale.push(id);
+        continue;
+      }
+      items.push({
+        id,
+        date: row.gospel_date,
+        edition: parseEdition(row.edition),
+        book: row.book,
+        reference: row.reference,
+        mode: parseMode(row.mode),
+        body: row.body,
+        verseStart: Number(row.verse_start) || 0,
+        verseEnd: Number(row.verse_end) || 0,
+        chapterStart: Number(row.chapter_start) || 0,
+        chapterEnd: Number(row.chapter_end) || 0,
+        createdAt: row.created_at,
+      });
+    }
+    for (const id of stale) {
+      await sql`
+        delete from quotes
+        where user_id = ${context.userId} and id = ${id}
+      `;
+    }
+    return items;
   });
 
 export const addQuote = createServerFn({ method: "POST" })
@@ -121,14 +138,17 @@ export const addQuote = createServerFn({ method: "POST" })
   .handler(async ({ context, data }): Promise<{ created: boolean }> => {
     if (!data.body || !data.reference) return { created: false };
     const reference = toUsfmReference(data.reference);
-    const book = bookToUsfm(data.book) || bookToUsfm(reference.split(/\s+/)[0] ?? "") || data.book;
+    if (!reference) return { created: false };
+    const { firstIndexedVerse } = await import("@/lib/cita/lookup");
+    if (!firstIndexedVerse(reference)) return { created: false };
+    const book = bookToUsfm(data.book) || bookToUsfm(reference.split(/\s+/)[0] ?? "") || "";
+    if (!book) return { created: false };
     const slug = quoteSlug(reference);
     const { getSql } = await import("@/lib/db");
     const sql = await getSql();
     const existing = await sql<{ id: number }>`
       select id from quotes
-      where user_id = ${context.userId}
-        and (reference = ${reference} or reference = ${data.reference})
+      where user_id = ${context.userId} and reference = ${reference}
       limit 1
     `;
     if (existing.length) return { created: false };

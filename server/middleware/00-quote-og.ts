@@ -1,4 +1,5 @@
 import { resolvePublicHost } from "../../scripts/grok-pwa-shared.mjs";
+import { CITA_TO_USFM } from "../../src/lib/biblia/usfm";
 import {
   firstIndexedVerse,
   getIndexedVerse,
@@ -9,7 +10,7 @@ import {
 import { parseQuoteSlug } from "../../src/lib/quote-ref";
 
 const PNG_PATH = /^\/citas\/(mt|mc|lc|jn|hch)\/(\d+\.\d+)\.png$/i;
-const VERSE_PATH = /^\/citas\/(mt|mc|lc|jn|hch)\/(\d+\.\d+)\/?$/i;
+const VERSE_PATH = /^\/citas\/([A-Za-z0-9]+)\/(\d+\.\d+)\/?$/i;
 const SLUG_PATH = /^\/citas\/([A-Za-z0-9-]+)$/;
 const CRAWLER =
   /bot|crawler|spider|facebookexternalhit|facebot|whatsapp|twitterbot|telegram|slackbot|linkedinbot|discordbot|pinterest|skypeuripreview|applebot|iframely|embedly|preview|vkshare|redditbot|qwantify|nuzzel|bitlybot|x\.com/i;
@@ -105,30 +106,23 @@ async function loadQuote(slug: string) {
   return findQuoteBySlug(slug);
 }
 
-function cardFor(quote: { reference: string; body: string }, origin: string, slug: string) {
-  const first =
-    firstIndexedVerse(quote.reference) ??
-    (() => {
-      const parsed = parseQuoteSlug(slug);
-      return parsed ? getIndexedVerse(parsed.book, `${parsed.chapter}.${parsed.verse}`) : null;
-    })();
-  if (first) return verseCard(first, origin);
-  const title = `${quote.reference} · Evangelio de Hoy`;
-  const description = `«${quote.body.slice(0, 180)}${quote.body.length > 180 ? "…" : ""}»`;
-  return {
-    title,
-    description,
-    url: `${origin}/citas/${slug}`,
-    image: `${origin}/citas/mt/1.1.png`,
-    body: quote.body,
-    reference: quote.reference,
-  };
+function cardFor(quote: { reference: string; body: string }, origin: string) {
+  const first = firstIndexedVerse(quote.reference);
+  if (!first) return null;
+  return verseCard(first, origin);
+}
+
+function verseFromPathBook(book: string, pin: string) {
+  const key = book.trim();
+  const usfm =
+    CITA_TO_USFM[key.toLowerCase() as keyof typeof CITA_TO_USFM] ?? key;
+  return getIndexedVerse(usfm, pin);
 }
 
 function resolveIndexedVerse(pathname: string) {
   const verseMatch = VERSE_PATH.exec(pathname);
   if (verseMatch) {
-    return getIndexedVerse(verseMatch[1]!.toLowerCase(), verseMatch[2]!);
+    return verseFromPathBook(verseMatch[1]!, verseMatch[2]!);
   }
   const slugMatch = SLUG_PATH.exec(pathname);
   if (!slugMatch) return null;
@@ -163,7 +157,7 @@ export default async function quoteOgMiddleware(
   const pathname = event.url.pathname;
   const pngMatch = PNG_PATH.exec(pathname);
   if (pngMatch) {
-    const verse = getIndexedVerse(pngMatch[1]!.toLowerCase(), pngMatch[2]!);
+    const verse = verseFromPathBook(pngMatch[1]!, pngMatch[2]!);
     if (!verse) {
       return new Response("Not found", {
         status: 404,
@@ -201,8 +195,9 @@ export default async function quoteOgMiddleware(
         });
       }
       const quote = await loadQuote(slugMatch![1] ?? "");
-      if (quote) {
-        return new Response(crawlerDocument(cardFor(quote, origin, slugMatch![1] ?? "")), {
+      const card = quote ? cardFor(quote, origin) : null;
+      if (card) {
+        return new Response(crawlerDocument(card), {
           headers: {
             "content-type": "text/html; charset=utf-8",
             "cache-control": "public, max-age=300",
@@ -246,9 +241,10 @@ export default async function quoteOgMiddleware(
       });
     }
     const quote = await loadQuote(slugMatch![1] ?? "");
-    if (!quote) return result;
+    const card = quote ? cardFor(quote, origin) : null;
+    if (!card) return result;
     const html = await result.text();
-    const patched = patchDocument(html, cardFor(quote, origin, slugMatch![1] ?? ""));
+    const patched = patchDocument(html, card);
     const headers = new Headers(result.headers);
     headers.delete("content-length");
     return new Response(patched, {
