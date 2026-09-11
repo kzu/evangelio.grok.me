@@ -1,6 +1,9 @@
 /**
  * Download El Libro del Pueblo de Dios (Vatican ESL0506) into public/biblia.
  * One USFM-coded JSON file per book: array of chapters, each an array of verses.
+ *
+ * `public/biblia` is gitignored and omitted from the deploy. Runtime loads
+ * `https://evangelio.groked.cc/biblia/JHN.json` (same CDN as cita thumbs).
  */
 import { mkdirSync, writeFileSync, existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";

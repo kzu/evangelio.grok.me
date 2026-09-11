@@ -149,8 +149,15 @@ export function quoteSharePath(reference: string): string {
   return slug ? `/biblia/${slug}` : "/citas";
 }
 
-/** CDN that serves the ignored `public/citas/` upload (R2 key layout). */
-export const CITA_THUMB_ORIGIN = "https://evangelio.groked.cc";
+/** CDN that serves ignored `public/citas/` thumbs and `public/biblia/` JSON. */
+export const EVANGELIO_CDN_ORIGIN = "https://evangelio.groked.cc";
+export const CITA_THUMB_ORIGIN = EVANGELIO_CDN_ORIGIN;
+
+/** Absolute book JSON: `https://evangelio.groked.cc/biblia/JHN.json`. */
+export function bibliaBookUrl(usfm: string): string {
+  const id = usfm.trim().toUpperCase();
+  return id ? `${EVANGELIO_CDN_ORIGIN}/biblia/${id}.json` : "";
+}
 
 /** Static file / R2 key: `/citas/Mt/5.3.png` (USFM MAT → liturgical Mt). */
 export function quotePngAssetPath(ref: UsfmRef): string {

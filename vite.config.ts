@@ -10,6 +10,8 @@ import { nitro } from "nitro/vite";
 import { grokPwaPlugin } from "./scripts/grok-pwa-plugin.mjs";
 // @ts-expect-error JS plugin alongside the TS vite config
 import { appEnvPlugin } from "./scripts/app-env-plugin.mjs";
+// @ts-expect-error JS plugin alongside the TS vite config
+import { omitCdnStatic } from "./scripts/omit-cdn-static.mjs";
 import { isMigrationFile } from "./scripts/migration-plan.mjs";
 import { mapCitaThumbPath } from "./src/lib/cita-thumb.ts";
 
@@ -62,6 +64,21 @@ function pgliteBootstrapPlugin(): Plugin {
  * and returns the 302 / completion HTML. Deployed apps do not use the popup
  * (full-page OAuth redirect), so `apply: "serve"` is enough.
  */
+/** Drop CDN-hosted `public/citas` and `public/biblia` from the emit. */
+function omitCdnStaticPlugin(): Plugin {
+  return {
+    name: "omit-cdn-static",
+    apply: "build",
+    closeBundle: {
+      sequential: true,
+      order: "post",
+      handler() {
+        omitCdnStatic(process.cwd());
+      },
+    },
+  };
+}
+
 /** Serve `/citas/Mt.5.3.png` from `public/citas/Mt/5.3.png` (liturgical folders). */
 function citaThumbRewritePlugin(): Plugin {
   const rewrite = (req: { url?: string }) => {
@@ -188,6 +205,7 @@ export default defineConfig(({ command, isPreview }) => ({
   plugins: [
     pgliteBootstrapPlugin(),
     citaThumbRewritePlugin(),
+    omitCdnStaticPlugin(),
     // Before tanstackStart so /auth/popup never falls through to the SPA.
     authPopupPlugin(),
     // Dev-only /__app-env, read by scripts/check-auth-invariant.mjs.
@@ -208,8 +226,9 @@ export default defineConfig(({ command, isPreview }) => ({
             // (`createSsrRpc is not a function` / missing `ssr_exports`) which
             // 500 the deployed app.
             inlineDynamicImports: true,
-            // PGLite is preview-only. Inlining it (plus its WASM) with the
-            // full Bible JSON blew the serverless file past Grok's upload cap.
+            // PGLite is preview-only. Inlining it (plus its WASM) blew the
+            // serverless file past Grok's upload cap. Bible JSON lives on the
+            // CDN (`public/biblia` is gitignored and stripped after emit).
             traceDeps: ["!@electric-sql/pglite"],
           }),
         ]

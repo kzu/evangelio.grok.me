@@ -2,6 +2,8 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import {
   CITA_THUMB_ORIGIN,
+  EVANGELIO_CDN_ORIGIN,
+  bibliaBookUrl,
   displayQuoteReference,
   firstVerseSlug,
   mapCitaThumbPath,
@@ -64,6 +66,8 @@ describe("paths", () => {
     assert.equal(parsed && firstVerseSlug(parsed), "Lc.23.44");
     assert.equal(parsed && quotePngAssetPath(parsed), "/citas/Lc/23.44.png");
     assert.equal(parsed && quotePngUrl(parsed), `${CITA_THUMB_ORIGIN}/citas/Lc/23.44.png`);
+    assert.equal(bibliaBookUrl("jhn"), `${EVANGELIO_CDN_ORIGIN}/biblia/JHN.json`);
+    assert.equal(bibliaBookUrl("MAT"), `${EVANGELIO_CDN_ORIGIN}/biblia/MAT.json`);
   });
 
   it("maps unfurl thumbs onto liturgical folders", () => {
