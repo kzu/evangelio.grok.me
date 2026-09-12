@@ -4,7 +4,6 @@ import { MarkCross } from "@/components/mark-cross";
 import { ShareButton } from "@/components/share-button";
 import { FavoriteButton } from "@/components/favorite-button";
 import { GospelPassage } from "@/components/gospel-passage";
-import { todayISO } from "@/lib/gospel/today";
 import type { DailyGospel, LiturgicalColor } from "@/lib/gospel/types";
 import { cn } from "@/lib/utils";
 const COLOR_LABEL: Record<LiturgicalColor, string> = {
@@ -34,8 +33,6 @@ export function GospelView({
   gospel: DailyGospel;
   adapting?: boolean;
 }) {
-  const isToday = gospel.date === todayISO();
-
   if (gospel.loadError && !gospel.verses.length) {
     return (
       <div className="mx-auto flex w-full max-w-2xl flex-col px-5 pb-20 pt-5 sm:px-8 sm:pt-8">
@@ -74,25 +71,6 @@ export function GospelView({
                 />
                 <span>{gospel.liturgicalDay}</span>
               </span>
-              {isToday ? null : (
-                <Link
-                  to="/e/$date"
-                  params={{ date: todayISO() }}
-                  search={(prev) => {
-                    const next = { ...prev } as {
-                      familia?: boolean;
-                      favorito?: boolean;
-                      cita?: boolean;
-                    };
-                    delete next.favorito;
-                    delete next.cita;
-                    return next;
-                  }}
-                  className="font-medium text-primary transition-opacity duration-150 hover:opacity-70"
-                >
-                  Ir a hoy
-                </Link>
-              )}
             </div>
           </div>
           <DayLink date={gospel.nextDate} label="Siguiente" side="next" />
