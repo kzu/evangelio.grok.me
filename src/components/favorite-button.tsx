@@ -30,6 +30,7 @@ type GospelProps = {
   edition: GospelEdition;
   citation: string;
   liturgicalDay: string;
+  commentTitle?: string;
   quote?: undefined;
 };
 
@@ -107,6 +108,7 @@ export function FavoriteButton(props: GospelProps | QuoteProps) {
             edition: props.edition,
             citation: props.citation,
             liturgicalDay: props.liturgicalDay,
+            commentTitle: props.commentTitle,
           },
         });
     void save
@@ -175,6 +177,7 @@ export function FavoriteButton(props: GospelProps | QuoteProps) {
             edition: props.edition,
             citation: props.citation,
             liturgicalDay: props.liturgicalDay,
+            commentTitle: props.commentTitle,
           },
         });
       } else {

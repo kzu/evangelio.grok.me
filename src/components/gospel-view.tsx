@@ -217,6 +217,7 @@ export function GospelView({
           edition={gospel.edition}
           citation={gospel.citation}
           liturgicalDay={gospel.liturgicalDay}
+          commentTitle={gospel.commentTitle}
         />
         <ShareButton />
       </div>

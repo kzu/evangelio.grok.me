@@ -110,7 +110,18 @@ function FavoriteRow({ item, onRemoved }: { item: FavoriteItem; onRemoved: () =>
           {label}
           {item.edition === "family" ? " · Familiar" : ""}
         </p>
-        <p className="mt-1 font-display text-lg italic text-primary">
+        {item.commentTitle ? (
+          <blockquote className="mt-2 font-display text-lg leading-7 italic text-fg">
+            {item.commentTitle}
+          </blockquote>
+        ) : null}
+        <p
+          className={
+            item.commentTitle
+              ? "mt-2 font-sans text-sm text-muted"
+              : "mt-1 font-display text-lg italic text-primary"
+          }
+        >
           {item.citation || "Evangelio del día"}
         </p>
         {item.liturgicalDay ? (

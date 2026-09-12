@@ -7,6 +7,7 @@ export type FavoriteItem = {
   edition: GospelEdition;
   citation: string;
   liturgicalDay: string;
+  commentTitle: string;
   createdAt: string;
 };
 
@@ -38,9 +39,11 @@ export const listFavorites = createServerFn({ method: "GET" })
       edition: string;
       citation: string;
       liturgical_day: string;
+      comment_title: string;
       created_at: string;
     }>`
-      select gospel_date, edition, citation, liturgical_day, created_at::text as created_at
+      select gospel_date, edition, citation, liturgical_day, comment_title,
+             created_at::text as created_at
       from favorites
       where user_id = ${context.userId}
       order by created_at desc
@@ -50,6 +53,7 @@ export const listFavorites = createServerFn({ method: "GET" })
       edition: parseEdition(row.edition),
       citation: row.citation,
       liturgicalDay: row.liturgical_day,
+      commentTitle: row.comment_title ?? "",
       createdAt: row.created_at,
     }));
   });
@@ -76,19 +80,29 @@ export const isFavorite = createServerFn({ method: "GET" })
 
 export const addFavorite = createServerFn({ method: "POST" })
   .middleware([authMiddleware])
-  .validator((input: { date: string; edition?: GospelEdition; citation?: string; liturgicalDay?: string }) => ({
+  .validator((input: {
+    date: string;
+    edition?: GospelEdition;
+    citation?: string;
+    liturgicalDay?: string;
+    commentTitle?: string;
+  }) => ({
     date: parseDate(input.date),
     edition: parseEdition(input.edition),
     citation: clip(input.citation, 160),
     liturgicalDay: clip(input.liturgicalDay, 200),
+    commentTitle: clip(input.commentTitle, 500),
   }))
   .handler(async ({ context, data }): Promise<void> => {
     const { getSql } = await import("@/lib/db");
     const sql = await getSql();
     await sql`
-      insert into favorites (user_id, gospel_date, edition, citation, liturgical_day)
-      values (${context.userId}, ${data.date}, ${data.edition}, ${data.citation}, ${data.liturgicalDay})
-      on conflict (user_id, gospel_date, edition) do nothing
+      insert into favorites (user_id, gospel_date, edition, citation, liturgical_day, comment_title)
+      values (${context.userId}, ${data.date}, ${data.edition}, ${data.citation}, ${data.liturgicalDay}, ${data.commentTitle})
+      on conflict (user_id, gospel_date, edition) do update set
+        citation = excluded.citation,
+        liturgical_day = excluded.liturgical_day,
+        comment_title = excluded.comment_title
     `;
   });
 
