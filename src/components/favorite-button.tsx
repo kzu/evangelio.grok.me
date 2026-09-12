@@ -31,11 +31,13 @@ type GospelProps = {
   citation: string;
   liturgicalDay: string;
   commentTitle?: string;
+  compact?: boolean;
   quote?: undefined;
 };
 
 type QuoteProps = {
   quote: QuoteFavorite;
+  compact?: boolean;
   date?: undefined;
   edition?: undefined;
   citation?: undefined;
@@ -59,6 +61,7 @@ function quotePayload(quote: QuoteFavorite): QuoteInput {
 
 export function FavoriteButton(props: GospelProps | QuoteProps) {
   const quote = props.quote;
+  const compact = props.compact ?? false;
   const { user, isPending } = useCurrentUserState();
   const gospelSearch = useSearch({ from: "/e/$date", shouldThrow: false }) as
     | { favorito?: boolean }
@@ -197,8 +200,11 @@ export function FavoriteButton(props: GospelProps | QuoteProps) {
       onClick={() => void onToggle()}
       disabled={busy && Boolean(user)}
       className={cn(
-        "inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-surface px-4 font-sans text-sm font-medium shadow-border transition-[transform,opacity,color] duration-150 ease-out active:scale-[0.96]",
-        saved ? "text-lit-red" : "text-fg",
+        "inline-flex items-center justify-center rounded-md shadow-border transition-[transform,opacity,color] duration-150 ease-out active:scale-[0.96]",
+        compact
+          ? "size-11 bg-surface"
+          : "min-h-11 gap-2 bg-surface px-4 font-sans text-sm font-medium",
+        saved ? "text-lit-red" : compact ? "text-muted" : "text-fg",
       )}
       aria-label={saved ? "Quitar de favoritos" : "Guardar en favoritos"}
       aria-pressed={saved}
@@ -209,7 +215,7 @@ export function FavoriteButton(props: GospelProps | QuoteProps) {
         strokeWidth={1.75}
         fill={saved ? "currentColor" : "none"}
       />
-      Favorito
+      {compact ? null : "Favorito"}
     </button>
   );
 }

@@ -157,6 +157,17 @@ export function GospelView({
             <>Texto según la lectura litúrgica de evangeli.net</>
           )}
         </p>
+        <div className="mt-4 flex justify-end gap-2">
+          <FavoriteButton
+            compact
+            date={gospel.date}
+            edition={gospel.edition}
+            citation={gospel.citation}
+            liturgicalDay={gospel.liturgicalDay}
+            commentTitle={gospel.commentTitle}
+          />
+          <ShareButton compact />
+        </div>
       </article>
 
       {gospel.commentary.length > 0 ? (
@@ -210,17 +221,6 @@ export function GospelView({
           </ul>
         </section>
       ) : null}
-
-      <div className="stagger-in mt-8 flex justify-center gap-3">
-        <FavoriteButton
-          date={gospel.date}
-          edition={gospel.edition}
-          citation={gospel.citation}
-          liturgicalDay={gospel.liturgicalDay}
-          commentTitle={gospel.commentTitle}
-        />
-        <ShareButton />
-      </div>
 
       <footer className="stagger-in mt-8 border-t border-border pt-6 text-center font-sans text-xs leading-5 text-subtle">
         <p>
