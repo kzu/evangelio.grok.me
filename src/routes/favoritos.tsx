@@ -103,49 +103,47 @@ function FavoriteRow({ item, onRemoved }: { item: FavoriteItem; onRemoved: () =>
 
   return (
     <div className="rounded-xl bg-surface p-4 shadow-card">
-      <div className="flex items-start gap-1">
-        <Link
-          to="/e/$date"
-          params={{ date: item.date }}
-          search={{ ...(item.edition === "family" ? { familia: true } : {}) }}
-          className="min-w-0 flex-1"
+      <div className="flex items-center gap-1">
+        <p className="min-w-0 flex-1 font-sans text-xs font-medium uppercase tracking-label text-muted">
+          {label}
+          {item.edition === "family" ? " · Familiar" : ""}
+        </p>
+        <ShareButton url={sharePath} compact ghost />
+        <button
+          type="button"
+          onClick={() => void unsave()}
+          disabled={busy}
+          className="inline-flex size-8 shrink-0 items-center justify-center rounded-md text-muted transition-transform duration-150 ease-out active:scale-[0.96]"
+          aria-label="Quitar de favoritos"
+          title="Quitar de favoritos"
         >
-          <p className="font-sans text-xs font-medium uppercase tracking-label text-muted">
-            {label}
-            {item.edition === "family" ? " · Familiar" : ""}
-          </p>
-          {item.commentTitle ? (
-            <blockquote className="mt-2 font-display text-lg leading-7 italic text-fg">
-              {item.commentTitle}
-            </blockquote>
-          ) : null}
-          <p
-            className={
-              item.commentTitle
-                ? "mt-2 font-sans text-sm text-muted"
-                : "mt-1 font-display text-lg italic text-primary"
-            }
-          >
-            {item.citation || "Evangelio del día"}
-          </p>
-          {item.liturgicalDay ? (
-            <p className="mt-1 font-sans text-sm text-muted">{item.liturgicalDay}</p>
-          ) : null}
-        </Link>
-        <div className="flex shrink-0">
-          <ShareButton url={sharePath} compact ghost />
-          <button
-            type="button"
-            onClick={() => void unsave()}
-            disabled={busy}
-            className="inline-flex size-11 items-center justify-center rounded-md text-muted transition-transform duration-150 ease-out active:scale-[0.96]"
-            aria-label="Quitar de favoritos"
-            title="Quitar de favoritos"
-          >
-            <Trash2 className="size-4" strokeWidth={1.75} />
-          </button>
-        </div>
+          <Trash2 className="size-4" strokeWidth={1.75} />
+        </button>
       </div>
+      <Link
+        to="/e/$date"
+        params={{ date: item.date }}
+        search={{ ...(item.edition === "family" ? { familia: true } : {}) }}
+        className="mt-2 block"
+      >
+        {item.commentTitle ? (
+          <blockquote className="font-display text-lg leading-7 italic text-fg">
+            {item.commentTitle}
+          </blockquote>
+        ) : null}
+        <p
+          className={
+            item.commentTitle
+              ? "mt-2 font-sans text-sm text-muted"
+              : "font-display text-lg italic text-primary"
+          }
+        >
+          {item.citation || "Evangelio del día"}
+        </p>
+        {item.liturgicalDay ? (
+          <p className="mt-1 font-sans text-sm text-muted">{item.liturgicalDay}</p>
+        ) : null}
+      </Link>
     </div>
   );
 }
