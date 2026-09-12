@@ -1,7 +1,7 @@
 "use client";
 
-import { Baby, Moon, Sun } from "lucide-react";
-import { useNavigate, useParams, useSearch } from "@tanstack/react-router";
+import { Baby, Home, Moon, Sun } from "lucide-react";
+import { Link, useNavigate, useParams, useSearch } from "@tanstack/react-router";
 import { isIsoDate, todayISO } from "@/lib/gospel/today";
 import { useLayoutEffect, useState, type ReactNode } from "react";
 import { PwaInstallHeaderButton } from "@/components/pwa-install-prompt";
@@ -122,7 +122,17 @@ export function CommandBar() {
 
   return (
     <header className="sticky top-0 z-30 border-b border-border bg-bg/90 pt-[env(safe-area-inset-top)] backdrop-blur-md [--text-scale:1]">
-      <div className="mx-auto flex h-12 w-full max-w-2xl items-center justify-end gap-2 px-4 sm:px-8">
+      <div className="mx-auto flex h-12 w-full max-w-2xl items-center gap-2 px-4 sm:px-8">
+        <Link
+          to="/"
+          search={family ? { familia: true } : {}}
+          aria-label="Evangelio de hoy"
+          title="Evangelio de hoy"
+          className="inline-flex size-11 items-center justify-center rounded-md bg-surface text-fg shadow-border transition-[transform,opacity] duration-150 ease-out active:scale-[0.96]"
+        >
+          <Home className="size-4" strokeWidth={1.75} />
+        </Link>
+        <div className="ml-auto flex items-center gap-2">
         <PwaInstallHeaderButton />
         {onGospel ? (
           <button
@@ -179,6 +189,7 @@ export function CommandBar() {
         </button>
 
         <AuthSlot />
+        </div>
       </div>
     </header>
   );
