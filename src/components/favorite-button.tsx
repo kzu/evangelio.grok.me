@@ -32,12 +32,14 @@ type GospelProps = {
   liturgicalDay: string;
   commentTitle?: string;
   compact?: boolean;
+  ghost?: boolean;
   quote?: undefined;
 };
 
 type QuoteProps = {
   quote: QuoteFavorite;
   compact?: boolean;
+  ghost?: boolean;
   date?: undefined;
   edition?: undefined;
   citation?: undefined;
@@ -62,6 +64,7 @@ function quotePayload(quote: QuoteFavorite): QuoteInput {
 export function FavoriteButton(props: GospelProps | QuoteProps) {
   const quote = props.quote;
   const compact = props.compact ?? false;
+  const ghost = props.ghost ?? false;
   const { user, isPending } = useCurrentUserState();
   const gospelSearch = useSearch({ from: "/e/$date", shouldThrow: false }) as
     | { favorito?: boolean }
@@ -200,11 +203,13 @@ export function FavoriteButton(props: GospelProps | QuoteProps) {
       onClick={() => void onToggle()}
       disabled={busy && Boolean(user)}
       className={cn(
-        "inline-flex items-center justify-center rounded-md shadow-border transition-[transform,opacity,color] duration-150 ease-out active:scale-[0.96]",
+        "inline-flex items-center justify-center rounded-md transition-[transform,opacity,color] duration-150 ease-out active:scale-[0.96]",
         compact
-          ? "size-11 bg-surface"
-          : "min-h-11 gap-2 bg-surface px-4 font-sans text-sm font-medium",
-        saved ? "text-lit-red" : compact ? "text-muted" : "text-fg",
+          ? ghost
+            ? "size-8"
+            : "size-11 bg-surface shadow-border"
+          : "min-h-11 gap-2 bg-surface px-4 font-sans text-sm font-medium shadow-border",
+        saved ? "text-lit-red" : compact || ghost ? "text-muted" : "text-fg",
       )}
       aria-label={saved ? "Quitar de favoritos" : "Guardar en favoritos"}
       aria-pressed={saved}

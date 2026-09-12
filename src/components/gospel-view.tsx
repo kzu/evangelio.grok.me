@@ -101,50 +101,53 @@ export function GospelView({
         />
 
         <p className="mt-8 font-display text-base italic text-muted">Palabra del Dios.</p>
-        <p className="mt-6 font-sans text-xs leading-5 text-subtle">
-          {gospel.source === "family" ? (
-            <>
-              Texto abreviado y comentario:{" "}
-              <a
-                href={gospel.evangeliUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="underline decoration-rule underline-offset-4 transition-opacity hover:opacity-70"
-              >
-                family.evangeli.net
-              </a>
-            </>
-          ) : gospel.source === "vatican" ? (
-            <>
-              Texto: <em>El Libro del Pueblo de Dios</em>
-              {gospel.vaticanUrl ? (
-                <>
-                  {" · "}
-                  <a
-                    href={gospel.vaticanUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="underline decoration-rule underline-offset-4 transition-opacity hover:opacity-70"
-                  >
-                    Santa Sede
-                  </a>
-                </>
-              ) : null}
-            </>
-          ) : (
-            <>Texto según la lectura litúrgica de evangeli.net</>
-          )}
-        </p>
-        <div className="mt-4 flex justify-end gap-2">
-          <FavoriteButton
-            compact
-            date={gospel.date}
-            edition={gospel.edition}
-            citation={gospel.citation}
-            liturgicalDay={gospel.liturgicalDay}
-            commentTitle={gospel.commentTitle}
-          />
-          <ShareButton compact />
+        <div className="mt-4 flex items-center gap-1">
+          <p className="min-w-0 flex-1 font-sans text-xs leading-5 text-subtle">
+            {gospel.source === "family" ? (
+              <>
+                Texto abreviado y comentario:{" "}
+                <a
+                  href={gospel.evangeliUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="underline decoration-rule underline-offset-4 transition-opacity hover:opacity-70"
+                >
+                  family.evangeli.net
+                </a>
+              </>
+            ) : gospel.source === "vatican" ? (
+              <>
+                Texto: <em>El Libro del Pueblo de Dios</em>
+                {gospel.vaticanUrl ? (
+                  <>
+                    {" · "}
+                    <a
+                      href={gospel.vaticanUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="underline decoration-rule underline-offset-4 transition-opacity hover:opacity-70"
+                    >
+                      Santa Sede
+                    </a>
+                  </>
+                ) : null}
+              </>
+            ) : (
+              <>Texto según la lectura litúrgica de evangeli.net</>
+            )}
+          </p>
+          <div className="flex shrink-0">
+            <FavoriteButton
+              compact
+              ghost
+              date={gospel.date}
+              edition={gospel.edition}
+              citation={gospel.citation}
+              liturgicalDay={gospel.liturgicalDay}
+              commentTitle={gospel.commentTitle}
+            />
+            <ShareButton compact ghost />
+          </div>
         </div>
       </article>
 

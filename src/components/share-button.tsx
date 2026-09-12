@@ -53,7 +53,7 @@ export function ShareButton({
       onClick={() => void copyUrl()}
       className={cn(
         "inline-flex items-center justify-center rounded-md font-sans text-sm font-medium transition-[transform,opacity] duration-150 ease-out active:scale-[0.96]",
-        compact ? "size-11" : "min-h-11 gap-2 px-4",
+        compact ? (ghost ? "size-8" : "size-11") : "min-h-11 gap-2 px-4",
         ghost ? "text-muted" : "bg-surface text-fg shadow-border",
         compact && !ghost && "text-muted",
       )}
