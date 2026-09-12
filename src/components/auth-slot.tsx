@@ -3,9 +3,76 @@
 import { Link } from "@tanstack/react-router";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { Heart, LogIn, LogOut, Quote } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { signIn, signOut } from "@/lib/auth/client";
+import { gravatarUrl } from "@/lib/auth/avatar";
 import { useCurrentUserState } from "@/lib/auth/use-current-user";
+
+function ProfileAvatar({
+  imageUrl,
+  email,
+  label,
+}: {
+  imageUrl: string | null;
+  email: string | null;
+  label: string;
+}) {
+  const [src, setSrc] = useState<string | null>(imageUrl);
+  const [waiting, setWaiting] = useState(!imageUrl && Boolean(email));
+
+  useEffect(() => {
+    if (imageUrl) {
+      setSrc(imageUrl);
+      setWaiting(false);
+      return;
+    }
+    if (!email) {
+      setSrc(null);
+      setWaiting(false);
+      return;
+    }
+    let cancelled = false;
+    setWaiting(true);
+    void gravatarUrl(email).then((url) => {
+      if (cancelled) return;
+      setSrc(url);
+      setWaiting(false);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [imageUrl, email]);
+
+  if (waiting) {
+    return <span className="size-11 animate-pulse bg-bg" aria-hidden />;
+  }
+  if (!src) {
+    return (
+      <span className="font-sans text-sm font-medium text-fg">
+        {label.charAt(0).toUpperCase()}
+      </span>
+    );
+  }
+  return (
+    <img
+      src={src}
+      alt=""
+      referrerPolicy="no-referrer"
+      className="size-11 object-cover"
+      onError={() => {
+        if (imageUrl && src === imageUrl && email) {
+          setWaiting(true);
+          void gravatarUrl(email).then((url) => {
+            setSrc(url);
+            setWaiting(false);
+          });
+          return;
+        }
+        setSrc(null);
+      }}
+    />
+  );
+}
 
 export function AuthSlot() {
   const { user, isPending } = useCurrentUserState();
@@ -31,13 +98,11 @@ export function AuthSlot() {
             aria-label={`Cuenta de ${label}`}
             title={label}
           >
-            {user.profileImageUrl ? (
-              <img src={user.profileImageUrl} alt="" className="size-11 object-cover" />
-            ) : (
-              <span className="font-sans text-sm font-medium text-fg">
-                {label.charAt(0).toUpperCase()}
-              </span>
-            )}
+            <ProfileAvatar
+              imageUrl={user.profileImageUrl}
+              email={user.primaryEmail}
+              label={label}
+            />
           </button>
         </DropdownMenu.Trigger>
         <DropdownMenu.Portal>
