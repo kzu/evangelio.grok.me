@@ -1,6 +1,7 @@
 import { createFileRoute, Link, Navigate } from "@tanstack/react-router";
-import { Heart } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { ShareButton } from "@/components/share-button";
 import { listFavorites, removeFavorite, type FavoriteItem } from "@/lib/favorites";
 import { useCurrentUserState } from "@/lib/auth/use-current-user";
 
@@ -86,6 +87,8 @@ function Favoritos() {
 function FavoriteRow({ item, onRemoved }: { item: FavoriteItem; onRemoved: () => void }) {
   const [busy, setBusy] = useState(false);
   const label = item.date;
+  const sharePath =
+    item.edition === "family" ? `/e/${item.date}?familia=1` : `/e/${item.date}`;
 
   async function unsave() {
     if (busy) return;
@@ -99,45 +102,50 @@ function FavoriteRow({ item, onRemoved }: { item: FavoriteItem; onRemoved: () =>
   }
 
   return (
-    <div className="flex items-stretch gap-2 rounded-xl bg-surface p-4 shadow-card">
-      <Link
-        to="/e/$date"
-        params={{ date: item.date }}
-        search={{ ...(item.edition === "family" ? { familia: true } : {}) }}
-        className="min-w-0 flex-1"
-      >
-        <p className="font-sans text-xs font-medium uppercase tracking-label text-muted">
-          {label}
-          {item.edition === "family" ? " · Familiar" : ""}
-        </p>
-        {item.commentTitle ? (
-          <blockquote className="mt-2 font-display text-lg leading-7 italic text-fg">
-            {item.commentTitle}
-          </blockquote>
-        ) : null}
-        <p
-          className={
-            item.commentTitle
-              ? "mt-2 font-sans text-sm text-muted"
-              : "mt-1 font-display text-lg italic text-primary"
-          }
+    <div className="rounded-xl bg-surface p-4 shadow-card">
+      <div className="flex items-start gap-1">
+        <Link
+          to="/e/$date"
+          params={{ date: item.date }}
+          search={{ ...(item.edition === "family" ? { familia: true } : {}) }}
+          className="min-w-0 flex-1"
         >
-          {item.citation || "Evangelio del día"}
-        </p>
-        {item.liturgicalDay ? (
-          <p className="mt-1 font-sans text-sm text-muted">{item.liturgicalDay}</p>
-        ) : null}
-      </Link>
-      <button
-        type="button"
-        onClick={() => void unsave()}
-        disabled={busy}
-        className="inline-flex size-11 shrink-0 items-center justify-center self-center rounded-md text-lit-red transition-transform duration-150 ease-out active:scale-[0.96]"
-        aria-label="Quitar de favoritos"
-        title="Quitar de favoritos"
-      >
-        <Heart className="size-4" strokeWidth={1.75} fill="currentColor" />
-      </button>
+          <p className="font-sans text-xs font-medium uppercase tracking-label text-muted">
+            {label}
+            {item.edition === "family" ? " · Familiar" : ""}
+          </p>
+          {item.commentTitle ? (
+            <blockquote className="mt-2 font-display text-lg leading-7 italic text-fg">
+              {item.commentTitle}
+            </blockquote>
+          ) : null}
+          <p
+            className={
+              item.commentTitle
+                ? "mt-2 font-sans text-sm text-muted"
+                : "mt-1 font-display text-lg italic text-primary"
+            }
+          >
+            {item.citation || "Evangelio del día"}
+          </p>
+          {item.liturgicalDay ? (
+            <p className="mt-1 font-sans text-sm text-muted">{item.liturgicalDay}</p>
+          ) : null}
+        </Link>
+        <div className="flex shrink-0">
+          <ShareButton url={sharePath} compact ghost />
+          <button
+            type="button"
+            onClick={() => void unsave()}
+            disabled={busy}
+            className="inline-flex size-11 items-center justify-center rounded-md text-muted transition-transform duration-150 ease-out active:scale-[0.96]"
+            aria-label="Quitar de favoritos"
+            title="Quitar de favoritos"
+          >
+            <Trash2 className="size-4" strokeWidth={1.75} />
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

@@ -7,10 +7,12 @@ import { cn } from "@/lib/utils";
 export function ShareButton({
   url,
   compact = false,
+  ghost = false,
   label = "Compartir",
 }: {
   url?: string;
   compact?: boolean;
+  ghost?: boolean;
   label?: string;
 }) {
   const [copied, setCopied] = useState(false);
@@ -50,10 +52,10 @@ export function ShareButton({
       type="button"
       onClick={() => void copyUrl()}
       className={cn(
-        "inline-flex items-center justify-center rounded-md font-sans text-sm font-medium text-fg shadow-border transition-[transform,opacity] duration-150 ease-out active:scale-[0.96]",
-        compact
-          ? "size-11 bg-surface text-muted"
-          : "min-h-11 gap-2 bg-surface px-4",
+        "inline-flex items-center justify-center rounded-md font-sans text-sm font-medium transition-[transform,opacity] duration-150 ease-out active:scale-[0.96]",
+        compact ? "size-11" : "min-h-11 gap-2 px-4",
+        ghost ? "text-muted" : "bg-surface text-fg shadow-border",
+        compact && !ghost && "text-muted",
       )}
       aria-label={copied ? "Enlace copiado" : "Compartir: copiar enlace"}
       title={copied ? "Enlace copiado" : "Copiar enlace"}

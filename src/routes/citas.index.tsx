@@ -100,33 +100,35 @@ function QuoteRow({ item, onRemoved }: { item: QuoteItem; onRemoved: () => void 
 
   return (
     <div className="rounded-xl bg-surface p-4 shadow-card">
-      <div className="flex items-center gap-2">
-        <p className="min-w-0 flex-1 font-sans text-xs font-medium tracking-label text-muted">
-          {displayQuoteReference(item.reference)}
-          {item.mode === "selection" ? " · Selección" : ""}
-        </p>
-        <ShareButton url={sharePath} compact />
-        <button
-          type="button"
-          onClick={() => void unsave()}
-          disabled={busy}
-          className="inline-flex size-11 shrink-0 items-center justify-center rounded-md text-muted transition-transform duration-150 ease-out active:scale-[0.96]"
-          aria-label="Eliminar cita"
-          title="Eliminar cita"
+      <div className="flex items-start gap-1">
+        <Link
+          to="/biblia/$slug"
+          params={{ slug: toUsfmSlug(item.reference) ?? item.reference }}
+          className="min-w-0 flex-1"
         >
-          <Trash2 className="size-4" strokeWidth={1.75} />
-        </button>
+          <p className="font-sans text-xs font-medium uppercase tracking-label text-muted">
+            {displayQuoteReference(item.reference)}
+            {item.mode === "selection" ? " · Selección" : ""}
+          </p>
+          <blockquote className="mt-2 font-display text-lg leading-8 italic text-fg">
+            «{item.body}»
+          </blockquote>
+          <p className="mt-3 font-sans text-sm text-muted">{label}</p>
+        </Link>
+        <div className="flex shrink-0">
+          <ShareButton url={sharePath} compact ghost />
+          <button
+            type="button"
+            onClick={() => void unsave()}
+            disabled={busy}
+            className="inline-flex size-11 items-center justify-center rounded-md text-muted transition-transform duration-150 ease-out active:scale-[0.96]"
+            aria-label="Eliminar cita"
+            title="Eliminar cita"
+          >
+            <Trash2 className="size-4" strokeWidth={1.75} />
+          </button>
+        </div>
       </div>
-      <Link
-        to="/biblia/$slug"
-        params={{ slug: toUsfmSlug(item.reference) ?? item.reference }}
-        className="mt-1 block"
-      >
-        <blockquote className="font-display text-lg leading-8 italic text-fg">
-          «{item.body}»
-        </blockquote>
-        <p className="mt-3 font-sans text-sm text-muted">{label}</p>
-      </Link>
     </div>
   );
 }
