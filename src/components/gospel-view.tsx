@@ -100,7 +100,7 @@ export function GospelView({
           edition={gospel.edition}
         />
 
-        <p className="mt-8 font-display text-base italic text-muted">Palabra del Señor.</p>
+        <p className="mt-8 font-display text-base italic text-muted">Palabra del Dios.</p>
         <p className="mt-6 font-sans text-xs leading-5 text-subtle">
           {gospel.source === "family" ? (
             <>
