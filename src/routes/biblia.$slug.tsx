@@ -1,5 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { FavoriteButton } from "@/components/favorite-button";
 import { ShareButton } from "@/components/share-button";
 import { MarkCross } from "@/components/mark-cross";
 import type { GospelVerse } from "@/lib/gospel/types";
@@ -9,6 +10,10 @@ import { cn } from "@/lib/utils";
 type Neighbor = { slug: string } | null;
 
 export const Route = createFileRoute("/biblia/$slug")({
+  validateSearch: (search: Record<string, unknown>): { cita?: boolean } => {
+    const cita = search.cita === true || search.cita === "true" || search.cita === "1";
+    return cita ? { cita: true } : {};
+  },
   loader: async ({ params }) => {
     const { fetchBibliaFragment } = await import("@/lib/biblia/get-fragment");
     const data = await fetchBibliaFragment(params.slug);
@@ -143,6 +148,17 @@ function BibliaFragment() {
         </article>
 
         <div className="stagger-in mt-8 flex justify-center gap-3">
+          <FavoriteButton
+            quote={{
+              reference: ref.slug,
+              body: verses.map((verse: GospelVerse) => verse.text).join(" "),
+              book: ref.usfm,
+              verseStart: verses[0]?.number ?? 0,
+              verseEnd: verses[verses.length - 1]?.number ?? 0,
+              chapterStart: verses[0]?.chapter ?? 0,
+              chapterEnd: verses[verses.length - 1]?.chapter ?? 0,
+            }}
+          />
           <ShareButton url={`/biblia/${ref.slug}`} />
         </div>
       </div>

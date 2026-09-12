@@ -204,19 +204,46 @@ export const addQuote = createServerFn({ method: "POST" })
     return { created: true };
   });
 
+export const isQuote = createServerFn({ method: "GET" })
+  .middleware([authMiddleware])
+  .validator((input: { reference: string }) => ({
+    reference: toUsfmSlug(clip(input.reference, 160)) ?? "",
+  }))
+  .handler(async ({ context, data }): Promise<boolean> => {
+    if (!data.reference) return false;
+    const { getSql } = await import("@/lib/db");
+    const sql = await getSql();
+    const rows = await sql<{ ok: number }>`
+      select 1 as ok
+      from quotes
+      where user_id = ${context.userId} and reference = ${data.reference}
+      limit 1
+    `;
+    return rows.length > 0;
+  });
+
 export const removeQuote = createServerFn({ method: "POST" })
   .middleware([authMiddleware])
-  .validator((input: { id: number }) => {
+  .validator((input: { id?: number; reference?: string }) => {
     const id = Number(input.id);
-    if (!Number.isInteger(id) || id <= 0) throw new Error("Cita inválida");
-    return { id };
+    if (Number.isInteger(id) && id > 0) return { id, reference: "" };
+    const reference = toUsfmSlug(clip(input.reference, 160));
+    if (reference) return { id: 0, reference };
+    throw new Error("Cita inválida");
   })
   .handler(async ({ context, data }): Promise<void> => {
     const { getSql } = await import("@/lib/db");
     const sql = await getSql();
+    if (data.id) {
+      await sql`
+        delete from quotes
+        where id = ${data.id} and user_id = ${context.userId}
+      `;
+      return;
+    }
     await sql`
       delete from quotes
-      where id = ${data.id} and user_id = ${context.userId}
+      where user_id = ${context.userId} and reference = ${data.reference}
     `;
   });
 
