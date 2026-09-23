@@ -173,10 +173,13 @@ export default async function quoteOgMiddleware(
 
   if (isCrawler(event)) {
     try {
+      // Never cache the crawler stub publicly: Vercel was serving it to
+      // browsers on /e/:date?familia=… as a ~1.4kb body that looks like raw text.
       return new Response(crawlerDocument(card), {
         headers: {
           "content-type": "text/html; charset=utf-8",
-          "cache-control": "public, max-age=300",
+          "cache-control": "private, no-store",
+          vary: "User-Agent, Purpose, X-Purpose",
         },
       });
     } catch (err) {
