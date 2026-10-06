@@ -184,6 +184,18 @@ export function renderWebManifest(hostHeader, site = {}) {
           type: "image/png",
           purpose: "any",
         },
+        {
+          src: "/__grok/icon-maskable-512.png",
+          sizes: "512x512",
+          type: "image/png",
+          purpose: "maskable",
+        },
+        {
+          src: "/__grok/icon-maskable-192.png",
+          sizes: "192x192",
+          type: "image/png",
+          purpose: "maskable",
+        },
       ],
     },
     null,
