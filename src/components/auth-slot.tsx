@@ -58,7 +58,7 @@ function ProfileAvatar({
       src={src}
       alt=""
       referrerPolicy="no-referrer"
-      className="size-11 object-cover"
+      className="size-11 object-cover grayscale"
       onError={() => {
         if (imageUrl && src === imageUrl && email) {
           setWaiting(true);
