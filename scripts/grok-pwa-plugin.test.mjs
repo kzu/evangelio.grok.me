@@ -488,6 +488,17 @@ test("manifest prefers site.json title over host slug", () => {
   assert.equal(manifest.short_name, "Evangelio de Hoy");
 });
 
+test("manifest prefers site.json appName over title and host slug", () => {
+  const manifest = JSON.parse(
+    renderWebManifest("foo.vercel.app", {
+      title: "Evangelio de Hoy",
+      appName: "Evangelio del Día",
+    }),
+  );
+  assert.equal(manifest.name, "Evangelio del Día");
+  assert.equal(manifest.short_name, "Evangelio del Día");
+});
+
 // Tripwires: the deployed-app path only works if Nitro scans server/ — an
 // accidental edit that drops serverDir or the middleware file would otherwise
 // fail silently (published apps would just render the app for ?install=1).

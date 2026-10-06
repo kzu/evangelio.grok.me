@@ -7,6 +7,7 @@ import { PREFS_BOOT_SCRIPT } from "@/lib/prefs-boot";
 import appCss from "../styles.css?url";
 
 const APP_NAME = "Evangelio de Hoy";
+const INSTALL_NAME = "Evangelio del Día";
 const GA_MEASUREMENT_ID = "G-W6X7328MYC";
 const GTAG_BOOT_SCRIPT = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_MEASUREMENT_ID}');`;
 
@@ -25,7 +26,7 @@ export const Route = createRootRoute({
       { name: "mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-      { name: "apple-mobile-web-app-title", content: APP_NAME },
+      { name: "apple-mobile-web-app-title", content: INSTALL_NAME },
     ],
     links: [
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },

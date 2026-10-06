@@ -180,7 +180,7 @@ export function PwaInstallPrompt() {
             />
             <div className="min-w-0 flex-1">
               <p className="truncate font-sans text-sm font-semibold leading-tight">
-                Instalar Evangelio de Hoy
+                Instalar Evangelio del Día
               </p>
               <p className="truncate font-sans text-xs text-muted">
                 En la pantalla de inicio, sin el navegador
@@ -229,7 +229,7 @@ export function PwaInstallPrompt() {
               />
               <div className="min-w-0 flex-1">
                 <h2 id="pwa-install-title" className="font-sans text-base font-semibold tracking-tight">
-                  Instalar Evangelio de Hoy
+                  Instalar Evangelio del Día
                 </h2>
                 <p className="font-sans text-xs text-muted">En la pantalla de inicio</p>
               </div>
@@ -320,7 +320,7 @@ export function PwaInstallHeaderButton() {
       type="button"
       className="mr-auto inline-flex size-11 items-center justify-center rounded-md bg-surface text-fg shadow-border transition-[transform,opacity] duration-150 ease-out active:scale-[0.96]"
       aria-label="Instalar aplicación"
-      title="Instalar Evangelio de Hoy"
+      title="Instalar Evangelio del Día"
       onClick={() => requestShowInstall()}
     >
       <Download className="size-4" strokeWidth={1.75} />
