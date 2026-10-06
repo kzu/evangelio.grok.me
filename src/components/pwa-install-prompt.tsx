@@ -15,7 +15,7 @@ import {
   writeModalSeen,
 } from "@/lib/pwa-install";
 
-const APP_ICON = "/icon-192.png";
+const APP_ICON = "/__grok/icon-192.png";
 
 type BeforeInstallPromptEvent = Event & {
   prompt: () => Promise<void>;
