@@ -25,15 +25,30 @@ export function isAndroidUa(): boolean {
   return /Android/i.test(navigator.userAgent);
 }
 
-export function isIosSafari(): boolean {
+const IOS_OTHER_BROWSER = /CriOS|FxiOS|EdgiOS|OPiOS|EdgA/i;
+const IOS_IN_APP = /Instagram|FBAN|FBAV|FB_IAB|WhatsApp|Line\/|GSA\/|Snapchat|TikTok|MicroMessenger/i;
+
+export function isIosDevice(): boolean {
   if (typeof navigator === "undefined") return false;
   const ua = navigator.userAgent;
-  const iOS =
+  return (
     /iPad|iPhone|iPod/.test(ua) ||
-    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-  const webkit = /WebKit/.test(ua);
-  const notOther = !/CriOS|FxiOS|EdgiOS|OPiOS|EdgA/i.test(ua);
-  return iOS && webkit && notOther;
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)
+  );
+}
+
+/** iPad, including desktop-class iPadOS that reports as Mac. */
+export function isIpad(): boolean {
+  if (typeof navigator === "undefined") return false;
+  const ua = navigator.userAgent;
+  if (/iPad/.test(ua)) return true;
+  return navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1 && !/iPhone/.test(ua);
+}
+
+export function isIosSafari(): boolean {
+  if (!isIosDevice()) return false;
+  const ua = navigator.userAgent;
+  return /WebKit/.test(ua) && !IOS_OTHER_BROWSER.test(ua) && !IOS_IN_APP.test(ua);
 }
 
 export function isEdgeAndroid(): boolean {

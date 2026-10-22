@@ -1,11 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
-import { Download, Share, X } from "lucide-react";
+import { useCallback, useEffect, useState, type ReactNode } from "react";
+import { Download, ChevronDown, ChevronUp, Plus, Share, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   PWA_SHOW_EVENT,
   isIosSafari,
+  isIosDevice,
+  isIpad,
   isPhoneLike,
   isStandaloneDisplay,
   readDismissed,
@@ -36,6 +38,8 @@ export function PwaInstallPrompt() {
   const [showBar, setShowBar] = useState(false);
   const [busy, setBusy] = useState(false);
   const [ios] = useState(() => (typeof navigator !== "undefined" ? isIosSafari() : false));
+  const [iosDevice] = useState(() => (typeof navigator !== "undefined" ? isIosDevice() : false));
+  const [ipad] = useState(() => (typeof navigator !== "undefined" ? isIpad() : false));
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -211,7 +215,15 @@ export function PwaInstallPrompt() {
         <div aria-hidden className="h-[calc(3.25rem+env(safe-area-inset-top,0px))]" />
       ) : null}
 
-      {showModal ? (
+      {showModal && ios ? (
+        <IosInstallGuide ipad={ipad} onClose={closeModalKeepBar} onDismiss={dismissAll} />
+      ) : null}
+
+      {showModal && !ios && iosDevice ? (
+        <IosOpenInSafari onClose={closeModalKeepBar} onDismiss={dismissAll} />
+      ) : null}
+
+      {showModal && !iosDevice ? (
         <div
           className="fixed inset-0 z-50 flex items-end justify-center bg-fg/50 p-4 pb-[max(1rem,env(safe-area-inset-bottom))] backdrop-blur-sm sm:items-center"
           role="dialog"
@@ -243,26 +255,15 @@ export function PwaInstallPrompt() {
               </button>
             </div>
 
-            {ios || !deferred?.prompt ? (
+            {!deferred?.prompt ? (
               <p className="px-4 pt-3 font-sans text-sm leading-6 text-muted">
-                {ios ? (
-                  <>
-                    Tocá{" "}
-                    <Share className="inline size-3.5 align-text-bottom" strokeWidth={1.75} />{" "}
-                    Compartir y después{" "}
-                    <strong className="font-medium text-fg">Agregar a pantalla de inicio</strong>.
-                  </>
-                ) : (
-                  <>
-                    En el menú (⋮) elegí{" "}
-                    <strong className="font-medium text-fg">Instalar aplicación</strong>.
-                  </>
-                )}
+                En el menú (⋮) elegí{" "}
+                <strong className="font-medium text-fg">Instalar aplicación</strong>.
               </p>
             ) : null}
 
             <div className="flex flex-col gap-2 px-4 py-4">
-              {!ios && deferred?.prompt ? (
+              {deferred?.prompt ? (
                 <button
                   type="button"
                   disabled={busy}
@@ -293,6 +294,153 @@ export function PwaInstallPrompt() {
         </div>
       ) : null}
     </>
+  );
+}
+
+function IosInstallGuide({
+  ipad,
+  onClose,
+  onDismiss,
+}: {
+  ipad: boolean;
+  onClose: () => void;
+  onDismiss: () => void;
+}) {
+  return (
+    <div className="fixed inset-0 z-50" role="dialog" aria-modal="true" aria-labelledby="pwa-ios-title">
+      <button type="button" className="absolute inset-0 bg-fg/60" aria-label="Cerrar" onClick={onClose} />
+      <div
+        className={cn(
+          "absolute inset-x-3 z-10",
+          ipad ? "top-16" : "bottom-[4.75rem]",
+        )}
+      >
+        <div className="mx-auto w-full max-w-sm overflow-hidden rounded-xl border border-border bg-surface text-fg shadow-card">
+          <div className="flex items-start gap-3 px-4 pt-4">
+            <img src={APP_ICON} alt="" className="size-11 shrink-0 rounded-lg" width={44} height={44} />
+            <div className="min-w-0 flex-1 pt-0.5">
+              <h2 id="pwa-ios-title" className="font-sans text-lg font-semibold leading-tight">
+                Ponelo en el inicio
+              </h2>
+              <p className="font-sans text-sm text-muted">Tres toques. Nada más.</p>
+            </div>
+            <button
+              type="button"
+              className="inline-flex size-10 shrink-0 items-center justify-center rounded-md text-muted"
+              aria-label="Cerrar"
+              onClick={onClose}
+            >
+              <X className="size-4" strokeWidth={1.75} />
+            </button>
+          </div>
+          <ol className="flex flex-col gap-3 px-4 py-4">
+            <IosStep n={1} icon={<Share className="size-6" strokeWidth={1.75} />}>
+              Tocá <strong className="font-semibold text-fg">Compartir</strong>
+              <span className="mt-0.5 block text-sm text-muted">
+                {ipad ? "Arriba a la derecha" : "Abajo, el cuadradito con la flecha"}
+              </span>
+            </IosStep>
+            <IosStep n={2} icon={<Plus className="size-6" strokeWidth={1.75} />}>
+              <strong className="font-semibold text-fg">Agregar a pantalla de inicio</strong>
+              <span className="mt-0.5 block text-sm text-muted">Si no aparece, deslizá los íconos</span>
+            </IosStep>
+            <IosStep n={3} icon={<span className="font-sans text-base font-semibold">OK</span>}>
+              Tocá <strong className="font-semibold text-fg">Agregar</strong>
+            </IosStep>
+          </ol>
+          <div className="px-4 pb-4">
+            <button
+              type="button"
+              className="inline-flex min-h-11 w-full items-center justify-center rounded-md px-3 font-sans text-sm font-medium text-muted"
+              onClick={onDismiss}
+            >
+              Ahora no
+            </button>
+          </div>
+        </div>
+      </div>
+      {ipad ? (
+        <div className="pointer-events-none absolute right-8 top-2 z-10 flex flex-col items-center text-primary-fg">
+          <ChevronUp className="size-12 animate-bounce drop-shadow" strokeWidth={2.25} />
+          <span className="font-sans text-sm font-semibold drop-shadow">Acá</span>
+        </div>
+      ) : (
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 flex flex-col items-center pb-0.5 text-primary-fg">
+          <span className="font-sans text-base font-semibold drop-shadow">Tocá acá</span>
+          <ChevronDown className="size-14 animate-bounce drop-shadow" strokeWidth={2.25} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+function IosOpenInSafari({
+  onClose,
+  onDismiss,
+}: {
+  onClose: () => void;
+  onDismiss: () => void;
+}) {
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-end justify-center bg-fg/60 p-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:items-center"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="pwa-safari-title"
+    >
+      <div className="w-full max-w-sm rounded-xl border border-border bg-surface text-fg shadow-card">
+        <div className="flex items-start gap-3 px-4 pt-4">
+          <div className="min-w-0 flex-1">
+            <h2 id="pwa-safari-title" className="font-sans text-lg font-semibold leading-tight">
+              Abrilo en Safari
+            </h2>
+            <p className="mt-1 font-sans text-sm leading-6 text-muted">
+              Desde acá no se puede poner en el inicio. Tocá Compartir y elegí{" "}
+              <strong className="font-semibold text-fg">Safari</strong>.
+            </p>
+          </div>
+          <button
+            type="button"
+            className="inline-flex size-10 shrink-0 items-center justify-center rounded-md text-muted"
+            aria-label="Cerrar"
+            onClick={onClose}
+          >
+            <X className="size-4" strokeWidth={1.75} />
+          </button>
+        </div>
+        <div className="px-4 py-4">
+          <button
+            type="button"
+            className="inline-flex min-h-11 w-full items-center justify-center rounded-md px-3 font-sans text-sm font-medium text-muted"
+            onClick={onDismiss}
+          >
+            Ahora no
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function IosStep({
+  n,
+  icon,
+  children,
+}: {
+  n: number;
+  icon: ReactNode;
+  children: ReactNode;
+}) {
+  return (
+    <li className="flex items-center gap-3">
+      <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-primary font-sans text-sm font-semibold text-primary-fg">
+        {n}
+      </span>
+      <span className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-bg text-fg shadow-border">
+        {icon}
+      </span>
+      <span className="min-w-0 font-sans text-base leading-5 text-fg">{children}</span>
+    </li>
   );
 }
 
