@@ -155,7 +155,17 @@ export const addQuote = createServerFn({ method: "POST" })
       where user_id = ${context.userId} and reference = ${reference}
       limit 1
     `;
-    if (existing.length) return { created: false };
+    if (existing.length) {
+      const id = Number(existing[0]?.id);
+      if (id) {
+        await sql`
+          update quotes
+          set gospel_date = ${columns.date}, edition = ${columns.edition}
+          where user_id = ${columns.userId} and id = ${id}
+        `;
+      }
+      return { created: false };
+    }
 
     const columns = {
       userId: context.userId,
@@ -186,7 +196,14 @@ export const addQuote = createServerFn({ method: "POST" })
       `;
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
-      if (/duplicate|unique/i.test(message)) return { created: false };
+      if (/duplicate|unique/i.test(message)) {
+        await sql`
+          update quotes
+          set gospel_date = ${columns.date}, edition = ${columns.edition}
+          where user_id = ${columns.userId} and reference = ${columns.reference}
+        `;
+        return { created: false };
+      }
       if (!/slug/i.test(message)) throw error;
       await sql`
         insert into quotes (

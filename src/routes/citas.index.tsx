@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { ShareButton } from "@/components/share-button";
 import { listQuotes, removeQuote, type QuoteItem } from "@/lib/quotes";
 import { displayQuoteReference, quoteSharePath, toUsfmSlug } from "@/lib/quote-ref";
+import { isIsoDate } from "@/lib/gospel/today";
 import { useCurrentUserState } from "@/lib/auth/use-current-user";
 
 export const Route = createFileRoute("/citas/")({ component: Citas });
@@ -86,6 +87,7 @@ function QuoteRow({ item, onRemoved }: { item: QuoteItem; onRemoved: () => void 
   const [busy, setBusy] = useState(false);
   const label = item.date;
   const sharePath = quoteSharePath(item.reference);
+  const gospelDate = isIsoDate(item.date) ? item.date : "";
 
   async function unsave() {
     if (busy) return;
@@ -125,8 +127,17 @@ function QuoteRow({ item, onRemoved }: { item: QuoteItem; onRemoved: () => void 
         <blockquote className="font-reading text-lg leading-8 italic text-fg">
           «{item.body}»
         </blockquote>
-        <p className="mt-3 font-sans text-sm text-muted">{label}</p>
       </Link>
+      {gospelDate ? (
+        <Link
+          to="/e/$date"
+          params={{ date: gospelDate }}
+          search={item.edition === "family" ? { familia: true } : {}}
+          className="mt-3 inline-block font-sans text-sm text-muted underline decoration-rule underline-offset-4"
+        >
+          {label}
+        </Link>
+      ) : null}
     </div>
   );
 }
