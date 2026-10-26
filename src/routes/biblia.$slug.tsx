@@ -133,7 +133,7 @@ function BibliaFragment() {
         </header>
 
         <article className="stagger-in relative mt-4 rounded-xl bg-surface px-6 pb-6 pt-4 shadow-card sm:px-10 sm:pb-10 sm:pt-6">
-          <p className="font-display text-lg italic text-primary sm:text-xl">{reference}</p>
+          <p className="font-reading text-lg italic text-primary sm:text-xl">{reference}</p>
           <div className="mt-8 font-display text-lg leading-8 text-fg sm:text-xl sm:leading-9">
             {verses.map((verse: GospelVerse, i: number) => (
               <span key={`${verse.chapter}.${verse.number}`}>

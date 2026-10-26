@@ -127,7 +127,7 @@ function FavoriteRow({ item, onRemoved }: { item: FavoriteItem; onRemoved: () =>
         className="mt-2 block"
       >
         {item.commentTitle ? (
-          <blockquote className="font-display text-lg leading-7 italic text-fg">
+          <blockquote className="font-reading text-lg leading-7 italic text-fg">
             {item.commentTitle}
           </blockquote>
         ) : null}
@@ -135,7 +135,7 @@ function FavoriteRow({ item, onRemoved }: { item: FavoriteItem; onRemoved: () =>
           className={
             item.commentTitle
               ? "mt-2 font-sans text-sm text-muted"
-              : "font-display text-lg italic text-primary"
+              : "font-reading text-lg italic text-primary"
           }
         >
           {item.citation || "Evangelio del día"}

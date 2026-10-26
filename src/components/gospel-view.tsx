@@ -88,7 +88,7 @@ export function GospelView({
         <p className="font-sans text-xs font-medium uppercase tracking-label text-muted">
           Lectura del santo Evangelio según {gospel.bookName}
         </p>
-        <p className="mt-2 font-display text-lg italic text-primary sm:text-xl">
+        <p className="mt-2 font-reading text-lg italic text-primary sm:text-xl">
           {gospel.citation}
         </p>
 
@@ -100,7 +100,7 @@ export function GospelView({
           edition={gospel.edition}
         />
 
-        <p className="mt-8 font-display text-base italic text-muted">Palabra del Dios.</p>
+        <p className="mt-8 font-reading text-base italic text-muted">Palabra del Dios.</p>
         <div className="mt-4 flex items-center gap-1">
           <p className="min-w-0 flex-1 font-sans text-xs leading-5 text-subtle">
             {gospel.source === "family" ? (
@@ -155,7 +155,7 @@ export function GospelView({
         <section className="stagger-in mt-8 flex flex-col gap-5">
           <SectionTitle>Comentario</SectionTitle>
           {gospel.commentTitle ? (
-            <p className="font-display text-xl italic text-primary">{gospel.commentTitle}</p>
+            <p className="font-reading text-xl italic text-primary">{gospel.commentTitle}</p>
           ) : null}
           {gospel.authorName ? (
             <p className="font-sans text-sm text-muted">

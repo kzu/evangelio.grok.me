@@ -122,7 +122,7 @@ function QuoteRow({ item, onRemoved }: { item: QuoteItem; onRemoved: () => void 
         params={{ slug: toUsfmSlug(item.reference) ?? item.reference }}
         className="mt-2 block"
       >
-        <blockquote className="font-display text-lg leading-8 italic text-fg">
+        <blockquote className="font-reading text-lg leading-8 italic text-fg">
           «{item.body}»
         </blockquote>
         <p className="mt-3 font-sans text-sm text-muted">{label}</p>
