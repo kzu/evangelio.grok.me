@@ -1,7 +1,7 @@
 export const THEME_KEY = "evangelio-theme";
 export const SCALE_KEY = "evangelio-text-scale";
 export const FAMILY_KEY = "evangelio-edition";
-export const SCALES = [0.875, 1, 1.125, 1.25] as const;
+export const SCALES = [0.875, 1, 1.125, 1.25, 1.375] as const;
 export const SCALE_VALUES = SCALES.map(String);
 export const THEME_COLOR = { light: "#f4ead6", dark: "#0a0806" } as const;
 

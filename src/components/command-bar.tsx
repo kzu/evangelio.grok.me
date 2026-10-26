@@ -3,7 +3,7 @@
 import { Baby, Home, Moon, Sun } from "lucide-react";
 import { Link, useNavigate, useParams, useSearch } from "@tanstack/react-router";
 import { isIsoDate, todayISO } from "@/lib/gospel/today";
-import { useLayoutEffect, useState, type ReactNode } from "react";
+import { useLayoutEffect, useState } from "react";
 import { PwaInstallHeaderButton } from "@/components/pwa-install-prompt";
 import { AuthSlot } from "@/components/auth-slot";
 import { cn } from "@/lib/utils";
@@ -116,9 +116,12 @@ export function CommandBar() {
     });
   }
 
-  const scaleIndex = SCALES.indexOf(scale as (typeof SCALES)[number]);
-  const atMin = scaleIndex <= 0;
-  const atMax = scaleIndex === SCALES.length - 1;
+  const scaleIndex = Math.max(0, SCALES.indexOf(scale as (typeof SCALES)[number]));
+  const level = scaleIndex + 1;
+
+  function cycleScale() {
+    applyScale(SCALES[(scaleIndex + 1) % SCALES.length]);
+  }
 
   return (
     <header className="sticky top-0 z-30 border-b border-border bg-bg/90 pt-[env(safe-area-inset-top)] backdrop-blur-md [--text-scale:1]">
@@ -150,29 +153,18 @@ export function CommandBar() {
           </button>
         ) : null}
 
-        <div className="flex overflow-hidden rounded-md shadow-border">
-          <ScaleButton
-            label="Reducir texto"
-            disabled={atMin}
-            onClick={() => {
-              if (!atMin) applyScale(SCALES[scaleIndex - 1]);
-            }}
-          >
-            <span className="font-display text-sm leading-none">A</span>
-            <span className="sr-only">−</span>
-          </ScaleButton>
-          <span className="w-px self-stretch bg-border" aria-hidden="true" />
-          <ScaleButton
-            label="Aumentar texto"
-            disabled={atMax}
-            onClick={() => {
-              if (!atMax) applyScale(SCALES[scaleIndex + 1]);
-            }}
-          >
-            <span className="font-display text-lg leading-none">A</span>
-            <span className="sr-only">+</span>
-          </ScaleButton>
-        </div>
+        <button
+          type="button"
+          onClick={cycleScale}
+          className="inline-flex size-11 items-center justify-center rounded-md bg-surface text-fg shadow-border transition-[transform,opacity] duration-150 ease-out active:scale-[0.96]"
+          aria-label={`Tamaño de letra ${level} de ${SCALES.length}. Tocá para el siguiente.`}
+          title={`Tamaño ${level}`}
+        >
+          <span className="inline-flex items-end font-display text-lg leading-none">
+            A
+            <span className="mb-px font-sans text-[10px] font-semibold leading-none">{level}</span>
+          </span>
+        </button>
 
         <button
           type="button"
@@ -192,33 +184,5 @@ export function CommandBar() {
         </div>
       </div>
     </header>
-  );
-}
-
-function ScaleButton({
-  label,
-  disabled,
-  onClick,
-  children,
-}: {
-  label: string;
-  disabled: boolean;
-  onClick: () => void;
-  children: ReactNode;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      disabled={disabled}
-      aria-label={label}
-      title={label}
-      className={cn(
-        "inline-flex size-11 items-center justify-center bg-surface text-fg transition-[transform,opacity] duration-150 ease-out",
-        disabled ? "opacity-35" : "active:scale-[0.96]",
-      )}
-    >
-      {children}
-    </button>
   );
 }
