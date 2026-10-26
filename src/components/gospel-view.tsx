@@ -189,7 +189,7 @@ export function GospelView({
                 key={thought.quote.slice(0, 40)}
                 className="rounded-lg bg-bg-elevated px-5 py-5 shadow-card"
               >
-                <blockquote className="font-display text-lg leading-8 italic text-fg">
+                <blockquote className="font-reading text-lg leading-8 italic text-fg">
                   «{thought.quote}»
                 </blockquote>
                 {thought.source ? (
