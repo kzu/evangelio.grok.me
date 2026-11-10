@@ -86,6 +86,8 @@ export function VerseSearch() {
                 if (error) setError("");
               }}
               placeholder={PLACEHOLDER}
+              tabIndex={open ? 0 : -1}
+              aria-hidden={open ? undefined : true}
               aria-label="Buscar evangelio, capítulo y versículo"
               aria-invalid={error ? true : undefined}
               aria-describedby={error ? errorId : undefined}
