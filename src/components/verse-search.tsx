@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, X } from "lucide-react";
+import { Search } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
@@ -94,19 +94,9 @@ export function VerseSearch() {
                 go(query);
               }}
             >
-              <div className="flex items-center gap-2">
-                <h2 id="verse-search-title" className="min-w-0 flex-1 font-sans text-base font-semibold">
-                  Buscar
-                </h2>
-                <button
-                  type="button"
-                  className="inline-flex size-10 items-center justify-center rounded-md text-muted"
-                  aria-label="Cerrar"
-                  onClick={() => setModal(false)}
-                >
-                  <X className="size-4" strokeWidth={1.75} />
-                </button>
-              </div>
+              <h2 id="verse-search-title" className="font-sans text-base font-semibold">
+                Buscar
+              </h2>
               <textarea
                 ref={areaRef}
                 value={query}
@@ -129,13 +119,22 @@ export function VerseSearch() {
                   {error}
                 </p>
               ) : null}
-              <button
-                type="submit"
-                className="mt-3 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-md bg-primary px-3 font-sans text-sm font-medium text-primary-fg"
-              >
-                <Search className="size-4" strokeWidth={1.75} />
-                Buscar
-              </button>
+              <div className="mt-3 grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  className="inline-flex min-h-11 items-center justify-center rounded-md px-3 font-sans text-sm font-medium text-muted"
+                  onClick={() => setModal(false)}
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="submit"
+                  className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-primary px-3 font-sans text-sm font-medium text-primary-fg"
+                >
+                  <Search className="size-4" strokeWidth={1.75} />
+                  Buscar
+                </button>
+              </div>
             </form>
           </div>,
           document.body,
@@ -203,7 +202,20 @@ export function VerseSearch() {
           </div>
         </div>
         <button
-          type="submit"
+          type="button"
+          onClick={(event) => {
+            event.preventDefault();
+            if (phoneSnapshot()) {
+              setError("");
+              setModal(true);
+              return;
+            }
+            if (!open) {
+              setOpen(true);
+              return;
+            }
+            go(query);
+          }}
           className="inline-flex size-11 items-center justify-center rounded-md bg-surface text-fg shadow-border transition-[transform,opacity] duration-150 ease-out active:scale-[0.96]"
           aria-label="Buscar"
           title="Buscar"
