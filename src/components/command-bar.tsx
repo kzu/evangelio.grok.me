@@ -6,6 +6,7 @@ import { isIsoDate, todayISO } from "@/lib/gospel/today";
 import { useLayoutEffect, useState } from "react";
 import { PwaInstallHeaderButton } from "@/components/pwa-install-prompt";
 import { AuthSlot } from "@/components/auth-slot";
+import { VerseSearch } from "@/components/verse-search";
 import { cn } from "@/lib/utils";
 import {
   FAMILY_KEY,
@@ -137,6 +138,7 @@ export function CommandBar() {
         </Link>
         <div className="ml-auto flex items-center gap-2">
         <PwaInstallHeaderButton />
+        <VerseSearch />
         {onGospel ? (
           <button
             type="button"
